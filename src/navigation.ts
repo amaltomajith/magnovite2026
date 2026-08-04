@@ -5,25 +5,27 @@ export function initNavigation() {
 
   if (!toggleBtn || !overlay) return;
 
-  const menuText = toggleBtn.querySelector('.menu-text');
-  const closeIcon = toggleBtn.querySelector('.close-icon');
-
   toggleBtn.addEventListener('click', () => {
     const isOpen = overlay.classList.contains('active');
     if (isOpen) {
       overlay.classList.remove('active');
-      if (menuText) menuText.textContent = 'MENU';
-      if (closeIcon) (closeIcon as HTMLElement).style.display = 'none';
+      toggleBtn.classList.remove('is-active');
       document.body.style.overflow = '';
     } else {
       overlay.classList.add('active');
-      if (menuText) menuText.textContent = 'CLOSE';
-      if (closeIcon) {
-        (closeIcon as HTMLElement).style.display = 'inline';
-        (closeIcon as HTMLElement).textContent = ' ✕';
-      }
+      toggleBtn.classList.add('is-active');
       document.body.style.overflow = 'hidden';
     }
+  });
+
+  // Close overlay when clicking any navigation link
+  const navLinks = overlay.querySelectorAll('a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      overlay.classList.remove('active');
+      toggleBtn.classList.remove('is-active');
+      document.body.style.overflow = '';
+    });
   });
 
   initNavCountdown();

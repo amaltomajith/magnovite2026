@@ -122,26 +122,81 @@ body {
 }
 
 .menu-toggle-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   color: #ffffff;
-  font-family: var(--font-main);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  padding: 0.5rem 1.25rem;
-  border-radius: 9999px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  transition: var(--transition);
+  justify-content: center;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .menu-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(249, 115, 22, 0.5);
-  box-shadow: 0 0 15px rgba(249, 115, 22, 0.25);
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+  transform: scale(1.05);
+}
+
+.menu-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.hamburger-icon {
+  width: 20px;
+  height: 14px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hamburger-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease,
+              width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
+}
+
+.hamburger-line.middle {
+  width: 70%;
+  align-self: flex-end;
+}
+
+.menu-toggle-btn:hover .hamburger-line.middle {
+  width: 100%;
+}
+
+/* Active / Open state (Morphs to X) */
+.menu-toggle-btn.is-active {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.menu-toggle-btn.is-active .hamburger-line.top {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle-btn.is-active .hamburger-line.middle {
+  opacity: 0;
+  transform: translateX(8px);
+}
+
+.menu-toggle-btn.is-active .hamburger-line.bottom {
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 /* ---- Mega Overlay Panel ---- */
@@ -157,16 +212,20 @@ body {
   justify-content: center;
   padding: 6rem 3rem 4rem;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transform: translateY(-12px);
-  transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1), transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(-16px) scale(0.98);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
 }
 
 .mega-menu-overlay.active {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .mega-menu-inner {
