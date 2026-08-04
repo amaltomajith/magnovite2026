@@ -3,7 +3,7 @@ import os
 events_data = [
     {
         'slug': 'robo-soccer',
-        'title': 'Robo Soccer 🤖⚽',
+        'title': 'Robo Soccer',
         'category': 'Robotics',
         'tagline': 'High-stakes autonomous & RC bot soccer battle',
         'desc': 'Build autonomous or remote-controlled bots to compete in a high-stakes soccer tournament. Test your engineering skills, bot mobility, and strategic goal scoring against top rival teams.',
@@ -34,7 +34,7 @@ events_data = [
     },
     {
         'slug': 'code-relay',
-        'title': 'Code Relay 💻⚡',
+        'title': 'Code Relay',
         'category': 'Coding',
         'tagline': 'Speed coding relay challenge under pressure',
         'desc': 'Speed coding relay challenge where teams write modular code under pressure. Teammates swap seats at timed intervals to complete complex algorithm challenges without verbal communication mid-relay.',
@@ -65,7 +65,7 @@ events_data = [
     },
     {
         'slug': 'reverse-coding',
-        'title': 'Reverse Coding 🔍💻',
+        'title': 'Reverse Coding',
         'category': 'Coding',
         'tagline': 'Analyze binary outputs to reverse-engineer source algorithms',
         'desc': 'Analyze compiled binary behaviors, sample input-output pairs, and reverse engineer the underlying algorithms. Test your logical deduction, black-box analysis, and programming speed.',
@@ -93,7 +93,7 @@ events_data = [
     },
     {
         'slug': 'battle-of-the-bands',
-        'title': 'Battle of the Bands 🎸🥁',
+        'title': 'Battle of the Bands',
         'category': 'Music',
         'tagline': 'Flagship live musical showdown for college bands',
         'desc': 'Flagship live musical showdown featuring top college rock, metal, indie, and fusion bands. Compete on the main stage with full professional sound setups, lighting, and energetic audience vibes.',
@@ -120,7 +120,7 @@ events_data = [
     },
     {
         'slug': 'acapella',
-        'title': 'Acapella 🎤🎶',
+        'title': 'Acapella',
         'category': 'Music',
         'tagline': 'Pure unassisted vocal harmony competition',
         'desc': 'Vocal harmony competition showcasing pure unassisted choral arrangements. Blend beatboxing, vocal basslines, and rich harmonies without any instrumental backing.',
@@ -146,7 +146,7 @@ events_data = [
     },
     {
         'slug': 'cad-design',
-        'title': 'CAD Design 📐💻',
+        'title': 'CAD Design',
         'category': 'Design',
         'tagline': '3D parametric modeling and structural design challenge',
         'desc': '3D parametric modeling challenge testing precision, speed, and structural integrity. Render technical engineering components and assemblies based on complex specification blueprints.',
@@ -173,7 +173,7 @@ events_data = [
     },
     {
         'slug': 'spark-tank',
-        'title': 'Spark Tank 💡🚀',
+        'title': 'Spark Tank',
         'category': 'Entrepreneurship',
         'tagline': 'Pitch startup innovations to top venture mentors',
         'desc': 'Pitch startup innovations, business models, and working prototypes to seasoned venture capital mentors and angel investors. Prove market viability, unit economics, and scalability.',
@@ -200,7 +200,7 @@ events_data = [
     },
     {
         'slug': 'chamber-of-secrets',
-        'title': 'Chamber of Secrets 🔑🏛️',
+        'title': 'Chamber of Secrets',
         'category': 'Gaming',
         'tagline': 'Cryptographic puzzle & campus mystery adventure',
         'desc': 'Mystery puzzle solving and cryptographic riddle challenge across campus. Unravel hidden cyphers, physical clues, and logic locks to unlock the ultimate chamber.',
@@ -227,7 +227,7 @@ events_data = [
     },
     {
         'slug': 'escape-room',
-        'title': 'Escape Room 🚪🔐',
+        'title': 'Escape Room',
         'category': 'Gaming',
         'tagline': 'Immersive logic puzzle escape challenge',
         'desc': 'Immersive escape room filled with physical mechanisms, logic puzzles, encoded ciphers, and hidden keys. Escape within the 30-minute countdown clock.',
@@ -253,7 +253,7 @@ events_data = [
     },
     {
         'slug': 'drone-obstacle',
-        'title': 'Drone Obstacle 🛸🏁',
+        'title': 'Drone Obstacle',
         'category': 'Robotics',
         'tagline': 'Navigate FPV drones through tight air courses',
         'desc': 'Navigate FPV drones through tight obstacle courses, precision hoops, slalom poles, and elevation jumps. Show off pilot skill, speed, and aerial control.',
@@ -280,7 +280,7 @@ events_data = [
     },
     {
         'slug': 'best-manager',
-        'title': 'Best Manager 👔📈',
+        'title': 'Best Manager',
         'category': 'Management',
         'tagline': 'Comprehensive leadership crisis management test',
         'desc': 'Comprehensive leadership test assessing crisis management, strategic pivot planning, high-pressure press conferences, and stress handling across multi-stage corporate simulations.',
@@ -307,7 +307,7 @@ events_data = [
     },
     {
         'slug': 'street-dance-battle',
-        'title': 'Street Dance Battle 🕺🔥',
+        'title': 'Street Dance Battle',
         'category': 'Dance',
         'tagline': 'High-energy 1v1 and 2v2 street dance duels',
         'desc': 'High-energy street dance battle featuring hip-hop, popping, locking, krump, and breaking duels. Face off in 1v1 cipher battles judged live by professional street dancers.',
@@ -334,7 +334,7 @@ events_data = [
     },
     {
         'slug': 'theme-dance',
-        'title': 'Theme Dance 🎭💃',
+        'title': 'Theme Dance',
         'category': 'Dance',
         'tagline': 'Choreographed group dance with futuristic themes',
         'desc': 'Choreographed group dance competition centering around futuristic storytelling themes. Combine synchronized formations, theatrical props, and high-impact choreography.',
@@ -360,7 +360,7 @@ events_data = [
     },
     {
         'slug': 'non-theme-dance',
-        'title': 'Non Theme Dance 💃✨',
+        'title': 'Non Theme Dance',
         'category': 'Dance',
         'tagline': 'Freeform group dance showcasing versatile rhythms',
         'desc': 'Freeform group dance showcasing versatile choreography, energetic execution, and synchronized group dynamics without thematic constraints.',
@@ -386,7 +386,7 @@ events_data = [
     },
     {
         'slug': 'street-play',
-        'title': 'Street Play (Nukkad Natak) 📢🎭',
+        'title': 'Street Play (Nukkad Natak)',
         'category': 'Drama',
         'tagline': 'Loud dramatic street theater for social impact',
         'desc': 'Social awareness street play (Nukkad Natak) bringing loud, energetic, and dramatic street theater to campus. Deliver powerful social messages using dholak, choruses, and rhythm.',
@@ -412,7 +412,7 @@ events_data = [
     },
     {
         'slug': 'argo-royale',
-        'title': 'Argo Royale 🎮🎯',
+        'title': 'Argo Royale',
         'category': 'Gaming',
         'tagline': 'Tactical esports battle royale tournament',
         'desc': 'Tactical esports tournament featuring intense battle royale action and squad play. Compete in custom lobby matches across classic maps to claim the winner title.',
@@ -438,7 +438,7 @@ events_data = [
     },
     {
         'slug': 'rc-car-challenge',
-        'title': 'RC Car Challenge 🏎️💨',
+        'title': 'RC Car Challenge',
         'category': 'Robotics',
         'tagline': 'Off-road remote control car racing challenge',
         'desc': 'Off-road remote control car racing through rugged terrain, sharp chicanes, steep inclines, and mud traps. Test chassis durability, acceleration, and cornering precision.',
@@ -465,7 +465,7 @@ events_data = [
     },
     {
         'slug': 'byte-and-board',
-        'title': 'Byte and Board 🔌🛠️',
+        'title': 'Byte and Board',
         'category': 'Electronics',
         'tagline': 'Hardware micro-controller circuit hackathon',
         'desc': 'Hardware assembly and micro-controller circuit building hackathon. Design embedded systems, interface sensors, write firmware, and solve real-world hardware automation tasks.',
@@ -491,7 +491,7 @@ events_data = [
     },
     {
         'slug': 'smart-city',
-        'title': 'Smart City 🏙️🌱',
+        'title': 'Smart City',
         'category': 'Innovation',
         'tagline': 'Model sustainable urban IoT & green energy grids',
         'desc': 'Model sustainable urban infrastructure using IoT sensors, renewable energy grids, smart traffic management, and AI waste optimization. Present scale models and software dashboards.',
@@ -517,7 +517,7 @@ events_data = [
     },
     {
         'slug': 'eco-forge',
-        'title': 'Eco Forge ♻️🌱',
+        'title': 'Eco Forge',
         'category': 'Innovation',
         'tagline': 'Green product engineering from recycled materials',
         'desc': 'Sustainable green product engineering challenge using upcycled waste materials. Engineer functional consumer or industrial prototypes from discarded electronic and plastic scrap.',
@@ -543,7 +543,7 @@ events_data = [
     },
     {
         'slug': 'enigma',
-        'title': 'Enigma CTF 🔐💻',
+        'title': 'Enigma CTF',
         'category': 'Cybersecurity',
         'tagline': 'Capture-The-Flag cybersecurity hacking challenge',
         'desc': 'Cybersecurity capture-the-flag (CTF) testing vulnerability exploitation, web hacking, reverse engineering, binary exploitation, and digital forensics.',
@@ -569,7 +569,7 @@ events_data = [
     },
     {
         'slug': 'finance-pitch',
-        'title': 'Finance Pitch 📊📈',
+        'title': 'Finance Pitch',
         'category': 'Management',
         'tagline': 'Corporate financial modeling & stock valuation',
         'desc': 'Corporate financial modeling, portfolio risk analysis, M&A valuation, and stock pitch presentation before senior investment banking judges.',
@@ -596,7 +596,7 @@ events_data = [
     },
     {
         'slug': 'marketing-challenge',
-        'title': 'Marketing Challenge 📣🎯',
+        'title': 'Marketing Challenge',
         'category': 'Management',
         'tagline': 'Brand positioning & guerilla ad campaign sprint',
         'desc': 'Brand positioning, guerilla ad campaign design, viral social media reels creation, and crisis PR management sprint for a mystery product.',
@@ -623,7 +623,7 @@ events_data = [
     },
     {
         'slug': 'human-resource',
-        'title': 'Human Resource Simulation 👥📋',
+        'title': 'Human Resource Simulation',
         'category': 'Management',
         'tagline': 'Corporate HR crisis negotiation & organizational scaling',
         'desc': 'Corporate HR simulation resolving high-stakes union disputes, executive retention crises, workplace ethics investigations, and organizational restructuring.',
@@ -648,7 +648,7 @@ events_data = [
     },
     {
         'slug': 'case-craft',
-        'title': 'Case Craft 💼🔍',
+        'title': 'Case Craft',
         'category': 'Management',
         'tagline': 'Real-world business strategy case consulting',
         'desc': 'Real-world business case study analysis and management consulting deck presentation. Tackle complex operational bottlenecks and present actionable turnarounds.',
@@ -674,7 +674,7 @@ events_data = [
     },
     {
         'slug': 'how-i-met-your-killer',
-        'title': 'How I Met Your Killer 🕵️‍♂️🔍',
+        'title': 'How I Met Your Killer',
         'category': 'Gaming',
         'tagline': 'Murder mystery forensic crime scene investigation',
         'desc': 'Murder mystery investigation analyzing crime scenes, forensic physical evidence, suspect alibis, and hidden motives. Cross-examine suspects to unmask the killer.',
@@ -701,7 +701,7 @@ events_data = [
     },
     {
         'slug': 'the-chase',
-        'title': 'The Chase 🏃‍♂️🗺️',
+        'title': 'The Chase',
         'category': 'Gaming',
         'tagline': 'Campus-wide GPS treasure hunt & speed checkpoints',
         'desc': 'Campus-wide high-speed treasure hunt with real-time GPS clues, physical challenges, and speed checkpoints. Race against rival teams to claim the ultimate trophy.',
@@ -727,7 +727,7 @@ events_data = [
     },
     {
         'slug': 'pixel-perspective',
-        'title': 'Pixel Perspective 📸🏢',
+        'title': 'Pixel Perspective',
         'category': 'Media',
         'tagline': 'Digital photography exploring architecture & form',
         'desc': 'Digital photography challenge focusing on architectural aesthetics, light interaction, macro perspective, and visual storytelling across campus and urban settings.',
@@ -755,7 +755,7 @@ events_data = [
     },
     {
         'slug': 'frames-unboxed',
-        'title': 'Frames Unboxed 🎬🎥',
+        'title': 'Frames Unboxed',
         'category': 'Media',
         'tagline': 'Short filmmaking & cinematic storytelling contest',
         'desc': 'Short filmmaking contest highlighting cinematic storytelling, screenplay execution, direction, color grading, and sound design under tight theme constraints.',
@@ -781,7 +781,7 @@ events_data = [
     },
     {
         'slug': 'archicraft',
-        'title': 'Archicraft 🏛️📐',
+        'title': 'Archicraft',
         'category': 'Design',
         'tagline': 'Architectural structure prototyping challenge',
         'desc': 'Architectural structure prototyping using minimalist building materials, popsicle sticks, balsa wood, and geometric physics. Test load capacity and design aesthetics.',
@@ -808,7 +808,7 @@ events_data = [
     },
     {
         'slug': 'pattern-play',
-        'title': 'Pattern Play 🎨💻',
+        'title': 'Pattern Play',
         'category': 'Design',
         'tagline': 'UI/UX wireframing & design system sprint',
         'desc': 'UI/UX wireframing and design-system creation sprint for web and mobile platforms. Redesign complex user flows for accessibility, beauty, and delight.',
@@ -834,7 +834,7 @@ events_data = [
     },
     {
         'slug': 'switch-and-scene',
-        'title': 'Switch and Scene 🎭⚡',
+        'title': 'Switch and Scene',
         'category': 'Drama',
         'tagline': 'Improv acting duel with dynamic character swaps',
         'desc': 'Improv acting duel where performers switch characters, accents, emotions, and genres dynamically mid-scene upon judge buzzer signals.',
@@ -860,7 +860,7 @@ events_data = [
     },
     {
         'slug': 'the-nexus',
-        'title': 'The Nexus ⚡🌐',
+        'title': 'The Nexus',
         'category': 'Innovation',
         'tagline': 'Cross-disciplinary flagship innovation summit',
         'desc': "The flagship event of Magnovite '26. The Nexus brings together visionaries, developers, designers, and strategists to build groundbreaking multi-disciplinary solutions combining tech, art, and business.",
@@ -890,7 +890,7 @@ events_data = [
     },
     {
         'slug': 'severance-cup',
-        'title': 'Severance Cup ⚖️🗣️',
+        'title': 'Severance Cup',
         'category': 'Literary',
         'tagline': 'Inter-college parliamentary debate championship',
         'desc': 'Inter-college debate championship on tech ethics, AI policy, digital governance, and societal dilemmas using Asian Parliamentary debate format.',
@@ -1054,62 +1054,57 @@ html_template = '''<!DOCTYPE html>
     </div>
 
     <!-- Main Event Details Content -->
-    <main class="events-section container" style="padding-top: 7rem; padding-bottom: 6rem;">
+    <main class="events-section container" style="padding-top: 6.5rem; padding-bottom: 6rem;">
       <div style="max-width: 960px; margin: 0 auto;">
         
-        <!-- Back Link Button -->
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-          <a href="/events.html" class="btn-primary" style="display: inline-flex; width: auto; padding: 0.65rem 1.4rem; font-size: 0.88rem; text-decoration: none; border-radius: 999px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(10px);">
-            ← Back to Events Grid
-          </a>
-          
-          <!-- TODO: paste Google Form link here -->
-          <a href="#" class="btn-primary modal-register-btn" data-register-link="PENDING" style="display: inline-flex; width: auto; padding: 0.65rem 1.6rem; font-size: 0.92rem; text-decoration: none; border-radius: 999px;">
-            <span>Register Now</span> ↗
+        <!-- Clean Navigation Back Link -->
+        <div style="margin-bottom: 1.75rem;">
+          <a href="/events.html" class="btn-primary" style="display: inline-flex; width: auto; padding: 0.55rem 1.25rem; font-size: 0.85rem; text-decoration: none; border-radius: 999px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);">
+            ← Back to Events
           </a>
         </div>
 
-        <!-- Header Section -->
-        <div style="margin-bottom: 2rem; background: rgba(14, 18, 28, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 2rem 2.25rem; backdrop-filter: blur(16px);">
-          <span class="card-badge" style="font-size: 0.82rem; padding: 0.4rem 0.9rem; letter-spacing: 0.12em; background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.1)); border: 1px solid rgba(249, 115, 22, 0.35); text-transform: uppercase;">{category}</span>
-          <h1 class="hero-title" style="font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; color: #ffffff; letter-spacing: -0.02em; margin: 0.85rem 0 0.5rem; text-shadow: 0 4px 24px rgba(0,0,0,0.6);">{title}</h1>
-          <p class="modal-event-tagline" style="font-size: 1.2rem; color: #ff9d5c; font-weight: 500; line-height: 1.4; margin: 0;">{tagline}</p>
+        <!-- Header Card -->
+        <div style="margin-bottom: 2rem; background: rgba(14, 18, 28, 0.65); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 2.25rem; backdrop-filter: blur(16px);">
+          <span class="card-badge" style="font-size: 0.78rem; padding: 0.35rem 0.85rem; letter-spacing: 0.12em; background: linear-gradient(135deg, rgba(249, 115, 22, 0.18), rgba(234, 88, 12, 0.08)); border: 1px solid rgba(249, 115, 22, 0.3); text-transform: uppercase;">{category}</span>
+          <h1 class="hero-title" style="font-size: clamp(2.2rem, 4.5vw, 3.6rem); font-weight: 800; color: #ffffff; letter-spacing: -0.02em; margin: 0.85rem 0 0.4rem;">{title}</h1>
+          <p class="modal-event-tagline" style="font-size: 1.15rem; color: #ff9d5c; font-weight: 500; line-height: 1.4; margin: 0;">{tagline}</p>
         </div>
 
-        <!-- Showcase Hero Image -->
-        <div style="border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14); margin-bottom: 2.25rem; background: #0f121d; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(249, 115, 22, 0.15); position: relative;">
+        <!-- Showcase Hero Image (Prominent position below Header) -->
+        <div style="border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.12); margin-bottom: 2.25rem; background: #0f121d; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7); position: relative;">
           <img src="{image_src}" alt="{title}" style="width: 100%; height: auto; max-height: 480px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/images/shaanrahman.jpg';" />
-          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(6, 8, 14, 0.8) 100%); pointer-events: none;"></div>
+          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 70%, rgba(6, 8, 14, 0.75) 100%); pointer-events: none;"></div>
         </div>
 
         <!-- Overview Card -->
         <div class="modal-rules-section" style="background: rgba(14, 18, 28, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 2rem 2.25rem; margin-bottom: 2rem;">
-          <h2 style="font-family: var(--font-heading); font-size: 1.35rem; color: #fff; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.6rem;">📌 Event Overview</h2>
+          <h2 style="font-family: var(--font-heading); font-size: 1.3rem; color: #fff; margin-bottom: 0.85rem;">Event Overview</h2>
           <p style="color: var(--text-secondary); line-height: 1.75; font-size: 1.02rem; margin: 0;">{desc}</p>
         </div>
 
         <!-- Prize Pool Stat Card -->
-        <div class="modal-prize-card" style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.16) 0%, rgba(234, 88, 12, 0.06) 100%); border: 1px solid rgba(249, 115, 22, 0.4); border-radius: 16px; padding: 1.5rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 30px rgba(249, 115, 22, 0.15);">
-          <span class="modal-prize-label" style="font-size: 0.82rem; letter-spacing: 0.15em; color: #ff9d5c; font-weight: 800; text-transform: uppercase;">TOTAL PRIZE POOL</span>
-          <div class="modal-prize-amount" style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 16px rgba(249, 115, 22, 0.5);">🏆 {prize}</div>
+        <div class="modal-prize-card" style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.16) 0%, rgba(234, 88, 12, 0.06) 100%); border: 1px solid rgba(249, 115, 22, 0.35); border-radius: 16px; padding: 1.5rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 30px rgba(249, 115, 22, 0.12);">
+          <span class="modal-prize-label" style="font-size: 0.8rem; letter-spacing: 0.15em; color: #ff9d5c; font-weight: 800; text-transform: uppercase;">TOTAL PRIZE POOL</span>
+          <div class="modal-prize-amount" style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 16px rgba(249, 115, 22, 0.4);">{prize}</div>
         </div>
 
-        <!-- Info Grid (4 Metric Cards) -->
+        <!-- Info Grid (4 Metric Cards with Minimalist Vector Icons) -->
         <div class="modal-info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
           <div class="info-grid-item" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 1.1rem 1.25rem;">
-            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">📅 Date</span>
+            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">Date</span>
             <span class="info-item-val" style="color: #fff; font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; display: block;">{date}</span>
           </div>
           <div class="info-grid-item" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 1.1rem 1.25rem;">
-            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">💰 Registration Fee</span>
+            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">Registration Fee</span>
             <span class="info-item-val" style="color: #fff; font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; display: block;">{fee}</span>
           </div>
           <div class="info-grid-item" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 1.1rem 1.25rem;">
-            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">👥 Team Size</span>
+            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">Team Size</span>
             <span class="info-item-val" style="color: #fff; font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; display: block;">{team_size}</span>
           </div>
           <div class="info-grid-item" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 1.1rem 1.25rem;">
-            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">🎯 Format / Rounds</span>
+            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">Format / Rounds</span>
             <span class="info-item-val" style="color: #fff; font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; display: block;">{rounds}</span>
           </div>
         </div>
@@ -1140,17 +1135,17 @@ html_template = '''<!DOCTYPE html>
 
         <!-- Contact Details Grid -->
         <div class="modal-contacts-section" style="background: rgba(14, 18, 28, 0.75); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 2rem 2.25rem; margin-bottom: 2.5rem;">
-          <h3 class="modal-contacts-title" style="font-size: 1.2rem; margin-bottom: 1.25rem; color: #fff;">Event Contacts & Coordinators</h3>
+          <h3 class="modal-contacts-title" style="font-size: 1.2rem; margin-bottom: 1.25rem; color: #fff;">Event Coordinators</h3>
           <div class="modal-contacts-grid">
             {contacts_html}
           </div>
         </div>
 
-        <!-- REGISTER NOW BUTTON (Step 4 Requirement) -->
+        <!-- SINGLE BOTTOM REGISTER NOW CTA SECTION (Step 4 Requirement) -->
         <!-- TODO: paste Google Form link here -->
-        <div style="text-align: center; background: rgba(14, 18, 28, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 2.25rem; backdrop-filter: blur(16px);">
-          <h3 style="color: #fff; font-family: var(--font-heading); margin-bottom: 0.5rem; font-size: 1.3rem;">Ready to Compete?</h3>
-          <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">Secure your spot in {title} before team registrations close.</p>
+        <div style="text-align: center; background: rgba(14, 18, 28, 0.85); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 2.5rem; backdrop-filter: blur(16px);">
+          <h3 style="color: #fff; font-family: var(--font-heading); margin-bottom: 0.5rem; font-size: 1.35rem; font-weight: 700;">Ready to Compete?</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1.75rem; font-size: 0.95rem;">Secure your team spot in {title} before registrations close.</p>
           <a href="#" class="btn-primary modal-register-btn" data-register-link="PENDING" style="display: inline-flex; width: 100%; justify-content: center; padding: 1.1rem 2.5rem; font-size: 1.1rem; text-decoration: none; border-radius: 999px; box-shadow: 0 10px 30px rgba(249, 115, 22, 0.35);">
             <span>Register Now</span> ↗
           </a>
@@ -1186,8 +1181,8 @@ for ev in events_data:
     
     contacts_html = ''.join([
         f'<div class="contact-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1rem 1.25rem;"><div class="contact-name" style="font-weight: 700; color: #fff; margin-bottom: 0.35rem;">{c["name"]}</div>' +
-        (f'<a href="tel:{c["phone"]}" class="contact-link contact-phone">📞 {c["phone"]}</a><br/>' if c.get('phone') else '') +
-        (f'<a href="mailto:{c["email"]}" class="contact-link contact-email">✉️ {c["email"]}</a>' if c.get('email') else '') +
+        (f'<a href="tel:{c["phone"]}" class="contact-link contact-phone">Phone: {c["phone"]}</a><br/>' if c.get('phone') else '') +
+        (f'<a href="mailto:{c["email"]}" class="contact-link contact-email">Email: {c["email"]}</a>' if c.get('email') else '') +
         '</div>'
         for c in ev['contacts']
     ])
@@ -1215,4 +1210,4 @@ for ev in events_data:
         f.write(content)
     count += 1
 
-print(f'Successfully re-generated {count} premium static HTML event files in /events!')
+print(f'Successfully re-generated {count} ultra-clean static HTML event files in /events!')
