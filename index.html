@@ -154,9 +154,13 @@
           <p class="hero-teaser-text">Hold tight. We're about to drop the biggest one yet.</p>
         </div>
 
-        <!-- STEP 1: Magnovite Logo — "Introducing" baked in above logo, wider radius = lingers longer -->
+        <!-- STEP 1: Introducing — camera parked at same keyframe as step 2 -->
         <div class="hero-card-step step-1">
           <p class="hero-introducing-label">INTRODUCING</p>
+        </div>
+
+        <!-- STEP 2: Magnovite Logo — camera STILL parked (duplicate keyframe), crossfade from introducing -->
+        <div class="hero-card-step step-2">
           <div class="logo-reveal-wrapper">
             <img src="/logos/magnovie26white.png" alt="Magnovite 2026" class="hero-logo-emblem" />
           </div>
@@ -283,7 +287,7 @@
       <div id="scroll-bar" class="scroll-progress-bar"></div>
     </div>
 
-    <!-- Section Dots Navigation (7 Steps: 0 to 6) -->
+    <!-- Section Dots Navigation (8 Steps: 0 to 7) -->
     <div id="section-dots" class="section-dots">
       <span class="dot active" data-index="0"></span>
       <span class="dot" data-index="1"></span>
@@ -292,6 +296,7 @@
       <span class="dot" data-index="4"></span>
       <span class="dot" data-index="5"></span>
       <span class="dot" data-index="6"></span>
+      <span class="dot" data-index="7"></span>
     </div>
 
     <!-- Loading Indicator -->

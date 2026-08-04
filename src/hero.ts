@@ -85,16 +85,25 @@ function initHero3D() {
   let mainStarPointsObj: THREE.Points | null = null;
 
   // -----------------------------------------------------------------------
-  // SCROLL-DRIVEN CAMERA KEYFRAMES (7 Discrete Steps across extended zoom)
+  // SCROLL-DRIVEN CAMERA KEYFRAMES (8 entries, 7 gaps = rawIndex 0..7)
+  //
+  // KEY TRICK: keyframes[1] === keyframes[2] (identical positions)
+  // This means as rawIndex moves 1→2, the camera doesn't move at all —
+  // the ONLY thing that changes is card visibility:
+  //   rawIndex≈1: "Introducing" is visible, Magnovite is not
+  //   rawIndex≈2: Magnovite is visible, Introducing is not
+  // Pure in-place crossfade with zero camera movement.
   // -----------------------------------------------------------------------
+  const kfIntroducing = { camPos: new THREE.Vector3(0.12, 0.2, 3.2), camTarget: new THREE.Vector3(0, 0, 0), modelRotY: -0.08 };
   const sections = [
-    { camPos: new THREE.Vector3(0, 0.35, 5.2),    camTarget: new THREE.Vector3(0, 0, 0),     modelRotY: 0 },
-    { camPos: new THREE.Vector3(0.12, 0.2, 3.2),  camTarget: new THREE.Vector3(0, 0, 0),     modelRotY: -0.08 },
-    { camPos: new THREE.Vector3(-0.1, 0.12, 2.0), camTarget: new THREE.Vector3(0, 0, 0),     modelRotY: 0.06 },
-    { camPos: new THREE.Vector3(0.06, 0.06, 1.1), camTarget: new THREE.Vector3(0, 0, 0),     modelRotY: -0.04 },
-    { camPos: new THREE.Vector3(0.0, 0.02, 0.45), camTarget: new THREE.Vector3(0, 0, -0.01), modelRotY: 0.02 },
-    { camPos: new THREE.Vector3(0.0, 0.0, 0.08),  camTarget: new THREE.Vector3(0, 0, -0.02), modelRotY: 0.04 },
-    { camPos: new THREE.Vector3(0.0, -0.02, -0.6),camTarget: new THREE.Vector3(0, 0, -1.5),  modelRotY: 0.06 }
+    { camPos: new THREE.Vector3(0, 0.35, 5.2),     camTarget: new THREE.Vector3(0, 0, 0),      modelRotY: 0 },
+    kfIntroducing,  // step 1: INTRODUCING
+    kfIntroducing,  // step 2: MAGNOVITE — camera stays put, crossfade happens in-place
+    { camPos: new THREE.Vector3(-0.1, 0.12, 2.0),  camTarget: new THREE.Vector3(0, 0, 0),      modelRotY: 0.06 },
+    { camPos: new THREE.Vector3(0.06, 0.06, 1.1),  camTarget: new THREE.Vector3(0, 0, 0),      modelRotY: -0.04 },
+    { camPos: new THREE.Vector3(0.0, 0.02, 0.45),  camTarget: new THREE.Vector3(0, 0, -0.01),  modelRotY: 0.02 },
+    { camPos: new THREE.Vector3(0.0, 0.0, 0.08),   camTarget: new THREE.Vector3(0, 0, -0.02),  modelRotY: 0.04 },
+    { camPos: new THREE.Vector3(0.0, -0.02, -0.6), camTarget: new THREE.Vector3(0, 0, -1.5),   modelRotY: 0.06 }
   ];
 
   // Card step elements — queried once
@@ -108,29 +117,27 @@ function initHero3D() {
 
   // -----------------------------------------------------------------------
   // SCROLL ENGINE — Smootherstep (Ken Perlin)
-  //
-  // f(t) = 6t⁵ - 15t⁴ + 10t³
-  // f'(0) = f'(1) = 0  →  zero velocity at every keyframe = organic pause
+  // f(t) = 6t⁵ - 15t⁴ + 10t³  →  f'(0) = f'(1) = 0 (organic pause)
   // -----------------------------------------------------------------------
 
-  /** Smooth deceleration curve: zero velocity at t=0 and t=1 */
   function smootherStep(t: number): number {
     t = Math.max(0, Math.min(1, t));
     return t * t * t * (t * (t * 6 - 15) + 10);
   }
 
   /**
-   * Card visibility based on proximity to each keyframe index.
-   * Step 1 (Magnovite Logo reveal) gets a wider radius so it lingers longer on scroll.
+   * Card visibility by proximity. Step 2 (Magnovite logo) has a wider radius
+   * so it lingers longer before the camera starts moving to step 3.
    */
-  const SHOW_RADIUS_DEFAULT = 0.52;  // all steps
-  const SHOW_RADIUS_STEP1   = 0.85;  // Magnovite reveal — stays on screen longer
+  const SHOW_RADIUS_DEFAULT = 0.52;
+  const SHOW_RADIUS_LOGO    = 0.82;  // logo reveal stays on longer
   function cardVis(rawIndex: number, cardIdx: number): number {
     const dist   = Math.abs(rawIndex - cardIdx);
-    const radius = cardIdx === 1 ? SHOW_RADIUS_STEP1 : SHOW_RADIUS_DEFAULT;
+    const radius = cardIdx === 2 ? SHOW_RADIUS_LOGO : SHOW_RADIUS_DEFAULT;
     if (dist >= radius) return 0;
     return smootherStep(1 - dist / radius);
   }
+
 
   function updateFromScroll() {
     const maxScroll     = Math.max(document.body.scrollHeight - window.innerHeight, 1);

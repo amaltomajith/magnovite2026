@@ -1654,21 +1654,13 @@ select.form-control option {
    ============================================================ */
 .hero-introducing-label {
   font-family: var(--font-heading);
-  font-size: clamp(0.75rem, 1.5vw, 0.95rem);
-  font-weight: 800;
-  letter-spacing: 0.4em;
-  color: rgba(226, 232, 240, 0.7);
+  font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: 0.35em;
+  color: #ffffff;
   text-transform: uppercase;
-  margin-bottom: 1.6rem;
-  text-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
-}
-
-.hero-introducing-sub {
-  font-family: var(--font-main);
-  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-  font-weight: 400;
-  color: #94a3b8;
-  letter-spacing: 0.02em;
+  margin: 1.5rem 0;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 4px 20px rgba(0, 0, 0, 0.9);
 }
 
 /* ============================================================
