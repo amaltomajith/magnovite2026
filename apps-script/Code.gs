@@ -128,16 +128,29 @@ function getEventsList() {
 
   for (var i = 1; i < data.length; i++) {
     var row = data[i];
-    var title = row[0] !== undefined && row[0] !== null ? String(row[0]).trim() : "";
-    var desc = row[1] !== undefined && row[1] !== null ? String(row[1]).trim() : "";
-    var category = row[2] !== undefined && row[2] !== null ? String(row[2]).trim() : "";
+    
+    function getVal(idx) {
+      return row[idx] !== undefined && row[idx] !== null ? String(row[idx]).trim() : "";
+    }
+
+    var title = getVal(0);
+    var desc = getVal(1);
+    var category = getVal(2);
 
     if (!title && !desc && !category) continue;
 
     events.push({
       title: title,
       desc: desc,
-      category: category
+      category: category,
+      tagline: getVal(3),
+      prize: getVal(4),
+      date: getVal(5),
+      participants: getVal(6),
+      fee: getVal(7),
+      duration: getVal(8),
+      rules: getVal(9),
+      registrationUrl: getVal(10)
     });
   }
 

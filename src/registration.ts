@@ -1,8 +1,5 @@
 import { initNavigation } from './navigation';
 
-// Replace with your Google Apps Script Web App deployment URL
-const API_URL: string = "REPLACE_WITH_APPS_SCRIPT_URL";
-
 export interface SchemaField {
   key: string;
   label: string;
@@ -21,11 +18,47 @@ interface RegisterResponse {
 let formSchema: SchemaField[] = [];
 let isSubmitting = false;
 
+// Get dynamic API URL endpoint from URL query string
+function getApiUrl(): string | null {
+  const urlParams = new URLSearchParams(window.location.search);
+  const api = urlParams.get('api');
+  return api ? api.trim() : null;
+}
+
 async function fetchFormSchema() {
   const statusContainer = document.getElementById('registration-status');
   const formWrapper = document.getElementById('registration-form-wrapper');
 
   if (!statusContainer || !formWrapper) return;
+
+  const apiUrl = getApiUrl();
+
+  // If no api param is present, show clear error state asking user to select an event
+  if (!apiUrl) {
+    statusContainer.style.display = 'block';
+    formWrapper.style.display = 'none';
+    statusContainer.innerHTML = `
+      <div class="status-error" style="text-align: center; padding: 3rem 1.5rem;">
+        <div style="margin-bottom: 1.25rem;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255, 255, 255, 0.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <p style="font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">
+          No event selected — please register through the Events page
+        </p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; max-width: 480px; margin: 0 auto 1.75rem;">
+          Each competition has a dedicated registration schema. Pick an event from the schedule to open its custom form.
+        </p>
+        <a href="/events.html" class="btn-primary" style="display: inline-flex; justify-content: center;">
+          Browse Events Schedule
+        </a>
+      </div>
+    `;
+    return;
+  }
 
   statusContainer.style.display = 'block';
   formWrapper.style.display = 'none';
@@ -37,25 +70,8 @@ async function fetchFormSchema() {
     </div>
   `;
 
-  // Demo Fallback Schema if API_URL is still placeholder
-  if (!API_URL || API_URL === "REPLACE_WITH_APPS_SCRIPT_URL") {
-    console.info('[Registration] API_URL not configured. Loading schema demo.');
-    formSchema = [
-      { key: "fullName", label: "Full Name", type: "text", required: true },
-      { key: "email", label: "Email Address", type: "email", required: true },
-      { key: "phone", label: "Phone Number", type: "tel", required: true },
-      { key: "college", label: "College / University Name", type: "text", required: true },
-      { key: "eventChoice", label: "Select Event", type: "select", required: true, options: ["Robo Soccer", "Code Relay", "Battle of the Bands", "Acapella", "Reverse Coding", "Chamber of Secrets", "CAD Design", "Spark Tank"] }
-    ];
-
-    statusContainer.style.display = 'none';
-    formWrapper.style.display = 'block';
-    renderDynamicForm();
-    return;
-  }
-
   try {
-    const fetchUrl = API_URL.indexOf('?') !== -1 ? `${API_URL}&action=fields` : `${API_URL}?action=fields`;
+    const fetchUrl = apiUrl.indexOf('?') !== -1 ? `${apiUrl}&action=fields` : `${apiUrl}?action=fields`;
     const response = await fetch(fetchUrl);
     
     if (!response.ok) {
@@ -78,6 +94,24 @@ async function fetchFormSchema() {
     renderDynamicForm();
   } catch (err) {
     console.error('[Registration Schema Fetch Error]', err);
+
+    // If fetch failed on a demo/mock endpoint URL, load fallback demo schema for testing
+    if (apiUrl.includes('DEMO') || apiUrl.includes('demo') || apiUrl.includes('localhost') || apiUrl.includes('example')) {
+      console.info('[Registration] Demo endpoint detected or network offline. Rendering demo schema for testing.');
+      formSchema = [
+        { key: "fullName", label: "Full Name", type: "text", required: true },
+        { key: "email", label: "Email Address", type: "email", required: true },
+        { key: "phone", label: "Phone Number", type: "tel", required: true },
+        { key: "college", label: "College / University Name", type: "text", required: true },
+        { key: "teamName", label: "Team Name", type: "text", required: false },
+        { key: "experienceLevel", label: "Experience Level", type: "select", required: true, options: ["Beginner", "Intermediate", "Advanced"] }
+      ];
+      statusContainer.style.display = 'none';
+      formWrapper.style.display = 'block';
+      renderDynamicForm();
+      return;
+    }
+
     statusContainer.innerHTML = `
       <div class="status-error">
         <p><strong>Failed to load registration fields.</strong></p>
@@ -224,18 +258,20 @@ async function handleFormSubmit(e: Event) {
   if (btnText) btnText.textContent = 'Registering...';
   if (btnSpinner) btnSpinner.style.display = 'inline-block';
 
-  // Demo Fallback Submission when API_URL is not set
-  if (!API_URL || API_URL === "REPLACE_WITH_APPS_SCRIPT_URL") {
+  const apiUrl = getApiUrl();
+
+  // Demo Fallback Submission when apiUrl is a demo or testing endpoint
+  if (!apiUrl || apiUrl.includes('DEMO') || apiUrl.includes('demo') || apiUrl.includes('localhost') || apiUrl.includes('example')) {
     setTimeout(() => {
       const demoChestNum = "MAG" + String(Math.floor(100 + Math.random() * 900));
       isSubmitting = false;
       renderConfirmationView(demoChestNum, payload);
-    }, 1000);
+    }, 800);
     return;
   }
 
   try {
-    const postUrl = API_URL.indexOf('?') !== -1 ? `${API_URL}&action=register` : `${API_URL}?action=register`;
+    const postUrl = apiUrl.indexOf('?') !== -1 ? `${apiUrl}&action=register` : `${apiUrl}?action=register`;
     
     /**
      * CRITICAL WORKAROUND:
