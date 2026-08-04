@@ -130,42 +130,34 @@ function initHero3D() {
   let   currentModelRotY = 0;
 
   // -----------------------------------------------------------------------
-  // PAUSE ZONE CONFIG
-  // Each step window [0,1]: camera arrives at 'from' keyframe, pauses
-  // during [PAUSE_START, PAUSE_END], then glides toward next.
-  // Cards are fully visible only during the pause plateau.
+  // SCROLL ENGINE — Smootherstep (Ken Perlin)
+  //
+  // f(t) = 6t⁵ - 15t⁴ + 10t³
+  // f'(0) = f'(1) = 0  →  zero velocity at every keyframe = organic pause
+  //
+  // Card visibility is driven by proximity to each keyframe index.
+  // At rawIndex=0 (scroll top): step-0 card is fully visible immediately.
+  // As rawIndex moves away from an integer: card blurs and slides out.
+  // As rawIndex approaches the next integer: that card blurs in and slides up.
   // -----------------------------------------------------------------------
-  const PAUSE_START = 0.20;
-  const PAUSE_END   = 0.75;
-  const FADE_WIDTH  = 0.18; // fraction of step window used for card fade-in/out
 
-  function easeInOut(t: number): number {
-    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+  /** Smooth deceleration curve: zero velocity at t=0 and t=1 */
+  function smootherStep(t: number): number {
+    t = Math.max(0, Math.min(1, t));
+    return t * t * t * (t * (t * 6 - 15) + 10);
   }
 
-  // Card visibility [0,1] based on how deep into the pause zone
-  function cardVisibility(stepFrac: number): number {
-    if (stepFrac < PAUSE_START) {
-      // approaching pause: fade in
-      const progress = Math.max(stepFrac - (PAUSE_START - FADE_WIDTH), 0) / FADE_WIDTH;
-      return easeInOut(Math.min(progress, 1));
-    } else if (stepFrac > PAUSE_END) {
-      // leaving pause: fade out
-      const progress = (stepFrac - PAUSE_END) / FADE_WIDTH;
-      return easeInOut(Math.max(1 - progress, 0));
-    }
-    return 1; // fully visible during plateau
-  }
-
-  // Camera interpolation t:
-  // Stays frozen at 'from' keyframe for entire pause zone [0, PAUSE_END],
-  // then smoothly glides toward 'to' in the exit phase [PAUSE_END, 1].
-  // No "glide in" — the previous step's exit already deposited us at 'from'.
-  function cameraT(stepFrac: number): number {
-    if (stepFrac <= PAUSE_END) {
-      return 0; // frozen at 'from' — no reversal
-    }
-    return easeInOut((stepFrac - PAUSE_END) / (1 - PAUSE_END));
+  /**
+   * Card opacity/visibility based on how far rawIndex is from the card's index.
+   * SHOW_RADIUS: how many "section units" away before fully hidden.
+   * Center (dist=0): vis=1 | Edge (dist=RADIUS): vis=0
+   */
+  const SHOW_RADIUS = 0.55;
+  function cardVis(rawIndex: number, cardIdx: number): number {
+    const dist = Math.abs(rawIndex - cardIdx);
+    if (dist >= SHOW_RADIUS) return 0;
+    // smootherstep on the proximity — natural ease in + out
+    return smootherStep(1 - dist / SHOW_RADIUS);
   }
 
   function updateFromScroll() {
@@ -173,59 +165,56 @@ function initHero3D() {
     const scrollFrac    = Math.min(window.scrollY / maxScroll, 1);
     const totalSections = sections.length - 1;
     const rawIndex      = scrollFrac * totalSections;
-    const fromIdx       = Math.floor(rawIndex);
+    const fromIdx       = Math.min(Math.floor(rawIndex), totalSections - 1);
     const toIdx         = Math.min(fromIdx + 1, totalSections);
     const stepFrac      = rawIndex - fromIdx;
 
     const from = sections[fromIdx];
     const to   = sections[toIdx];
 
-    // Update camera target
-    const t = cameraT(stepFrac);
+    // Camera glides with zero velocity at keyframe boundaries — no abrupt stops
+    const t = smootherStep(stepFrac);
     currentCamPos.lerpVectors(from.camPos, to.camPos, t);
     currentCamTarget.lerpVectors(from.camTarget, to.camTarget, t);
     currentModelRotY = from.modelRotY + (to.modelRotY - from.modelRotY) * t;
 
-    // Star field fade
+    // Star field fade at close proximity
     if (activePointsMat) {
-      const closeProximity = Math.max((scrollFrac - 0.5) / 0.5, 0);
-      const sizeScale = 1.0 - closeProximity * 0.45;
-      const opacityScale = 1.0 - closeProximity * 0.35;
-      activePointsMat.size = baseStarSize * sizeScale;
-      activePointsMat.opacity = opacityScale;
+      const cp = Math.max((scrollFrac - 0.5) / 0.5, 0);
+      const sz = 1.0 - cp * 0.45;
+      const op = 1.0 - cp * 0.35;
+      activePointsMat.size    = baseStarSize * sz;
+      activePointsMat.opacity = op;
       if (activeAmbientGlowMat) {
-        activeAmbientGlowMat.size = baseStarSize * 3.5 * sizeScale;
-        activeAmbientGlowMat.opacity = 0.12 * opacityScale;
+        activeAmbientGlowMat.size    = baseStarSize * 3.5 * sz;
+        activeAmbientGlowMat.opacity = 0.12 * op;
       }
     }
 
-    // Drive each card via inline style — scroll-synced opacity + blur + slide
+    // Drive each card via inline style — scroll-synced proximity-based visibility
     cardSteps.forEach((el, idx) => {
-      let vis = 0;
-      if (idx === fromIdx) {
-        vis = cardVisibility(stepFrac);
-      }
-      // Don't show 'toIdx' card until its own pause window begins in next step
-
-      const blurPx = (1 - vis) * 14;
-      const slideY = (1 - vis) * 30;
-      el.style.opacity     = vis.toFixed(3);
-      el.style.filter      = vis < 0.995 ? `blur(${blurPx.toFixed(1)}px)` : '';
-      el.style.visibility  = vis < 0.01 ? 'hidden' : 'visible';
-      el.style.transform   = `translateY(${slideY.toFixed(1)}px) scale(${(0.94 + vis * 0.06).toFixed(3)})`;
-      el.style.transition  = 'none'; // driven by scroll, no CSS transition
+      const vis    = cardVis(rawIndex, idx);
+      const blurPx = (1 - vis) * 12;
+      const slideY = (1 - vis) * 28;
+      el.style.opacity       = vis.toFixed(3);
+      el.style.filter        = vis < 0.995 ? `blur(${blurPx.toFixed(1)}px)` : '';
+      el.style.visibility    = vis < 0.01 ? 'hidden' : 'visible';
+      el.style.transform     = `translateY(${slideY.toFixed(1)}px) scale(${(0.94 + vis * 0.06).toFixed(3)})`;
+      el.style.transition    = 'none';
       el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
     });
 
-    // Section dots
+    // Section dots — highlight nearest keyframe
+    const nearestIdx = Math.round(rawIndex);
     sectionDots.forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === fromIdx);
+      dot.classList.toggle('active', idx === nearestIdx);
     });
 
     if (scrollBar) scrollBar.style.height = `${scrollFrac * 100}%`;
   }
 
   window.addEventListener('scroll', updateFromScroll, { passive: true });
+
 
 
   const loadingManager = new THREE.LoadingManager();
