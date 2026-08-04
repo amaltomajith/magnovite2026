@@ -1,5 +1,5 @@
-// Replace with your Google Apps Script Web App deployment URL
-const API_URL = "REPLACE_WITH_APPS_SCRIPT_URL";
+// Google Apps Script Web App deployment URL
+const API_URL = "https://script.google.com/macros/s/AKfycbyCavqYo1p9VXhflQYaMyQu4WiimRanMwI6FDo0vAHiikTOJNf4lWIPxYX2EDcALhX9cQ/exec";
 
 interface EventItem {
   title: string;
