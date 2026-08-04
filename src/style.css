@@ -1445,7 +1445,7 @@ select.form-control option {
 
 .hero-card-step {
   position: absolute;
-  max-width: 780px;
+  max-width: 700px;
   width: 100%;
   text-align: center;
   opacity: 0;
@@ -1454,6 +1454,142 @@ select.form-control option {
   /* No CSS transition — scroll JS drives opacity/transform directly */
   pointer-events: none;
   will-change: opacity, transform, filter;
+}
+
+/* ============================================================
+   PREMIUM FROSTED GLASS CARD — transparent like real glass
+   Background is nearly invisible: blurred starfield shows through.
+   ============================================================ */
+.premium-glass-card {
+  position: relative;
+  overflow: hidden;
+  /* Near-transparent — the blurred scene behind IS the card's background */
+  background: rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(52px) saturate(180%);
+  -webkit-backdrop-filter: blur(52px) saturate(180%);
+  /* Thin specular highlight on top edge, near-invisible side borders */
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-top: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 22px;
+  padding: 2.5rem 2.8rem 2.2rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 50px 120px rgba(0, 0, 0, 0.75),
+    0 2px 0 rgba(0, 0, 0, 0.6) inset;
+  text-align: left;
+}
+
+/* Diagonal shimmer sweep */
+.pgc-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* Corner decorative mark */
+.pgc-corner-mark {
+  position: absolute;
+  top: 1.6rem;
+  right: 1.8rem;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0;
+}
+
+/* Eyebrow label */
+.pgc-eyebrow {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: rgba(200, 210, 220, 0.65);
+  text-transform: uppercase;
+  margin: 0 0 1.4rem;
+}
+
+/* Large headline (for competition card) */
+.pgc-headline {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 1.1rem;
+  background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Body text */
+.pgc-body {
+  font-family: var(--font-main);
+  font-size: 1.02rem;
+  color: rgba(220, 225, 235, 0.72);
+  line-height: 1.8;
+  margin: 0 0 1.8rem;
+}
+
+/* Footer tag row */
+.pgc-footer {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.pgc-tag {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: rgba(200, 210, 225, 0.65);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+}
+
+/* ============================================================
+   HERO EXCITED TEXT (Step 4)
+   ============================================================ */
+.hero-excited-text {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
+  text-shadow: none;
+}
+
+.hero-excited-sub {
+  font-family: var(--font-main);
+  font-size: 1.05rem;
+  color: rgba(200, 200, 220, 0.7);
+  letter-spacing: 0.06em;
+  font-weight: 400;
+}
+
+/* ============================================================
+   STANDALONE COUNTDOWN LABEL (Step 5 — no glass wrapper)
+   ============================================================ */
+.hero-countdown-label {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: rgba(200, 200, 220, 0.6);
+  text-transform: uppercase;
+  margin: 0 0 2rem;
 }
 
 .apple-badge {
@@ -1490,7 +1626,8 @@ select.form-control option {
   height: clamp(85px, 12vw, 130px);
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 32px rgba(255, 255, 255, 0.45));
+  /* Render any logo as pure white on the dark starfield */
+  filter: brightness(0) invert(1) drop-shadow(0 0 28px rgba(255, 255, 255, 0.5));
   /* No idle float animation — stays still during pause plateau */
 }
 

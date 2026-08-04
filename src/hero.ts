@@ -148,16 +148,16 @@ function initHero3D() {
   }
 
   /**
-   * Card opacity/visibility based on how far rawIndex is from the card's index.
-   * SHOW_RADIUS: how many "section units" away before fully hidden.
-   * Center (dist=0): vis=1 | Edge (dist=RADIUS): vis=0
+   * Card visibility based on proximity to each keyframe index.
+   * Step 1 (Magnovite reveal) gets a wider radius so it lingers longer.
    */
-  const SHOW_RADIUS = 0.55;
+  const SHOW_RADIUS_DEFAULT = 0.52;  // all steps
+  const SHOW_RADIUS_STEP1   = 0.78;  // Magnovite reveal — stays on screen longer
   function cardVis(rawIndex: number, cardIdx: number): number {
-    const dist = Math.abs(rawIndex - cardIdx);
-    if (dist >= SHOW_RADIUS) return 0;
-    // smootherstep on the proximity — natural ease in + out
-    return smootherStep(1 - dist / SHOW_RADIUS);
+    const dist   = Math.abs(rawIndex - cardIdx);
+    const radius = cardIdx === 1 ? SHOW_RADIUS_STEP1 : SHOW_RADIUS_DEFAULT;
+    if (dist >= radius) return 0;
+    return smootherStep(1 - dist / radius);
   }
 
   function updateFromScroll() {
