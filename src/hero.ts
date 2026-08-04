@@ -125,7 +125,7 @@ function initHero3D() {
    * Step 2 (Magnovite Logo reveal) gets a wider radius so it lingers longer on scroll.
    */
   const SHOW_RADIUS_DEFAULT = 0.52;  // all steps
-  const SHOW_RADIUS_STEP2   = 1.15;  // Magnovite logo reveal — stays on screen significantly longer during scroll
+  const SHOW_RADIUS_STEP2   = 0.85;  // Magnovite reveal — stays on screen longer
   function cardVis(rawIndex: number, cardIdx: number): number {
     const dist   = Math.abs(rawIndex - cardIdx);
     const radius = cardIdx === 2 ? SHOW_RADIUS_STEP2 : SHOW_RADIUS_DEFAULT;

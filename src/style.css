@@ -1654,17 +1654,13 @@ select.form-control option {
    ============================================================ */
 .hero-introducing-label {
   font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 8vw, 6rem);
-  font-weight: 900;
-  letter-spacing: 0.18em;
-  color: #ffffff;
-  background: linear-gradient(180deg, #ffffff 40%, #94a3b8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  color: #f8fafc;
   text-transform: uppercase;
-  margin: 0;
-  line-height: 1.05;
-  filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.4));
+  margin-bottom: 0.75rem;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
 }
 
 .hero-introducing-sub {
@@ -1676,21 +1672,80 @@ select.form-control option {
 }
 
 /* ============================================================
-   HERO LOGO REVEAL (Step 2)
+   HERO EXCITED TEXT (Step 6)
    ============================================================ */
+.hero-excited-text {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
+  text-shadow: none;
+}
+
+.hero-excited-sub {
+  font-family: var(--font-main);
+  font-size: 1.05rem;
+  color: rgba(200, 200, 220, 0.7);
+  letter-spacing: 0.06em;
+  font-weight: 400;
+}
+
+/* ============================================================
+   STANDALONE COUNTDOWN LABEL (Step 7 — no glass wrapper)
+   ============================================================ */
+.hero-countdown-label {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: rgba(200, 200, 220, 0.6);
+  text-transform: uppercase;
+  margin: 0 0 2rem;
+}
+
+.apple-badge {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0.4rem 1.1rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.hero-teaser-text {
+  font-family: var(--font-main);
+  font-size: clamp(1.2rem, 2.5vw, 1.85rem);
+  font-weight: 500;
+  color: #e2e8f0;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+}
+
 .logo-reveal-wrapper {
-  margin-bottom: 0;
+  margin-bottom: 1.25rem;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .hero-logo-emblem {
-  height: clamp(140px, 25vw, 240px);
+  height: clamp(180px, 30vw, 380px);
   width: auto;
-  max-width: 85vw;
   object-fit: contain;
-  filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.65));
+  /* Render any logo as pure white on the dark starfield */
+  filter: brightness(0) invert(1) drop-shadow(0 0 40px rgba(255, 255, 255, 0.6));
+  /* No idle float animation — stays still during pause plateau */
 }
 
 .hero-main-title {
