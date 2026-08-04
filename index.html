@@ -7,7 +7,7 @@
     <meta name="description" content="CHRIST University Kengeri Campus flagship fest 3D experience." />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
@@ -21,7 +21,7 @@
           <img src="/logos/christwhite.png" alt="CHRIST University" class="header-logo-christ" />
         </a>
 
-        <!-- Right: MENU button + Magnovite Logo to the right -->
+        <!-- Right: MENU button + Magnovite Logo -->
         <div class="header-right-group">
           <button id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle Navigation Menu">
             <div class="hamburger-icon">
@@ -75,7 +75,7 @@
           </a>
         </nav>
 
-        <!-- Right Column: Spacious Showcase Hero & Classic Flip Countdown Card -->
+        <!-- Right Column: Navigation Showcase Hero -->
         <div class="mega-hero-card">
           <div class="mega-hero-badge">
             <span class="pulse-dot"></span>
@@ -87,7 +87,7 @@
             <p class="mega-hero-subtext">Join 15,000+ creators, innovators, and performers at CHRIST University Kengeri Campus.</p>
           </div>
 
-          <!-- Classic Falling Flip Countdown Clock -->
+          <!-- Falling Flip Countdown Clock -->
           <div class="flip-clock-wrapper">
             <div class="flip-unit">
               <div class="flip-digits-pair">
@@ -128,7 +128,6 @@
             </div>
           </div>
 
-          <!-- Action Buttons -->
           <div class="mega-actions-group">
             <a href="#" onclick="alert('Magnovite 2026 Official Brochure download starting...'); return false;" class="mega-btn-primary">
               <span>Download Brochure</span>
@@ -147,11 +146,123 @@
     <section id="hero" class="hero-section">
       <canvas id="hero-canvas"></canvas>
 
-      <!-- Section text overlay (transitions on scroll) -->
-      <div class="hero-text-overlay">
-        <div class="hero-eyebrow">MAGNOVITE '26</div>
-        <h1 id="section-label" class="hero-title">ARE YOU EXCITED?</h1>
-        <p id="section-subtext" class="hero-subtitle">Something extraordinary is on its way.</p>
+      <!-- Step Overlays (Controlled by Scroll) -->
+      <div id="hero-overlay-container" class="hero-overlay-container">
+        
+        <!-- STEP 0: Small refined teaser text -->
+        <div class="hero-card-step step-0 active">
+          <span class="glass-eyebrow-badge">MAGNOVITE '26</span>
+          <p class="hero-teaser-text">Hold tight. We're about to drop the biggest one yet.</p>
+        </div>
+
+        <!-- STEP 1: Main Title Reveal -->
+        <div class="hero-card-step step-1">
+          <span class="glass-eyebrow-badge">THE UNVEILING</span>
+          <h1 class="hero-main-title">MAGNOVITE 2026</h1>
+          <p class="hero-main-subtext">The 16th Edition • CHRIST University Kengeri Campus</p>
+        </div>
+
+        <!-- STEP 2: Floating Glass Hovering Live Tab Card -->
+        <div class="hero-card-step step-2">
+          <div class="glass-live-tab-card">
+            <div class="glass-card-header">
+              <span class="cyan-pulse-dot"></span>
+              <span class="glass-card-badge">WELCOME TO MAGNOVITE '26</span>
+            </div>
+            <p class="glass-card-body">
+              MAGNOVITE is the annual flagship fest organised by CHRIST (Deemed To be University), Kengeri Campus. It is an enigmatic nexus of creativity and collaboration, bringing healthy competition and positive connections between participants. It returns this year with its 16th edition, bringing back its unfading charm.
+            </p>
+          </div>
+        </div>
+
+        <!-- STEP 3: Technical & Innovation Track Showcase -->
+        <div class="hero-card-step step-3">
+          <div class="glass-live-tab-card">
+            <div class="glass-card-header">
+              <span class="glass-card-badge purple">ENGINEERING & INNOVATION</span>
+            </div>
+            <h3 class="glass-card-title">34+ NATIONAL COMPETITIONS</h3>
+            <p class="glass-card-body">
+              From high-stakes Robo Soccer, 24-hr Hackathons, to deep cybersecurity CTFs, AI modeling challenges, and CAD structural design sprints.
+            </p>
+          </div>
+        </div>
+
+        <!-- STEP 4: Cultural & Stage Battle Showcase -->
+        <div class="hero-card-step step-4">
+          <div class="glass-live-tab-card">
+            <div class="glass-card-header">
+              <span class="glass-card-badge blue">CULTURE & RHYTHM</span>
+            </div>
+            <h3 class="glass-card-title">ELECTRIFYING STAGE SHOWDOWNS</h3>
+            <p class="glass-card-body">
+              Battle of the Bands, Street Dance ciphers, Acapella vocal harmonies, short film screenings, and open-air dramatic street theater.
+            </p>
+          </div>
+        </div>
+
+        <!-- STEP 5: Rich Hero Countdown Timer (Cyan / Deep Indigo Palette) -->
+        <div class="hero-card-step step-5">
+          <div class="hero-countdown-glass-card">
+            <div class="hero-countdown-header">
+              <span class="cyan-pulse-dot"></span>
+              COUNTDOWN TO THE UNVEILING • SEP 15, 2026
+            </div>
+
+            <!-- Rich Icy Cyan Mechanical Flip Clock -->
+            <div class="hero-flip-clock-grid">
+              <div class="hero-flip-unit">
+                <div class="hero-flip-digits-pair">
+                  <div class="hero-flip-card" id="hero-days-t" data-val="0"><span class="flip-val">0</span></div>
+                  <div class="hero-flip-card" id="hero-days-u" data-val="0"><span class="flip-val">0</span></div>
+                </div>
+                <span class="hero-flip-label">DAYS</span>
+              </div>
+
+              <span class="hero-flip-colon">:</span>
+
+              <div class="hero-flip-unit">
+                <div class="hero-flip-digits-pair">
+                  <div class="hero-flip-card" id="hero-hours-t" data-val="0"><span class="flip-val">0</span></div>
+                  <div class="hero-flip-card" id="hero-hours-u" data-val="0"><span class="flip-val">0</span></div>
+                </div>
+                <span class="hero-flip-label">HOURS</span>
+              </div>
+
+              <span class="hero-flip-colon">:</span>
+
+              <div class="hero-flip-unit">
+                <div class="hero-flip-digits-pair">
+                  <div class="hero-flip-card" id="hero-mins-t" data-val="0"><span class="flip-val">0</span></div>
+                  <div class="hero-flip-card" id="hero-mins-u" data-val="0"><span class="flip-val">0</span></div>
+                </div>
+                <span class="hero-flip-label">MINUTES</span>
+              </div>
+
+              <span class="hero-flip-colon">:</span>
+
+              <div class="hero-flip-unit">
+                <div class="hero-flip-digits-pair">
+                  <div class="hero-flip-card" id="hero-secs-t" data-val="0"><span class="flip-val">0</span></div>
+                  <div class="hero-flip-card" id="hero-secs-u" data-val="0"><span class="flip-val">0</span></div>
+                </div>
+                <span class="hero-flip-label">SECONDS</span>
+              </div>
+            </div>
+
+            <!-- Hero Action Buttons -->
+            <div style="display: flex; align-items: center; justify-content: center; gap: 1.25rem; flex-wrap: wrap; margin-top: 1.5rem;">
+              <a href="/events.html" class="btn-primary" style="padding: 0.85rem 1.8rem; font-size: 0.95rem; border-radius: 999px; text-decoration: none;">
+                <span>Explore All Events</span> ↗
+              </a>
+              <a href="/events.html" class="mega-btn-secondary" style="padding: 0.85rem 1.8rem; font-size: 0.95rem; border-radius: 999px; text-decoration: none;">
+                <span>Register Now</span> ↗
+              </a>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -160,7 +271,7 @@
       <div id="scroll-bar" class="scroll-progress-bar"></div>
     </div>
 
-    <!-- Section Dots Navigation -->
+    <!-- Section Dots Navigation (6 Steps: 0 to 5) -->
     <div id="section-dots" class="section-dots">
       <span class="dot active" data-index="0"></span>
       <span class="dot" data-index="1"></span>
@@ -168,8 +279,6 @@
       <span class="dot" data-index="3"></span>
       <span class="dot" data-index="4"></span>
       <span class="dot" data-index="5"></span>
-      <span class="dot" data-index="6"></span>
-      <span class="dot" data-index="7"></span>
     </div>
 
     <!-- Loading Indicator -->

@@ -1429,6 +1429,264 @@ select.form-control option {
   text-decoration: underline;
 }
 
+/* ============================================================
+   HERO SCROLL OVERLAY & GLASS CARDS
+   ============================================================ */
+.hero-overlay-container {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  padding: 2rem;
+}
+
+.hero-card-step {
+  position: absolute;
+  max-width: 780px;
+  width: 100%;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(24px) scale(0.96);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.5s ease;
+  pointer-events: none;
+}
+
+.hero-card-step.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.glass-eyebrow-badge {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  padding: 0.4rem 0.95rem;
+  border-radius: 9999px;
+  margin-bottom: 1.25rem;
+}
+
+.hero-teaser-text {
+  font-family: var(--font-main);
+  font-size: clamp(1.15rem, 2.5vw, 1.75rem);
+  font-weight: 500;
+  color: #cbd5e1;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.hero-main-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-shadow: 0 8px 32px rgba(0, 0, 0, 0.9);
+  background: linear-gradient(135deg, #ffffff 40%, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-main-subtext {
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  color: #ff9d5c;
+  font-weight: 500;
+  margin-top: 0.85rem;
+}
+
+/* Glass Floating Hovering Live Tab Card */
+.glass-live-tab-card {
+  background: rgba(14, 18, 28, 0.72);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.08);
+  text-align: left;
+  animation: floatHover 4s ease-in-out infinite;
+}
+
+@keyframes floatHover {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.glass-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+
+.cyan-pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #38bdf8;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #38bdf8;
+  animation: cyanPulse 2s infinite;
+}
+
+@keyframes cyanPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.4; }
+}
+
+.glass-card-badge {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+}
+
+.glass-card-badge.purple {
+  color: #c084fc;
+  background: rgba(192, 132, 252, 0.12);
+  border-color: rgba(192, 132, 252, 0.28);
+}
+
+.glass-card-badge.blue {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.12);
+  border-color: rgba(96, 165, 250, 0.28);
+}
+
+.glass-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.85rem;
+}
+
+.glass-card-body {
+  color: #cbd5e1;
+  line-height: 1.75;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+/* Rich Hero Countdown Card (Cyan & Deep Indigo Palette) */
+.hero-countdown-glass-card {
+  background: rgba(12, 16, 26, 0.82);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 28px;
+  padding: 2.75rem 2.25rem;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(56, 189, 248, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.hero-countdown-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0.45rem 1.1rem;
+  border-radius: 9999px;
+}
+
+.hero-flip-clock-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.hero-flip-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.hero-flip-digits-pair {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.hero-flip-card {
+  position: relative;
+  width: 52px;
+  height: 72px;
+  background: linear-gradient(180deg, #131828 0%, #0a0d17 100%);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 300px;
+}
+
+.hero-flip-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #06070a;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
+  z-index: 10;
+}
+
+.hero-flip-card .flip-val {
+  font-family: var(--font-heading), monospace;
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: #38bdf8;
+  text-shadow: 0 0 18px rgba(56, 189, 248, 0.65);
+  line-height: 1;
+}
+
+.hero-flip-colon {
+  font-family: monospace;
+  font-size: 2rem;
+  font-weight: 800;
+  color: rgba(56, 189, 248, 0.7);
+  margin-bottom: 1.5rem;
+  animation: cyanPulse 1.5s infinite;
+}
+
+.hero-flip-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #94a3b8;
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {

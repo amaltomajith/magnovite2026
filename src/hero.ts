@@ -5,8 +5,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
 // -----------------------------------------------------------------------
-// Creates a soft radial glow sprite on a canvas.
-// Fades smoothly from center to edge so particles render as soft round stars.
+// Soft radial glow sprite for star particles
 // -----------------------------------------------------------------------
 function createStarSprite(): THREE.Texture {
   const size = 128;
@@ -39,9 +38,9 @@ function initHero3D() {
   const scene = new THREE.Scene();
   
   // 1. VOLUMETRIC FOG & LIFTED BLUE-GREY SPACE BACKGROUND
-  const spaceBgColor = 0x0e1220;
+  const spaceBgColor = 0x0a0d17;
   scene.background = new THREE.Color(spaceBgColor);
-  scene.fog = new THREE.FogExp2(0x1a1e2e, 0.007);
+  scene.fog = new THREE.FogExp2(0x121728, 0.007);
 
   const camera = new THREE.PerspectiveCamera(
     55,
@@ -58,27 +57,24 @@ function initHero3D() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  // Color space setting & ACESFilmicToneMapping highlight roll-off
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 0.95;
 
-  // -----------------------------------------------------------------------
   // BLOOM POST-PROCESSING
-  // -----------------------------------------------------------------------
   const composer = new EffectComposer(renderer);
   const renderPass = new RenderPass(scene, camera);
   composer.addPass(renderPass);
 
   const bloomPass = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
-    0.5,  // strength ~0.5
-    0.35, // radius ~0.35
-    0.80  // threshold ~0.80
+    0.45, // strength
+    0.35, // radius
+    0.80  // threshold
   );
   composer.addPass(bloomPass);
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.25);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
   scene.add(ambientLight);
 
   // Reduced Motion
@@ -88,77 +84,44 @@ function initHero3D() {
 
   const starSprite = createStarSprite();
 
-  // Active Scene Layer References
   let baseStarSize = 0.012;
   let activePointsMat: THREE.PointsMaterial | null = null;
   let activeAmbientGlowMat: THREE.PointsMaterial | null = null;
   let mainStarPointsObj: THREE.Points | null = null;
 
   // -----------------------------------------------------------------------
-  // EXTENDED SCROLL-DRIVEN CAMERA KEYFRAMES (Deep Zoom Trajectory)
+  // SCROLL-DRIVEN CAMERA KEYFRAMES (Starts at half unveiling, smoother zoom)
   // -----------------------------------------------------------------------
-  const sections: Array<{
-    camPos: THREE.Vector3;
-    camTarget: THREE.Vector3;
-    modelRotY: number;
-    label: string;
-    subtext: string;
-  }> = [
+  const sections = [
     {
-      camPos:    new THREE.Vector3(0, 1.2, 14),
+      camPos:    new THREE.Vector3(0, 0.35, 5.2),
       camTarget: new THREE.Vector3(0, 0, 0),
-      modelRotY: 0,
-      label:     'ARE YOU EXCITED?',
-      subtext:   'Something extraordinary is on its way.'
+      modelRotY: 0
     },
     {
-      camPos:    new THREE.Vector3(0.3, 0.5, 8),
+      camPos:    new THREE.Vector3(0.12, 0.2, 3.2),
       camTarget: new THREE.Vector3(0, 0, 0),
-      modelRotY: -0.1,
-      label:     'THE UNVEILING',
-      subtext:   'Approaching.'
+      modelRotY: -0.08
     },
     {
-      camPos:    new THREE.Vector3(-0.2, 0.15, 3.5),
+      camPos:    new THREE.Vector3(-0.1, 0.1, 1.5),
       camTarget: new THREE.Vector3(0, 0, 0),
-      modelRotY: 0.07,
-      label:     'ENTER THE CORE',
-      subtext:   'Feel the pull.'
+      modelRotY: 0.06
     },
     {
-      camPos:    new THREE.Vector3(0.05, 0.05, 0.8),
+      camPos:    new THREE.Vector3(0.04, 0.03, 0.5),
       camTarget: new THREE.Vector3(0, 0, 0),
-      modelRotY: -0.02,
-      label:     'INSIDE THE CORE',
-      subtext:   'Approaching the white core cluster.'
+      modelRotY: -0.04
     },
     {
-      camPos:    new THREE.Vector3(0.0, 0.01, 0.08),
-      camTarget: new THREE.Vector3(0, 0, 0),
-      modelRotY: 0.01,
-      label:     'CORE THRESHOLD',
-      subtext:   'At the cluster boundary.'
+      camPos:    new THREE.Vector3(0.0, 0.005, 0.08),
+      camTarget: new THREE.Vector3(0, 0, -0.02),
+      modelRotY: 0.03
     },
     {
-      camPos:    new THREE.Vector3(0.0, 0.002, 0.005),
-      camTarget: new THREE.Vector3(0, 0, -0.05),
-      modelRotY: 0.03,
-      label:     'DEEP COSMOS',
-      subtext:   'Diving directly into the core particles.'
-    },
-    {
-      camPos:    new THREE.Vector3(0.0, -0.005, -0.15),
-      camTarget: new THREE.Vector3(0, 0, -0.3),
-      modelRotY: 0.05,
-      label:     'BEYOND THE HORIZON',
-      subtext:   'Flying through the inner heart of the galaxy.'
-    },
-    {
-      camPos:    new THREE.Vector3(0.0, -0.05, -1.2),
-      camTarget: new THREE.Vector3(0, 0, -2.5),
-      modelRotY: 0.08,
-      label:     'INFINITE EXPENSE',
-      subtext:   'Emerging into deep space beyond.'
+      camPos:    new THREE.Vector3(0.0, -0.02, -0.6),
+      camTarget: new THREE.Vector3(0, 0, -1.5),
+      modelRotY: 0.06
     }
   ];
 
@@ -166,8 +129,6 @@ function initHero3D() {
   const currentCamTarget = sections[0].camTarget.clone();
   let   currentModelRotY = 0;
 
-  const sectionLabel   = document.getElementById('section-label');
-  const sectionSubtext = document.getElementById('section-subtext');
   let lastSectionIndex = -1;
 
   function easeInOut(t: number): number {
@@ -175,13 +136,13 @@ function initHero3D() {
   }
 
   function updateFromScroll() {
-    const maxScroll    = Math.max(document.body.scrollHeight - window.innerHeight, 1);
-    const scrollFrac   = Math.min(window.scrollY / maxScroll, 1);
+    const maxScroll     = Math.max(document.body.scrollHeight - window.innerHeight, 1);
+    const scrollFrac    = Math.min(window.scrollY / maxScroll, 1);
     const totalSections = sections.length - 1;
-    const rawIndex     = scrollFrac * totalSections;
-    const fromIdx      = Math.floor(rawIndex);
-    const toIdx        = Math.min(fromIdx + 1, totalSections);
-    const t            = easeInOut(rawIndex - fromIdx);
+    const rawIndex      = scrollFrac * totalSections;
+    const fromIdx       = Math.floor(rawIndex);
+    const toIdx         = Math.min(fromIdx + 1, totalSections);
+    const t             = easeInOut(rawIndex - fromIdx);
 
     const from = sections[fromIdx];
     const to   = sections[toIdx];
@@ -190,11 +151,11 @@ function initHero3D() {
     currentCamTarget.lerpVectors(from.camTarget, to.camTarget, t);
     currentModelRotY = from.modelRotY + (to.modelRotY - from.modelRotY) * t;
 
-    // Dynamic Proximity Control: Scale down particle size & opacity on close zoom
+    // Particle scale & opacity adjustment
     if (activePointsMat) {
-      const closeProximity = Math.max((scrollFrac - 0.55) / 0.45, 0); // 0 at 55% scroll, 1 at 100% scroll
-      const sizeScale = 1.0 - closeProximity * 0.45;     // 1.0 -> 0.55
-      const opacityScale = 1.0 - closeProximity * 0.35;  // 1.0 -> 0.65
+      const closeProximity = Math.max((scrollFrac - 0.5) / 0.5, 0);
+      const sizeScale = 1.0 - closeProximity * 0.45;
+      const opacityScale = 1.0 - closeProximity * 0.35;
 
       activePointsMat.size = baseStarSize * sizeScale;
       activePointsMat.opacity = opacityScale;
@@ -205,20 +166,33 @@ function initHero3D() {
       }
     }
 
-    const nearestSection = Math.round(rawIndex);
-    if (nearestSection !== lastSectionIndex) {
-      lastSectionIndex = nearestSection;
-      const s = sections[nearestSection];
-      if (sectionLabel) {
-        sectionLabel.classList.remove('visible');
-        setTimeout(() => {
-          if (sectionLabel) {
-            sectionLabel.textContent = s.label;
-            sectionLabel.classList.add('visible');
-          }
-          if (sectionSubtext) sectionSubtext.textContent = s.subtext;
-        }, 80);
-      }
+    const activeIndex = Math.round(rawIndex);
+    if (activeIndex !== lastSectionIndex) {
+      lastSectionIndex = activeIndex;
+
+      // Update Section Overlays
+      document.querySelectorAll('.hero-card-step').forEach((el, idx) => {
+        if (idx === activeIndex) {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      });
+
+      // Update Navigation Dots
+      document.querySelectorAll('.section-dots .dot').forEach((dot, idx) => {
+        if (idx === activeIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    // Scroll progress bar
+    const scrollBar = document.getElementById('scroll-bar');
+    if (scrollBar) {
+      scrollBar.style.height = `${scrollFrac * 100}%`;
     }
   }
 
@@ -250,12 +224,10 @@ function initHero3D() {
           (gltf) => {
             heroModel = gltf.scene;
 
-            // Center the model
             const box    = new THREE.Box3().setFromObject(heroModel);
             const center = box.getCenter(new THREE.Vector3());
             heroModel.position.sub(center);
 
-            // Compute star particle base size
             const sphere   = box.getBoundingSphere(new THREE.Sphere());
             const clusterRadius = sphere.radius;
             baseStarSize = Math.max(clusterRadius * 0.0018, 0.012);
@@ -269,8 +241,6 @@ function initHero3D() {
 
                 if (posAttr && colorAttr) {
                   const count = posAttr.count;
-
-                  // Saturation boost & distant point brightness attenuation
                   const tempColor = new THREE.Color();
                   const hsl = { h: 0, s: 0, l: 0 };
 
@@ -280,13 +250,11 @@ function initHero3D() {
                     const z = posAttr.getZ(i);
                     const dist = Math.sqrt(x * x + y * y + z * z);
 
-                    // Boost saturation
                     tempColor.setRGB(colorAttr.getX(i), colorAttr.getY(i), colorAttr.getZ(i));
                     tempColor.getHSL(hsl);
                     hsl.s = Math.min(hsl.s * 1.6, 1.0);
                     tempColor.setHSL(hsl.h, hsl.s, hsl.l);
 
-                    // Radial attenuation for distant background stars (> 12 units)
                     if (dist > 12) {
                       const fade = Math.max(1.0 - (dist - 12) / 12.0, 0.12);
                       tempColor.r *= fade;
@@ -313,7 +281,6 @@ function initHero3D() {
                 mat.opacity         = 1.0;
                 mat.needsUpdate     = true;
 
-                // Soft ambient particle glow layer
                 const ambientGlowMat = new THREE.PointsMaterial({
                   map:             starSprite,
                   vertexColors:    true,
@@ -352,7 +319,7 @@ function initHero3D() {
           }
         );
       } else {
-        console.info('[Hero] hero.glb not found. Add it to /public/models/.');
+        console.info('[Hero] hero.glb not found.');
         if (loaderElement) loaderElement.classList.add('hidden');
       }
     })
@@ -374,11 +341,6 @@ function initHero3D() {
   let   smoothModelRotY = 0;
 
   updateFromScroll();
-  if (sectionLabel) {
-    sectionLabel.textContent = sections[0].label;
-    sectionLabel.classList.add('visible');
-  }
-  if (sectionSubtext) sectionSubtext.textContent = sections[0].subtext;
 
   // Render Loop
   function animate() {
@@ -401,9 +363,60 @@ function initHero3D() {
   animate();
 }
 
+// -----------------------------------------------------------------------
+// HERO COUNTDOWN TIMER LOGIC (Rich Icy Cyan / Indigo Theme)
+// -----------------------------------------------------------------------
+function initHeroCountdown() {
+  const targetDate = new Date('2026-09-15T09:00:00+05:30').getTime();
+
+  function updateDigit(id: string, newDigit: number) {
+    const cardEl = document.getElementById(id);
+    if (!cardEl) return;
+
+    const valEl = cardEl.querySelector('.flip-val');
+    const currentVal = cardEl.getAttribute('data-val');
+    const nextVal = String(newDigit);
+
+    if (currentVal !== nextVal) {
+      cardEl.setAttribute('data-val', nextVal);
+      if (valEl) valEl.textContent = nextVal;
+
+      cardEl.classList.remove('flip-anim');
+      void cardEl.offsetWidth; // Trigger reflow
+      cardEl.classList.add('flip-anim');
+    }
+  }
+
+  function updateTimer() {
+    const now = Date.now();
+    const diff = Math.max(targetDate - now, 0);
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    updateDigit('hero-days-t', Math.floor(d / 10));
+    updateDigit('hero-days-u', d % 10);
+
+    updateDigit('hero-hours-t', Math.floor(h / 10));
+    updateDigit('hero-hours-u', h % 10);
+
+    updateDigit('hero-mins-t', Math.floor(m / 10));
+    updateDigit('hero-mins-u', m % 10);
+
+    updateDigit('hero-secs-t', Math.floor(s / 10));
+    updateDigit('hero-secs-u', s % 10);
+  }
+
+  updateTimer();
+  setInterval(updateTimer, 1000);
+}
+
 import { initNavigation } from './navigation';
 
 document.addEventListener('DOMContentLoaded', () => {
   initHero3D();
   initNavigation();
+  initHeroCountdown();
 });
