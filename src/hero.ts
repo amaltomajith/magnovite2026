@@ -126,14 +126,29 @@ function initHero3D() {
   }
 
   /**
-   * Card visibility by proximity. Step 2 (Magnovite logo) has a wider radius
-   * so it lingers longer before the camera starts moving to step 3.
+   * Card visibility by index.
+   * Step 1 (Introducing) directly crossfades into Step 2 (Magnovite Logo)
+   * with zero gap/dip to empty space in between.
    */
-  const SHOW_RADIUS_DEFAULT = 0.52;
-  const SHOW_RADIUS_LOGO    = 0.82;  // logo reveal stays on longer
   function cardVis(rawIndex: number, cardIdx: number): number {
-    const dist   = Math.abs(rawIndex - cardIdx);
-    const radius = cardIdx === 2 ? SHOW_RADIUS_LOGO : SHOW_RADIUS_DEFAULT;
+    // Step 1: Introducing
+    if (cardIdx === 1) {
+      if (rawIndex < 0.45) return 0;
+      if (rawIndex <= 1.0) return smootherStep((rawIndex - 0.45) / 0.55);
+      if (rawIndex <= 2.0) return 1 - smootherStep(rawIndex - 1.0);
+      return 0;
+    }
+    // Step 2: Magnovite Logo (crossfades directly from Step 1, lingers past 2.0)
+    if (cardIdx === 2) {
+      if (rawIndex < 1.0) return 0;
+      if (rawIndex <= 2.0) return smootherStep(rawIndex - 1.0);
+      if (rawIndex <= 2.75) return 1 - smootherStep((rawIndex - 2.0) / 0.75);
+      return 0;
+    }
+
+    // Default proximity curve for all other step cards
+    const dist = Math.abs(rawIndex - cardIdx);
+    const radius = 0.55;
     if (dist >= radius) return 0;
     return smootherStep(1 - dist / radius);
   }
