@@ -157,17 +157,15 @@ function initHero3D() {
     return 1; // fully visible during plateau
   }
 
-  // Camera interpolation t: arrives at 'from' during pause, glides to 'to' after
+  // Camera interpolation t:
+  // Stays frozen at 'from' keyframe for entire pause zone [0, PAUSE_END],
+  // then smoothly glides toward 'to' in the exit phase [PAUSE_END, 1].
+  // No "glide in" — the previous step's exit already deposited us at 'from'.
   function cameraT(stepFrac: number): number {
-    if (stepFrac <= PAUSE_START) {
-      // glide in: t goes from 1→0 as stepFrac goes 0→PAUSE_START
-      return easeInOut(1 - stepFrac / PAUSE_START);
-    } else if (stepFrac <= PAUSE_END) {
-      return 0; // frozen at 'from' keyframe
-    } else {
-      // glide out toward 'to'
-      return easeInOut((stepFrac - PAUSE_END) / (1 - PAUSE_END));
+    if (stepFrac <= PAUSE_END) {
+      return 0; // frozen at 'from' — no reversal
     }
+    return easeInOut((stepFrac - PAUSE_END) / (1 - PAUSE_END));
   }
 
   function updateFromScroll() {
