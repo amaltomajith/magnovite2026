@@ -1654,13 +1654,13 @@ select.form-control option {
    ============================================================ */
 .hero-introducing-label {
   font-family: var(--font-heading);
-  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  font-size: clamp(0.75rem, 1.5vw, 0.95rem);
   font-weight: 800;
-  letter-spacing: 0.35em;
-  color: #f8fafc;
+  letter-spacing: 0.4em;
+  color: rgba(226, 232, 240, 0.7);
   text-transform: uppercase;
-  margin-bottom: 0.75rem;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  margin-bottom: 1.6rem;
+  text-shadow: 0 0 16px rgba(255, 255, 255, 0.3);
 }
 
 .hero-introducing-sub {

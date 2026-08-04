@@ -85,11 +85,10 @@ function initHero3D() {
   let mainStarPointsObj: THREE.Points | null = null;
 
   // -----------------------------------------------------------------------
-  // SCROLL-DRIVEN CAMERA KEYFRAMES (8 Discrete Steps across extended zoom)
+  // SCROLL-DRIVEN CAMERA KEYFRAMES (7 Discrete Steps across extended zoom)
   // -----------------------------------------------------------------------
   const sections = [
     { camPos: new THREE.Vector3(0, 0.35, 5.2),    camTarget: new THREE.Vector3(0, 0, 0),     modelRotY: 0 },
-    { camPos: new THREE.Vector3(0.08, 0.28, 4.2), camTarget: new THREE.Vector3(0, 0, 0),     modelRotY: -0.04 },
     { camPos: new THREE.Vector3(0.12, 0.2, 3.2),  camTarget: new THREE.Vector3(0, 0, 0),     modelRotY: -0.08 },
     { camPos: new THREE.Vector3(-0.1, 0.12, 2.0), camTarget: new THREE.Vector3(0, 0, 0),     modelRotY: 0.06 },
     { camPos: new THREE.Vector3(0.06, 0.06, 1.1), camTarget: new THREE.Vector3(0, 0, 0),     modelRotY: -0.04 },
@@ -122,13 +121,13 @@ function initHero3D() {
 
   /**
    * Card visibility based on proximity to each keyframe index.
-   * Step 2 (Magnovite Logo reveal) gets a wider radius so it lingers longer on scroll.
+   * Step 1 (Magnovite Logo reveal) gets a wider radius so it lingers longer on scroll.
    */
   const SHOW_RADIUS_DEFAULT = 0.52;  // all steps
-  const SHOW_RADIUS_STEP2   = 0.85;  // Magnovite reveal — stays on screen longer
+  const SHOW_RADIUS_STEP1   = 0.85;  // Magnovite reveal — stays on screen longer
   function cardVis(rawIndex: number, cardIdx: number): number {
     const dist   = Math.abs(rawIndex - cardIdx);
-    const radius = cardIdx === 2 ? SHOW_RADIUS_STEP2 : SHOW_RADIUS_DEFAULT;
+    const radius = cardIdx === 1 ? SHOW_RADIUS_STEP1 : SHOW_RADIUS_DEFAULT;
     if (dist >= radius) return 0;
     return smootherStep(1 - dist / radius);
   }
