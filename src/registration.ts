@@ -95,30 +95,13 @@ async function fetchFormSchema() {
   } catch (err) {
     console.error('[Registration Schema Fetch Error]', err);
 
-    // If fetch failed on a demo/mock endpoint URL, load fallback demo schema for testing
-    if (apiUrl.includes('DEMO') || apiUrl.includes('demo') || apiUrl.includes('localhost') || apiUrl.includes('example')) {
-      console.info('[Registration] Demo endpoint detected or network offline. Rendering demo schema for testing.');
-      formSchema = [
-        { key: "fullName", label: "Full Name", type: "text", required: true },
-        { key: "email", label: "Email Address", type: "email", required: true },
-        { key: "phone", label: "Phone Number", type: "tel", required: true },
-        { key: "college", label: "College / University Name", type: "text", required: true },
-        { key: "teamName", label: "Team Name", type: "text", required: false },
-        { key: "experienceLevel", label: "Experience Level", type: "select", required: true, options: ["Beginner", "Intermediate", "Advanced"] }
-      ];
-      statusContainer.style.display = 'none';
-      formWrapper.style.display = 'block';
-      renderDynamicForm();
-      return;
-    }
-
     statusContainer.innerHTML = `
-      <div class="status-error">
-        <p><strong>Failed to load registration fields.</strong></p>
-        <p style="font-size: 0.85rem; margin-top: 0.4rem; opacity: 0.8;">
-          ${(err as Error).message}
+      <div class="status-error" style="text-align: center; padding: 3rem 1.5rem;">
+        <p style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">No data record found.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.4rem;">
+          Unable to load registration fields for this event from Google Sheets (${escapeHtml((err as Error).message)}).
         </p>
-        <button id="schema-retry-btn" class="retry-btn">Try Again</button>
+        <button id="schema-retry-btn" class="retry-btn" style="margin-top: 1.25rem;">Try Again</button>
       </div>
     `;
 

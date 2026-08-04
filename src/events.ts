@@ -79,56 +79,6 @@ const EVENT_IMAGE_MAP: Record<string, string> = {
   'the-nexus': '/images/events/thenexus.jpg'
 };
 
-const DEFAULT_DEMO_EVENTS: EventItem[] = [
-  {
-    title: "The Nexus",
-    tagline: "Cross-disciplinary innovation summit integrating tech, art, and business.",
-    desc: "The flagship event of Magnovite '26. The Nexus brings together visionaries, developers, designers, and strategists to build groundbreaking multi-disciplinary solutions.",
-    category: "Innovation",
-    prize: "₹50,000",
-    date: "15-16 Sept 2026",
-    participants: "Teams of 2-4",
-    fee: "₹500 / team",
-    duration: "24 Hours",
-    rules: "Teams must present an original prototype | All code and design assets must be created during the summit | Pitch decks are limited to 7 minutes | Decisions by the judging panel are final",
-    registrationUrl: "https://script.google.com/macros/s/AKfycbz_DEMO_NEXUS_ENDPOINT/exec",
-    contacts: "Prof. Ananya Sen | +91 98765 43210 | ananya.sen@christuniversity.in ;; Rohan Kumar (Student Lead) | +91 91234 56789 | rohan.kumar@christuniversity.in"
-  },
-  { title: "Robo Soccer", tagline: "High-stakes autonomous & RC bot soccer battle", desc: "Build autonomous or remote-controlled bots to compete in a high-stakes soccer tournament.", category: "Robotics", prize: "₹25,000", date: "15 Sept 2026", fee: "₹300", rules: "Max 3 bots per team | Weight limit 5kg per bot", registrationUrl: "https://script.google.com/macros/s/AKfycbz_DEMO_ROBO_ENDPOINT/exec" },
-  { title: "Code Relay", tagline: "Speed coding relay challenge", desc: "Speed coding relay challenge where teams write modular code under pressure.", category: "Coding", prize: "₹15,000", date: "15 Sept 2026", duration: "3 Hours", fee: "₹200", rules: "Rotational coding every 20 minutes | No external AI assistants allowed", registrationUrl: "https://script.google.com/macros/s/AKfycbz_DEMO_CODE_ENDPOINT/exec" },
-  { title: "Reverse Coding", desc: "Analyze compiled binary behaviors and reverse engineer the source algorithm.", category: "Coding", prize: "₹10,000", date: "16 Sept 2026", fee: "₹150" },
-  { title: "Battle of the Bands", tagline: "Flagship live musical showdown", desc: "Flagship live musical showdown featuring top college rock and fusion bands.", category: "Music", prize: "₹40,000", date: "16 Sept 2026", duration: "4 Hours", fee: "₹600", rules: "Time limit 15 minutes per band | Live instruments only" },
-  { title: "Acapella", desc: "Vocal harmony competition showcasing pure unassisted choral arrangements.", category: "Music", prize: "₹20,000", date: "15 Sept 2026" },
-  { title: "CAD Design", desc: "3D parametric modeling challenge testing precision, speed, and structural integrity.", category: "Design", prize: "₹15,000", date: "15 Sept 2026" },
-  { title: "Spark Tank", tagline: "Startup pitch competition", desc: "Pitch startup innovations and prototype business models to top venture mentors.", category: "Entrepreneurship", prize: "₹30,000", date: "16 Sept 2026", rules: "5-minute pitch + 3-minute Q&A | Pitch deck mandatory" },
-  { title: "Chamber of Secrets", desc: "Mystery puzzle solving and cryptographic riddle challenge across campus.", category: "Gaming" },
-  { title: "Escape Room", desc: "Immersive escape room filled with logic puzzles, mechanical keys, and hidden clues.", category: "Gaming" },
-  { title: "Drone Obstacle", desc: "Navigate FPV drones through tight obstacle courses and precision air hoops.", category: "Robotics" },
-  { title: "Best Manager", desc: "Comprehensive leadership test assessing crisis management, strategy, and stress handling.", category: "Management" },
-  { title: "Street Dance Battle", desc: "High-energy street dance battle featuring hip-hop, popping, and breaking duels.", category: "Dance" },
-  { title: "Theme Dance", desc: "Choreographed group dance competition centering around futuristic storytelling themes.", category: "Dance" },
-  { title: "Non Theme Dance", desc: "Freeform group dance showcasing versatile choreography and synchronized rhythms.", category: "Dance" },
-  { title: "Street Play", desc: "Social awareness street play (Nukkad Natak) bringing loud, dramatic street theater.", category: "Drama" },
-  { title: "Argo Royale", desc: "Tactical esports tournament featuring intense battle royale action and squad play.", category: "Gaming" },
-  { title: "RC Car Challenge", desc: "Off-road remote control car racing through rugged terrain and steep inclines.", category: "Robotics" },
-  { title: "Byte and Board", desc: "Hardware assembly and micro-controller circuit building hackathon.", category: "Electronics" },
-  { title: "Smart City", desc: "Model sustainable urban infrastructure using IoT sensors, renewable grids, and AI.", category: "Innovation" },
-  { title: "Eco Forge", desc: "Sustainable green product engineering challenge using recycled materials.", category: "Innovation" },
-  { title: "Enigma", desc: "Cybersecurity capture-the-flag (CTF) testing vulnerability exploitation and forensics.", category: "Cybersecurity" },
-  { title: "Finance Pitch", desc: "Corporate financial modeling, portfolio risk analysis, and stock valuation challenge.", category: "Management" },
-  { title: "Marketing Challenge", desc: "Brand positioning, guerilla ad campaigns, and social media viral marketing pitch.", category: "Management" },
-  { title: "Human Resource", desc: "Corporate HR simulation resolving workplace disputes and organizational scaling.", category: "Management" },
-  { title: "Case Craft", desc: "Real-world business case study analysis and consulting deck presentation.", category: "Management" },
-  { title: "How I Met Your Killer", desc: "Murder mystery investigation analyzing crime scenes, forensic evidence, and alibis.", category: "Gaming" },
-  { title: "The Chase", desc: "Campus-wide treasure hunt with real-time GPS clues and speed checkpoints.", category: "Gaming" },
-  { title: "Pixel Perspective", desc: "Digital photography challenge focusing on macro aesthetics, lighting, and composition.", category: "Media" },
-  { title: "Frames Unboxed", desc: "Short filmmaking contest highlighting cinematic storytelling and video editing.", category: "Media" },
-  { title: "Archicraft", desc: "Architectural structure prototyping using minimalist building materials and geometry.", category: "Design" },
-  { title: "Pattern Play", desc: "UI/UX wireframing and design design-system creation sprint for web platforms.", category: "Design" },
-  { title: "Switch and Scene", desc: "Improv acting duel where performers switch characters dynamically mid-scene.", category: "Drama" },
-  { title: "Severance Cup", desc: "Inter-college debate championship on tech ethics, AI policy, and governance.", category: "Literary" }
-];
-
 async function fetchEvents() {
   const statusContainer = document.getElementById('events-status');
   const gridContainer = document.getElementById('events-grid');
@@ -143,12 +93,13 @@ async function fetchEvents() {
   `;
   gridContainer.innerHTML = '';
 
-  if (!API_URL || API_URL === "REPLACE_WITH_APPS_SCRIPT_URL") {
-    console.info('[Events Pipeline] Displaying comprehensive event dataset.');
-    cachedEvents = DEFAULT_DEMO_EVENTS;
-    statusContainer.innerHTML = '';
-    renderCategories();
-    renderEvents();
+  if (!API_URL) {
+    statusContainer.innerHTML = `
+      <div class="status-empty" style="text-align: center; padding: 3rem 1.5rem;">
+        <p style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">No data record found.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">API URL endpoint is not configured.</p>
+      </div>
+    `;
     return;
   }
 
@@ -163,16 +114,34 @@ async function fetchEvents() {
       throw new Error("Invalid response format: Expected JSON array of events.");
     }
 
-    cachedEvents = data.length > 0 ? data : DEFAULT_DEMO_EVENTS;
+    if (data.length === 0) {
+      cachedEvents = [];
+      gridContainer.innerHTML = '';
+      statusContainer.innerHTML = `
+        <div class="status-empty" style="text-align: center; padding: 3rem 1.5rem;">
+          <p style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">No data record found.</p>
+          <p style="color: var(--text-secondary); font-size: 0.9rem;">There are currently no events listed in the connected Google Sheet.</p>
+        </div>
+      `;
+      return;
+    }
+
+    cachedEvents = data;
     statusContainer.innerHTML = '';
     renderCategories();
     renderEvents();
   } catch (error) {
     console.error('[Events Fetch Error]', error);
-    cachedEvents = DEFAULT_DEMO_EVENTS;
-    statusContainer.innerHTML = '';
-    renderCategories();
-    renderEvents();
+    cachedEvents = [];
+    gridContainer.innerHTML = '';
+    statusContainer.innerHTML = `
+      <div class="status-error" style="text-align: center; padding: 3rem 1.5rem;">
+        <p style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">No data record found.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.4rem;">
+          Unable to retrieve events from Google Sheets (${escapeHtml((error as Error).message)}).
+        </p>
+      </div>
+    `;
   }
 }
 
@@ -232,8 +201,9 @@ function renderEvents() {
   if (filteredEvents.length === 0) {
     gridContainer.innerHTML = '';
     statusContainer.innerHTML = `
-      <div class="status-empty">
-        <p>No events match your current filter or search term.</p>
+      <div class="status-empty" style="text-align: center; padding: 3rem 1.5rem;">
+        <p style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">No data record found.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem;">No events match your current category filter or search query.</p>
       </div>
     `;
     return;
