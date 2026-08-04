@@ -4,9 +4,6 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
-// -----------------------------------------------------------------------
-// Soft radial glow sprite for star particles
-// -----------------------------------------------------------------------
 function createStarSprite(): THREE.Texture {
   const size = 128;
   const canvas = document.createElement('canvas');
@@ -37,10 +34,10 @@ function initHero3D() {
 
   const scene = new THREE.Scene();
   
-  // 1. VOLUMETRIC FOG & LIFTED BLUE-GREY SPACE BACKGROUND
-  const spaceBgColor = 0x0a0d17;
+  // Luxury Deep Space Background & Fog
+  const spaceBgColor = 0x080a12;
   scene.background = new THREE.Color(spaceBgColor);
-  scene.fog = new THREE.FogExp2(0x121728, 0.007);
+  scene.fog = new THREE.FogExp2(0x101422, 0.007);
 
   const camera = new THREE.PerspectiveCamera(
     55,
@@ -61,23 +58,21 @@ function initHero3D() {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 0.95;
 
-  // BLOOM POST-PROCESSING
   const composer = new EffectComposer(renderer);
   const renderPass = new RenderPass(scene, camera);
   composer.addPass(renderPass);
 
   const bloomPass = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
-    0.45, // strength
+    0.4, // strength
     0.35, // radius
     0.80  // threshold
   );
   composer.addPass(bloomPass);
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.35);
   scene.add(ambientLight);
 
-  // Reduced Motion
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   let isReducedMotion = motionQuery.matches;
   motionQuery.addEventListener('change', (e) => { isReducedMotion = e.matches; });
@@ -90,7 +85,7 @@ function initHero3D() {
   let mainStarPointsObj: THREE.Points | null = null;
 
   // -----------------------------------------------------------------------
-  // SCROLL-DRIVEN CAMERA KEYFRAMES (Starts at half unveiling, smoother zoom)
+  // SCROLL-DRIVEN CAMERA KEYFRAMES (6 Discrete Steps with Hold Pauses)
   // -----------------------------------------------------------------------
   const sections = [
     {
@@ -142,7 +137,16 @@ function initHero3D() {
     const rawIndex      = scrollFrac * totalSections;
     const fromIdx       = Math.floor(rawIndex);
     const toIdx         = Math.min(fromIdx + 1, totalSections);
-    const t             = easeInOut(rawIndex - fromIdx);
+    const stepFrac      = rawIndex - fromIdx;
+
+    // SECTION PAUSE LOGIC:
+    // Holds position for the first 65% of the section window, then glides smoothly in the remaining 35%
+    let t = 0;
+    if (stepFrac > 0.65) {
+      t = easeInOut((stepFrac - 0.65) / 0.35);
+    } else {
+      t = 0; // Paused at section!
+    }
 
     const from = sections[fromIdx];
     const to   = sections[toIdx];
@@ -151,7 +155,6 @@ function initHero3D() {
     currentCamTarget.lerpVectors(from.camTarget, to.camTarget, t);
     currentModelRotY = from.modelRotY + (to.modelRotY - from.modelRotY) * t;
 
-    // Particle scale & opacity adjustment
     if (activePointsMat) {
       const closeProximity = Math.max((scrollFrac - 0.5) / 0.5, 0);
       const sizeScale = 1.0 - closeProximity * 0.45;
@@ -170,7 +173,6 @@ function initHero3D() {
     if (activeIndex !== lastSectionIndex) {
       lastSectionIndex = activeIndex;
 
-      // Update Section Overlays
       document.querySelectorAll('.hero-card-step').forEach((el, idx) => {
         if (idx === activeIndex) {
           el.classList.add('active');
@@ -179,7 +181,6 @@ function initHero3D() {
         }
       });
 
-      // Update Navigation Dots
       document.querySelectorAll('.section-dots .dot').forEach((dot, idx) => {
         if (idx === activeIndex) {
           dot.classList.add('active');
@@ -189,7 +190,6 @@ function initHero3D() {
       });
     }
 
-    // Scroll progress bar
     const scrollBar = document.getElementById('scroll-bar');
     if (scrollBar) {
       scrollBar.style.height = `${scrollFrac * 100}%`;
@@ -198,7 +198,6 @@ function initHero3D() {
 
   window.addEventListener('scroll', updateFromScroll, { passive: true });
 
-  // Loading Manager
   const loadingManager = new THREE.LoadingManager();
   loadingManager.onProgress = (_url, loaded, total) => {
     if (progressElement) progressElement.textContent = `${Math.round((loaded / total) * 100)}%`;
@@ -325,7 +324,6 @@ function initHero3D() {
     })
     .catch(() => { if (loaderElement) loaderElement.classList.add('hidden'); });
 
-  // Resize
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -335,14 +333,12 @@ function initHero3D() {
   }
   window.addEventListener('resize', onWindowResize);
 
-  // Smooth camera state
   const smoothCamPos    = currentCamPos.clone();
   const smoothCamTarget = currentCamTarget.clone();
   let   smoothModelRotY = 0;
 
   updateFromScroll();
 
-  // Render Loop
   function animate() {
     requestAnimationFrame(animate);
 
@@ -364,7 +360,7 @@ function initHero3D() {
 }
 
 // -----------------------------------------------------------------------
-// HERO COUNTDOWN TIMER LOGIC (Rich Icy Cyan / Indigo Theme)
+// HERO COUNTDOWN TIMER LOGIC (Pure Platinum & Liquid Silver Palette)
 // -----------------------------------------------------------------------
 function initHeroCountdown() {
   const targetDate = new Date('2026-09-15T09:00:00+05:30').getTime();
@@ -382,7 +378,7 @@ function initHeroCountdown() {
       if (valEl) valEl.textContent = nextVal;
 
       cardEl.classList.remove('flip-anim');
-      void cardEl.offsetWidth; // Trigger reflow
+      void cardEl.offsetWidth;
       cardEl.classList.add('flip-anim');
     }
   }
