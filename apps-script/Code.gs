@@ -150,7 +150,8 @@ function getEventsList() {
       fee: getVal(7),
       duration: getVal(8),
       rules: getVal(9),
-      registrationUrl: getVal(10)
+      registrationUrl: getVal(10),
+      contacts: getVal(11)
     });
   }
 

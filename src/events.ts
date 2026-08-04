@@ -13,6 +13,7 @@ interface EventItem {
   duration?: string;
   rules?: string;
   registrationUrl?: string;
+  contacts?: string;
   [key: string]: any;
 }
 
@@ -90,7 +91,8 @@ const DEFAULT_DEMO_EVENTS: EventItem[] = [
     fee: "₹500 / team",
     duration: "24 Hours",
     rules: "Teams must present an original prototype | All code and design assets must be created during the summit | Pitch decks are limited to 7 minutes | Decisions by the judging panel are final",
-    registrationUrl: "https://script.google.com/macros/s/AKfycbz_DEMO_NEXUS_ENDPOINT/exec"
+    registrationUrl: "https://script.google.com/macros/s/AKfycbz_DEMO_NEXUS_ENDPOINT/exec",
+    contacts: "Prof. Ananya Sen | +91 98765 43210 | ananya.sen@christuniversity.in ;; Rohan Kumar (Student Lead) | +91 91234 56789 | rohan.kumar@christuniversity.in"
   },
   { title: "Robo Soccer", tagline: "High-stakes autonomous & RC bot soccer battle", desc: "Build autonomous or remote-controlled bots to compete in a high-stakes soccer tournament.", category: "Robotics", prize: "₹25,000", date: "15 Sept 2026", fee: "₹300", rules: "Max 3 bots per team | Weight limit 5kg per bot", registrationUrl: "https://script.google.com/macros/s/AKfycbz_DEMO_ROBO_ENDPOINT/exec" },
   { title: "Code Relay", tagline: "Speed coding relay challenge", desc: "Speed coding relay challenge where teams write modular code under pressure.", category: "Coding", prize: "₹15,000", date: "15 Sept 2026", duration: "3 Hours", fee: "₹200", rules: "Rotational coding every 20 minutes | No external AI assistants allowed", registrationUrl: "https://script.google.com/macros/s/AKfycbz_DEMO_CODE_ENDPOINT/exec" },
@@ -294,6 +296,7 @@ export function openEventModal(event: EventItem) {
   const duration = (event.duration || event.Duration || '').trim();
   const rulesRaw = (event.rules || event.Rules || '').trim();
   const regUrl = (event.registrationUrl || event.RegistrationUrl || '').trim();
+  const contactsRaw = (event.contacts || event.Contacts || '').trim();
 
   // Info Grid Items (Only include non-empty values!)
   const infoItems: { label: string; val: string }[] = [];
@@ -351,7 +354,46 @@ export function openEventModal(event: EventItem) {
     }
   }
 
-  // Register Button HTML
+  // Contacts Section HTML (Split on " ;; " and internal " | ")
+  let contactsHtml = '';
+  if (contactsRaw) {
+    const contactEntries = contactsRaw
+      .split(';;')
+      .map((c) => c.trim())
+      .filter(Boolean);
+
+    if (contactEntries.length > 0) {
+      const cardsHtml = contactEntries
+        .map((contactStr) => {
+          const parts = contactStr.split('|').map((p) => p.trim());
+          const name = parts[0] || '';
+          const phone = parts[1] || '';
+          const email = parts[2] || '';
+
+          const cleanPhone = phone.replace(/[^0-9+]/g, '');
+
+          return `
+            <div class="contact-card">
+              <div class="contact-name">${escapeHtml(name)}</div>
+              ${phone ? `<a href="tel:${escapeHtml(cleanPhone)}" class="contact-link contact-phone">📞 ${escapeHtml(phone)}</a>` : ''}
+              ${email ? `<a href="mailto:${escapeHtml(email)}" class="contact-link contact-email">✉️ ${escapeHtml(email)}</a>` : ''}
+            </div>
+          `;
+        })
+        .join('');
+
+      contactsHtml = `
+        <div class="modal-contacts-section">
+          <h4 class="modal-contacts-title">Event Organizers & Contacts</h4>
+          <div class="modal-contacts-grid">
+            ${cardsHtml}
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // Register Button HTML (EXACTLY TWO STATES: Active Link or Disabled "Registration opens soon")
   let registerBtnHtml = '';
   if (regUrl) {
     const targetUrl = `/registration.html?api=${encodeURIComponent(regUrl)}`;
@@ -380,6 +422,7 @@ export function openEventModal(event: EventItem) {
     ${prizeCardHtml}
     ${infoGridHtml}
     ${rulesHtml}
+    ${contactsHtml}
     ${registerBtnHtml}
   `;
 
