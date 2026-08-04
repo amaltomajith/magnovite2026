@@ -7,7 +7,7 @@
     <meta name="description" content="Choreographed group dance with futuristic themes" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
@@ -97,86 +97,104 @@
     </div>
 
     <!-- Main Event Details Content -->
-    <main class="events-section container" style="padding-top: 7rem; padding-bottom: 5rem;">
-      <div style="max-width: 900px; margin: 0 auto;">
+    <main class="events-section container" style="padding-top: 7rem; padding-bottom: 6rem;">
+      <div style="max-width: 960px; margin: 0 auto;">
         
-        <!-- Back Link -->
-        <a href="/events.html" class="btn-primary" style="display: inline-flex; width: auto; padding: 0.6rem 1.25rem; font-size: 0.9rem; text-decoration: none; margin-bottom: 1.5rem;">
-          ← Back to Events Grid
-        </a>
-
-        <!-- Category Chip & Title -->
-        <div style="margin-bottom: 1.25rem;">
-          <span class="card-badge">Dance</span>
-          <h1 class="hero-title" style="font-size: clamp(2rem, 4vw, 3.2rem); margin: 0.5rem 0 0.4rem;">Theme Dance 🎭💃</h1>
-          <p class="modal-event-tagline" style="font-size: 1.15rem; color: #ff9d5c; font-weight: 500;">Choreographed group dance with futuristic themes</p>
+        <!-- Back Link Button -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+          <a href="/events.html" class="btn-primary" style="display: inline-flex; width: auto; padding: 0.65rem 1.4rem; font-size: 0.88rem; text-decoration: none; border-radius: 999px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(10px);">
+            ← Back to Events Grid
+          </a>
+          
+          <!-- TODO: paste Google Form link here -->
+          <a href="#" class="btn-primary modal-register-btn" data-register-link="PENDING" style="display: inline-flex; width: auto; padding: 0.65rem 1.6rem; font-size: 0.92rem; text-decoration: none; border-radius: 999px;">
+            <span>Register Now</span> ↗
+          </a>
         </div>
 
-        <!-- Hero Image -->
-        <div style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.12); margin-bottom: 2rem; background: #0f121d;">
-          <img src="/images/events/theme-dance.jpg" alt="Theme Dance 🎭💃" style="width: 100%; height: auto; max-height: 420px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/images/shaanrahman.jpg';" />
+        <!-- Header Section -->
+        <div style="margin-bottom: 2rem; background: rgba(14, 18, 28, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 2rem 2.25rem; backdrop-filter: blur(16px);">
+          <span class="card-badge" style="font-size: 0.82rem; padding: 0.4rem 0.9rem; letter-spacing: 0.12em; background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.1)); border: 1px solid rgba(249, 115, 22, 0.35); text-transform: uppercase;">Dance</span>
+          <h1 class="hero-title" style="font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; color: #ffffff; letter-spacing: -0.02em; margin: 0.85rem 0 0.5rem; text-shadow: 0 4px 24px rgba(0,0,0,0.6);">Theme Dance 🎭💃</h1>
+          <p class="modal-event-tagline" style="font-size: 1.2rem; color: #ff9d5c; font-weight: 500; line-height: 1.4; margin: 0;">Choreographed group dance with futuristic themes</p>
         </div>
 
-        <!-- Description Card -->
-        <div class="modal-rules-section" style="margin-bottom: 1.75rem;">
-          <h3 style="font-family: var(--font-heading); color: #fff; margin-bottom: 0.75rem;">Event Overview</h3>
-          <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1rem;">Choreographed group dance competition centering around futuristic storytelling themes. Combine synchronized formations, theatrical props, and high-impact choreography.</p>
+        <!-- Showcase Hero Image -->
+        <div style="border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14); margin-bottom: 2.25rem; background: #0f121d; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(249, 115, 22, 0.15); position: relative;">
+          <img src="/images/events/themedance.jpg" alt="Theme Dance 🎭💃" style="width: 100%; height: auto; max-height: 480px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/images/shaanrahman.jpg';" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(6, 8, 14, 0.8) 100%); pointer-events: none;"></div>
         </div>
 
-        <!-- Prize Pool Card -->
-        <div class="modal-prize-card" style="margin-bottom: 1.75rem;">
-          <span class="modal-prize-label">TOTAL PRIZE POOL</span>
-          <div class="modal-prize-amount">🏆 ₹45,000</div>
+        <!-- Overview Card -->
+        <div class="modal-rules-section" style="background: rgba(14, 18, 28, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 2rem 2.25rem; margin-bottom: 2rem;">
+          <h2 style="font-family: var(--font-heading); font-size: 1.35rem; color: #fff; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.6rem;">📌 Event Overview</h2>
+          <p style="color: var(--text-secondary); line-height: 1.75; font-size: 1.02rem; margin: 0;">Choreographed group dance competition centering around futuristic storytelling themes. Combine synchronized formations, theatrical props, and high-impact choreography.</p>
         </div>
 
-        <!-- Info Grid -->
-        <div class="modal-info-grid" style="margin-bottom: 1.75rem;">
-          <div class="info-grid-item">
-            <span class="info-item-label">Date</span>
-            <span class="info-item-val">16 Sept 2026</span>
+        <!-- Prize Pool Stat Card -->
+        <div class="modal-prize-card" style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.16) 0%, rgba(234, 88, 12, 0.06) 100%); border: 1px solid rgba(249, 115, 22, 0.4); border-radius: 16px; padding: 1.5rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 30px rgba(249, 115, 22, 0.15);">
+          <span class="modal-prize-label" style="font-size: 0.82rem; letter-spacing: 0.15em; color: #ff9d5c; font-weight: 800; text-transform: uppercase;">TOTAL PRIZE POOL</span>
+          <div class="modal-prize-amount" style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 16px rgba(249, 115, 22, 0.5);">🏆 ₹45,000</div>
+        </div>
+
+        <!-- Info Grid (4 Metric Cards) -->
+        <div class="modal-info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
+          <div class="info-grid-item" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 1.1rem 1.25rem;">
+            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">📅 Date</span>
+            <span class="info-item-val" style="color: #fff; font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; display: block;">16 Sept 2026</span>
           </div>
-          <div class="info-grid-item">
-            <span class="info-item-label">Registration Fee</span>
-            <span class="info-item-val">₹700</span>
+          <div class="info-grid-item" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 1.1rem 1.25rem;">
+            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">💰 Registration Fee</span>
+            <span class="info-item-val" style="color: #fff; font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; display: block;">₹700</span>
           </div>
-          <div class="info-grid-item">
-            <span class="info-item-label">Team Size</span>
-            <span class="info-item-val">6-16 Members</span>
+          <div class="info-grid-item" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 1.1rem 1.25rem;">
+            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">👥 Team Size</span>
+            <span class="info-item-val" style="color: #fff; font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; display: block;">6-16 Members</span>
           </div>
-          <div class="info-grid-item">
-            <span class="info-item-label">Format / Rounds</span>
-            <span class="info-item-val">1 Main Stage Showcase (10 Mins)</span>
+          <div class="info-grid-item" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 1.1rem 1.25rem;">
+            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">🎯 Format / Rounds</span>
+            <span class="info-item-val" style="color: #fff; font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; display: block;">1 Main Stage Showcase (10 Mins)</span>
+          </div>
+        </div>
+
+        <!-- Round Structure -->
+        <div class="modal-rules-section" style="background: rgba(14, 18, 28, 0.75); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 2rem 2.25rem; margin-bottom: 2rem;">
+          <h3 class="modal-rules-title" style="font-size: 1.2rem; margin-bottom: 1.25rem; color: #fff;">Round Structure</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.07); padding: 1.1rem 1.25rem; border-radius: 14px;"><strong style="color: #ff9d5c; font-size: 1rem; display: block; margin-bottom: 0.35rem;">Main Stage Production</strong><p style="color: #cfcfcf; font-size: 0.88rem; margin: 0; line-height: 1.5;">10-minute theatrical dance production with lighting and prop integration.</p></div>
           </div>
         </div>
 
         <!-- Rules & Guidelines -->
-        <div class="modal-rules-section" style="margin-bottom: 1.75rem;">
-          <h3 class="modal-rules-title" style="font-size: 1.1rem; margin-bottom: 1rem;">Rules & Guidelines</h3>
+        <div class="modal-rules-section" style="background: rgba(14, 18, 28, 0.75); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 2rem 2.25rem; margin-bottom: 2rem;">
+          <h3 class="modal-rules-title" style="font-size: 1.2rem; margin-bottom: 1.25rem; color: #fff;">Rules & Guidelines</h3>
           <ul class="modal-rules-list">
             <li>Time limit: 8-10 minutes performance duration.</li><li>Theme concept note must be submitted prior to performance.</li><li>Props allowed; use of open fire, liquids, or glass is strictly banned.</li>
           </ul>
         </div>
 
         <!-- FAQ Section -->
-        <div class="modal-rules-section" style="margin-bottom: 1.75rem;">
-          <h3 class="modal-rules-title" style="font-size: 1.1rem; margin-bottom: 1rem;">Frequently Asked Questions</h3>
+        <div class="modal-rules-section" style="background: rgba(14, 18, 28, 0.75); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 2rem 2.25rem; margin-bottom: 2rem;">
+          <h3 class="modal-rules-title" style="font-size: 1.2rem; margin-bottom: 1.25rem; color: #fff;">Frequently Asked Questions</h3>
           <div style="display: flex; flex-direction: column; gap: 1rem;">
-            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 0.85rem 1rem; border-radius: var(--radius-sm);"><strong style="color: #fff; font-size: 0.95rem;">Q: What is the stage dimension?</strong><p style="color: var(--text-secondary); margin-top: 0.35rem; font-size: 0.88rem;">A: Main stage area is 40ft x 30ft with professional lighting grid.</p></div>
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 1rem 1.25rem; border-radius: 12px;"><strong style="color: #fff; font-size: 0.95rem;">Q: What is the stage dimension?</strong><p style="color: var(--text-secondary); margin-top: 0.35rem; font-size: 0.88rem; margin-bottom: 0;">A: Main stage area is 40ft x 30ft with professional lighting grid.</p></div>
           </div>
         </div>
 
-        <!-- Contact Details -->
-        <div class="modal-contacts-section" style="margin-bottom: 2.25rem;">
-          <h3 class="modal-contacts-title" style="font-size: 1.1rem; margin-bottom: 1rem;">Event Contacts & Coordinators</h3>
+        <!-- Contact Details Grid -->
+        <div class="modal-contacts-section" style="background: rgba(14, 18, 28, 0.75); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 2rem 2.25rem; margin-bottom: 2.5rem;">
+          <h3 class="modal-contacts-title" style="font-size: 1.2rem; margin-bottom: 1.25rem; color: #fff;">Event Contacts & Coordinators</h3>
           <div class="modal-contacts-grid">
-            <div class="contact-card"><div class="contact-name">Sneha Paul (Dance Lead)</div><a href="tel:+91 98765 00006" class="contact-link contact-phone">📞 +91 98765 00006</a><a href="mailto:sneha.p@christuniversity.in" class="contact-link contact-email">✉️ sneha.p@christuniversity.in</a></div>
+            <div class="contact-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1rem 1.25rem;"><div class="contact-name" style="font-weight: 700; color: #fff; margin-bottom: 0.35rem;">Sneha Paul (Dance Lead)</div><a href="tel:+91 98765 00006" class="contact-link contact-phone">📞 +91 98765 00006</a><br/><a href="mailto:sneha.p@christuniversity.in" class="contact-link contact-email">✉️ sneha.p@christuniversity.in</a></div>
           </div>
         </div>
 
         <!-- REGISTER NOW BUTTON (Step 4 Requirement) -->
         <!-- TODO: paste Google Form link here -->
-        <div style="text-align: center;">
-          <a href="#" class="btn-primary modal-register-btn" data-register-link="PENDING" style="display: inline-flex; width: 100%; justify-content: center; padding: 1rem 2rem; font-size: 1.05rem; text-decoration: none;">
+        <div style="text-align: center; background: rgba(14, 18, 28, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 2.25rem; backdrop-filter: blur(16px);">
+          <h3 style="color: #fff; font-family: var(--font-heading); margin-bottom: 0.5rem; font-size: 1.3rem;">Ready to Compete?</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">Secure your spot in Theme Dance 🎭💃 before team registrations close.</p>
+          <a href="#" class="btn-primary modal-register-btn" data-register-link="PENDING" style="display: inline-flex; width: 100%; justify-content: center; padding: 1.1rem 2.5rem; font-size: 1.1rem; text-decoration: none; border-radius: 999px; box-shadow: 0 10px 30px rgba(249, 115, 22, 0.35);">
             <span>Register Now</span> ↗
           </a>
         </div>

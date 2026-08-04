@@ -12,6 +12,10 @@ events_data = [
         'fee': '₹300',
         'team_size': '3-5 Members',
         'rounds': '2 Rounds (Group Stage + Knockout Finale)',
+        'round_details': [
+            {'title': 'Round 1: Group Stage League', 'desc': 'Matches consist of two halves of 4 minutes each. Teams are scored based on goal differential and total wins.'},
+            {'title': 'Round 2: Sudden Death Knockout', 'desc': 'The top 4 teams advance to high-stakes knockout semifinals and final match to claim the championship.'}
+        ],
         'rules': [
             'Bots must fit within the specified dimensions (30cm x 30cm x 30cm) and weight limit (5kg).',
             'Both wired and wireless remote-controlled or autonomous bots are permitted.',
@@ -39,6 +43,10 @@ events_data = [
         'fee': '₹200',
         'team_size': '2-4 Members',
         'rounds': '3 Rounds (Sprint, Modular Relay, Speed Fix)',
+        'round_details': [
+            {'title': 'Round 1: Speed Sprint', 'desc': 'Rapid algorithm challenge testing individual code speed.'},
+            {'title': 'Round 2: Blind Modular Relay', 'desc': 'Teammates rotate seats every 15 minutes to continue building on their partner\'s live codebase without talking.'}
+        ],
         'rules': [
             'Teams rotate programmers every 15 minutes upon signal.',
             'No verbal or non-verbal communication is allowed during rotation swaps.',
@@ -66,6 +74,10 @@ events_data = [
         'fee': '₹150',
         'team_size': 'Individual / Duo',
         'rounds': '2 Rounds (Prelims + Final Challenge)',
+        'round_details': [
+            {'title': 'Round 1: Pattern Recognition', 'desc': 'Decode basic input-output transformations within 45 minutes.'},
+            {'title': 'Round 2: Black-Box Algorithm Reconstruction', 'desc': 'Reconstruct complex obfuscated binary logic within 90 minutes.'}
+        ],
         'rules': [
             'Participants are provided only executable binaries and input-output test patterns.',
             'Source code must be rewritten to match exact input-output behavior for hidden edge cases.',
@@ -84,12 +96,15 @@ events_data = [
         'title': 'Battle of the Bands 🎸🥁',
         'category': 'Music',
         'tagline': 'Flagship live musical showdown for college bands',
-        'desc': 'Flagship live musical showdown featuring top college rock, metal, indie, and fusion bands. Compete on the big stage with full sound setups, lighting, and energetic audience vibes.',
+        'desc': 'Flagship live musical showdown featuring top college rock, metal, indie, and fusion bands. Compete on the main stage with full professional sound setups, lighting, and energetic audience vibes.',
         'prize': '₹40,000',
         'date': '16 Sept 2026',
         'fee': '₹600',
         'team_size': '3-8 Members',
         'rounds': '1 Main Stage Performance (15 Mins Slot)',
+        'round_details': [
+            {'title': 'Main Stage Showdown', 'desc': 'Live performance slot featuring 15 minutes of non-stop energy, judge evaluation, and audience applause.'}
+        ],
         'rules': [
             'Performance slot is strictly limited to 15 minutes including setup and sound check.',
             'Bands must perform at least one original composition or creative arrangement.',
@@ -114,6 +129,9 @@ events_data = [
         'fee': '₹400',
         'team_size': '4-12 Members',
         'rounds': '1 Stage Performance (8 Mins)',
+        'round_details': [
+            {'title': 'Choral Harmony Showcase', 'desc': '8-minute vocal performance evaluated on pitch, rhythm, dynamics, and arrangement complexity.'}
+        ],
         'rules': [
             'Zero musical instruments permitted; all sounds must be produced vocally.',
             'Time limit: 8 minutes stage time.',
@@ -137,6 +155,10 @@ events_data = [
         'fee': '₹200',
         'team_size': 'Individual',
         'rounds': '2 Rounds (Part Modeling + Assembly)',
+        'round_details': [
+            {'title': 'Round 1: Precision Part Modeling', 'desc': 'Create 3D parametric components from 2D draft blueprints within 60 minutes.'},
+            {'title': 'Round 2: Mechanical Assembly Sprint', 'desc': 'Assemble multi-part systems and render motion simulations within 90 minutes.'}
+        ],
         'rules': [
             'Approved CAD software: SolidWorks, Fusion 360, AutoCAD, CATIA.',
             'Models must strictly adhere to geometric dimensioning and tolerancing (GD&T) specifications.',
@@ -160,6 +182,10 @@ events_data = [
         'fee': '₹400',
         'team_size': '2-4 Members',
         'rounds': '2 Rounds (Elevator Pitch + Deep Dive Q&A)',
+        'round_details': [
+            {'title': 'Round 1: 3-Minute Elevator Pitch', 'desc': 'Present high-level value proposition and market problem statement to preliminary judges.'},
+            {'title': 'Round 2: Boardroom VC Pitch', 'desc': 'Full 10-slide deck presentation followed by intense investor Q&A.'}
+        ],
         'rules': [
             'Pitch deck maximum 10 slides.',
             'Time limit: 6 minutes presentation + 4 minutes investor Q&A.',
@@ -183,6 +209,10 @@ events_data = [
         'fee': '₹200',
         'team_size': '2-3 Members',
         'rounds': '3 Timed Secret Stages',
+        'round_details': [
+            {'title': 'Stage 1: Cryptic Ciphers', 'desc': 'Solve digital riddles to unlock physical checkpoint coordinates.'},
+            {'title': 'Stage 2: Physical Locks', 'desc': 'Manipulate mechanical locks and hidden artifacts across campus.'}
+        ],
         'rules': [
             'Teams must solve clues sequentially to receive stage coordinates.',
             'Use of external physical force or tampering with campus property leads to instant ban.',
@@ -206,6 +236,9 @@ events_data = [
         'fee': '₹250',
         'team_size': '2-4 Members',
         'rounds': '1 Timed Room Run (30 Mins)',
+        'round_details': [
+            {'title': '30-Minute Live Escape', 'desc': 'Navigate locked boxes, UV light clues, and mechanical switches to find the key.'}
+        ],
         'rules': [
             'Maximum time allowed inside room: 30 minutes.',
             'Hints cost 2 minutes penalty per request.',
@@ -229,6 +262,10 @@ events_data = [
         'fee': '₹500',
         'team_size': '1-3 Members',
         'rounds': '2 Rounds (Time Trial + Obstacle Final)',
+        'round_details': [
+            {'title': 'Round 1: Speed Time Trial', 'desc': 'Single lap speed trial through open slalom gates.'},
+            {'title': 'Round 2: Precision Obstacle Course', 'desc': 'Complete complex 3D hoops, tunnel dives, and tight landing pads.'}
+        ],
         'rules': [
             'Drone propeller guards are mandatory.',
             'Frequency checks are required before powering on transmitters.',
@@ -252,6 +289,10 @@ events_data = [
         'fee': '₹350',
         'team_size': 'Individual',
         'rounds': '5 Intensive Stages over 2 Days',
+        'round_details': [
+            {'title': 'Stage 1-2: Psychometric & Corporate Stress Test', 'desc': 'Written analytical evaluations under strict time limits.'},
+            {'title': 'Stage 3-5: Press Conference & Crisis Simulation', 'desc': 'Handle hostile media questions and present turnarounds.'}
+        ],
         'rules': [
             'Individual participation only.',
             'Formal business attire mandatory during all simulation rounds.',
@@ -275,6 +316,10 @@ events_data = [
         'fee': '₹400',
         'team_size': '1-2 Members',
         'rounds': 'Cypher Qualifier + Knockout Battles',
+        'round_details': [
+            {'title': 'Cypher Round', 'desc': 'Open cypher evaluation where judges select top 16 dancers.'},
+            {'title': '1v1 Battle Bracket', 'desc': 'Head-to-head duels with live DJ track selection.'}
+        ],
         'rules': [
             'Random DJ music track selection for each round.',
             'Each dancer gets 2 rounds of 45 seconds per duel.',
@@ -298,6 +343,9 @@ events_data = [
         'fee': '₹700',
         'team_size': '6-16 Members',
         'rounds': '1 Main Stage Showcase (10 Mins)',
+        'round_details': [
+            {'title': 'Main Stage Production', 'desc': '10-minute theatrical dance production with lighting and prop integration.'}
+        ],
         'rules': [
             'Time limit: 8-10 minutes performance duration.',
             'Theme concept note must be submitted prior to performance.',
@@ -321,6 +369,9 @@ events_data = [
         'fee': '₹600',
         'team_size': '6-16 Members',
         'rounds': '1 Stage Showcase (8 Mins)',
+        'round_details': [
+            {'title': 'High Energy Dance Showcase', 'desc': '8-minute fusion dance showcase focusing on sync and rhythm.'}
+        ],
         'rules': [
             'Time limit: 6-8 minutes.',
             'Any dance style or fusion mix permitted.',
@@ -344,6 +395,9 @@ events_data = [
         'fee': '₹500',
         'team_size': '8-20 Members',
         'rounds': '1 Open-Air Circle Performance (12 Mins)',
+        'round_details': [
+            {'title': 'Open Arena Nukkad Performance', 'desc': '12-minute acoustic street play in a 360-degree audience circle.'}
+        ],
         'rules': [
             'Performance must take place in open 360-degree circle setup.',
             'Time limit: 12 minutes maximum.',
@@ -367,6 +421,9 @@ events_data = [
         'fee': '₹300',
         'team_size': 'Squad (4 Players)',
         'rounds': '3 Custom Lobby Matches (Point System)',
+        'round_details': [
+            {'title': 'Matches 1-3: Custom Lobby Battles', 'desc': '3 tactical matches on Erangel and Miramar maps evaluated on placement and kill points.'}
+        ],
         'rules': [
             'Players must play on mobile devices only (Emulators strictly banned).',
             'Hacking, third-party plug-ins, or teaming up results in immediate permanent ban.',
@@ -390,6 +447,10 @@ events_data = [
         'fee': '₹300',
         'team_size': '2-4 Members',
         'rounds': '2 Rounds (Qualifying Lap + Track Final)',
+        'round_details': [
+            {'title': 'Round 1: Qualifying Time Trial', 'desc': 'Single lap speed trial to establish grid positions.'},
+            {'title': 'Round 2: Off-Road Sprint Final', 'desc': '3-lap endurance sprint across obstacle-heavy terrain.'}
+        ],
         'rules': [
             'Electric motor driven RC vehicles only (Nitro/Gas models not allowed).',
             'Maximum vehicle length 50cm, width 35cm.',
@@ -413,6 +474,9 @@ events_data = [
         'fee': '₹250',
         'team_size': '2-3 Members',
         'rounds': '1 Hardware Sprint (6 Hours)',
+        'round_details': [
+            {'title': '6-Hour Embedded Hackathon', 'desc': 'Design circuit schematics, assemble hardware components, and flash working firmware.'}
+        ],
         'rules': [
             'Microcontrollers allowed: Arduino, ESP32, Raspberry Pi Pico.',
             'Components must be soldered or breadboarded cleanly during the sprint.',
@@ -436,6 +500,9 @@ events_data = [
         'fee': '₹350',
         'team_size': '2-4 Members',
         'rounds': 'Physical Model Presentation + Deck Pitch',
+        'round_details': [
+            {'title': 'Urban Expo Exhibition', 'desc': 'Display physical scale models and live sensor dashboards to visiting judges.'}
+        ],
         'rules': [
             'Model dimensions maximum 1m x 1m base.',
             'Project must address at least 2 UN Sustainable Development Goals.',
@@ -459,6 +526,9 @@ events_data = [
         'fee': '₹200',
         'team_size': '2-4 Members',
         'rounds': 'Prototype Build & Life-Cycle Assessment Pitch',
+        'round_details': [
+            {'title': 'Upcycling Build Sprint', 'desc': 'Construct physical prototypes from raw scrap material within 4 hours.'}
+        ],
         'rules': [
             'Minimum 70% of material used must be upcycled/recycled scrap.',
             'Teams must bring raw scrap materials; basic tools provided on campus.',
@@ -482,6 +552,9 @@ events_data = [
         'fee': '₹250',
         'team_size': '1-3 Members',
         'rounds': 'Jeopardy Style CTF (5 Hours)',
+        'round_details': [
+            {'title': '5-Hour CTF Battle', 'desc': 'Jeopardy CTF format with real-time live scoreboard.'}
+        ],
         'rules': [
             'Jeopardy style flag submission system.',
             'Attacking CTF platform infrastructure or denial of service leads to disqualification.',
@@ -505,6 +578,10 @@ events_data = [
         'fee': '₹250',
         'team_size': '2 Members',
         'rounds': '2 Rounds (Financial Valuation + Pitch Deck)',
+        'round_details': [
+            {'title': 'Round 1: DCF Valuation Model', 'desc': 'Submit Excel model for assigned target firm.'},
+            {'title': 'Round 2: Stock Pitch', 'desc': 'Present BUY/SELL recommendation to investment committee.'}
+        ],
         'rules': [
             'Excel DCF models and pitch decks must be submitted in advance.',
             'Presentations strictly timed at 7 minutes + 3 minutes Q&A.',
@@ -528,6 +605,10 @@ events_data = [
         'fee': '₹300',
         'team_size': '2-4 Members',
         'rounds': '2 Rounds (Campaign Reel + Strategy Deck)',
+        'round_details': [
+            {'title': 'Round 1: 60-Second Campaign Reel', 'desc': 'Shoot and edit a viral advertisement reel within 3 hours.'},
+            {'title': 'Round 2: Go-To-Market Pitch', 'desc': 'Present brand strategy deck to marketing directors.'}
+        ],
         'rules': [
             'Reels/videos must not exceed 60 seconds duration.',
             'All graphics and video assets must be created during the event window.',
@@ -551,6 +632,9 @@ events_data = [
         'fee': '₹200',
         'team_size': '2 Members',
         'rounds': '2 Rounds (Crisis Roleplay + HR Policy Pitch)',
+        'round_details': [
+            {'title': 'Live Negotiation Simulation', 'desc': 'Roleplay crisis negotiation with dispute actors.'}
+        ],
         'rules': [
             'Live roleplay simulation with corporate dispute actors.',
             'Evaluated on labor law awareness, empathy, negotiation tactics, and policy rigor.'
@@ -573,6 +657,9 @@ events_data = [
         'fee': '₹250',
         'team_size': '2-3 Members',
         'rounds': 'Executive Deck Submission & Boardroom Pitch',
+        'round_details': [
+            {'title': 'Boardroom Strategy Presentation', 'desc': 'Present 8-slide turnaround deck to senior consultants.'}
+        ],
         'rules': [
             'Max 8 slide deck format.',
             'Root cause analysis frameworks (MECE, 3Cs, Porter 5 Forces) encouraged.',
@@ -596,6 +683,10 @@ events_data = [
         'fee': '₹200',
         'team_size': '2-4 Members',
         'rounds': '3 Investigation Phases',
+        'round_details': [
+            {'title': 'Crime Scene Inspection', 'desc': 'Examine physical evidence markers across mock crime scene.'},
+            {'title': 'Suspect Interrogation', 'desc': 'Interrogate live actors to catch contradictions in alibis.'}
+        ],
         'rules': [
             'Teams inspect physical crime scene setups for physical evidence.',
             'Interrogate suspect actors within allocated time blocks.',
@@ -619,6 +710,9 @@ events_data = [
         'fee': '₹200',
         'team_size': '2-4 Members',
         'rounds': 'Non-stop Campus Race',
+        'round_details': [
+            {'title': 'Non-Stop Campus Sprint', 'desc': 'Solve sequential GPS clues to reach 8 physical checkpoints.'}
+        ],
         'rules': [
             'All team members must cross checkpoints together.',
             'No vehicles or motorized transport allowed.',
@@ -642,6 +736,10 @@ events_data = [
         'fee': '₹300',
         'team_size': '2 Members',
         'rounds': '2 Rounds (Online Submission + On-the-Spot Capture)',
+        'round_details': [
+            {'title': 'Round 1: Exploration Shot (Online)', 'desc': 'Submit one photograph on theme "The Forgotten Corners" or "Framing the Sky".'},
+            {'title': 'Round 2: On-the-Spot Capture (Offline)', 'desc': '2-hour sprint on campus following a surprise theme.'}
+        ],
         'rules': [
             'DSLR, mirrorless, or mobile cameras permitted.',
             'Heavy manipulation/editing prohibited (basic exposure adjustments allowed).',
@@ -666,6 +764,9 @@ events_data = [
         'fee': '₹350',
         'team_size': '2-5 Members',
         'rounds': 'Film Screening & Jury Q&A',
+        'round_details': [
+            {'title': 'Auditorium Screening', 'desc': 'Screening of shortlisted 5-minute films followed by jury critique.'}
+        ],
         'rules': [
             'Maximum duration: 5 minutes including credits.',
             'Film must include a mandatory prop specified at event start.',
@@ -689,6 +790,10 @@ events_data = [
         'fee': '₹250',
         'team_size': '2-3 Members',
         'rounds': 'Build Phase + Structural Destruction Load Test',
+        'round_details': [
+            {'title': 'Build Sprint', 'desc': 'Construct balsa wood truss structure within 3 hours.'},
+            {'title': 'Destruction Load Testing', 'desc': 'Progressively load weights until structural collapse to calculate efficiency ratio.'}
+        ],
         'rules': [
             'Materials provided on-site (balsa wood, adhesive, cutters).',
             'Bridge/truss span must exceed 40cm.',
@@ -712,6 +817,9 @@ events_data = [
         'fee': '₹200',
         'team_size': '1-2 Members',
         'rounds': 'Figma Design Sprint (4 Hours)',
+        'round_details': [
+            {'title': 'Figma Design Challenge', 'desc': 'Design high-fidelity UI wireframes for a surprise mobile app prompt.'}
+        ],
         'rules': [
             'Figma software mandatory.',
             'Submissions must include interactive prototypes and component design tokens.',
@@ -735,6 +843,9 @@ events_data = [
         'fee': '₹200',
         'team_size': '2 Members',
         'rounds': 'Qualifiers + Sudden Death Improv Final',
+        'round_details': [
+            {'title': 'Instant Improv Stage', 'desc': 'React to random genre buzzer switches mid-performance.'}
+        ],
         'rules': [
             'Performers must switch roles immediately on buzzer ring.',
             'No vulgarity or offensive humor permitted.',
@@ -758,6 +869,10 @@ events_data = [
         'fee': '₹500',
         'team_size': '2-4 Members',
         'rounds': '24-Hour Hackathon & Grand Stage Jury Pitch',
+        'round_details': [
+            {'title': 'Phase 1: 24-Hour Hackathon Sprint', 'desc': 'Build a working software/hardware prototype with overnight mentor support.'},
+            {'title': 'Phase 2: Grand Stage Pitch', 'desc': '7-minute live demo and presentation to VC judges.'}
+        ],
         'rules': [
             'Teams must build a working prototype during the 24-hour hackathon window.',
             'All code, designs, and pitch slides must be created during the summit.',
@@ -784,6 +899,9 @@ events_data = [
         'fee': '₹300',
         'team_size': '2 Members',
         'rounds': '3 Preliminary Rounds + Final Debate',
+        'round_details': [
+            {'title': '3 Debate Rounds', 'desc': 'Asian Parliamentary motions released 15 minutes prior to debate start.'}
+        ],
         'rules': [
             'Asian Parliamentary Debate format (Prime Minister / Leader of Opposition).',
             'Preparation time: 15 minutes post motion release.',
@@ -798,6 +916,43 @@ events_data = [
     }
 ]
 
+image_map = {
+    'robo-soccer': '/images/events/robosoccer.jpg',
+    'code-relay': '/images/events/coderelay.jpg',
+    'reverse-coding': '/images/events/reversecoding.jpg',
+    'battle-of-the-bands': '/images/events/battleofbands.jpg',
+    'acapella': '/images/events/acapella.jpg',
+    'cad-design': '/images/events/cad.jpg',
+    'spark-tank': '/images/events/sparktank.jpg',
+    'chamber-of-secrets': '/images/events/chamberofsecrets.jpg',
+    'escape-room': '/images/events/escaperoom.jpg',
+    'drone-obstacle': '/images/events/drone.jpg',
+    'best-manager': '/images/events/bestmanager.avif',
+    'street-dance-battle': '/images/events/streetdancebattle.JPG',
+    'theme-dance': '/images/events/themedance.jpg',
+    'non-theme-dance': '/images/events/nontheme.jpg',
+    'street-play': '/images/events/streetplay.jpg',
+    'argo-royale': '/images/events/argoroyale.png',
+    'rc-car-challenge': '/images/events/rccarchallenge.jpg',
+    'byte-and-board': '/images/events/byteandboard.jpg',
+    'smart-city': '/images/events/smartcity.jpg',
+    'eco-forge': '/images/events/ecoforge.jpg',
+    'enigma': '/images/events/enigma.jpg',
+    'finance-pitch': '/images/events/finance.jpg',
+    'marketing-challenge': '/images/events/marketing.jpg',
+    'human-resource': '/images/events/humanresource.jpg',
+    'case-craft': '/images/events/casecraft.jpg',
+    'how-i-met-your-killer': '/images/events/howimeturkiller.jpg',
+    'the-chase': '/images/events/chase.jpg',
+    'pixel-perspective': '/images/events/pixelperspective.jpg',
+    'frames-unboxed': '/images/events/framesunboxed.jpg',
+    'archicraft': '/images/events/archicraft.jpg',
+    'pattern-play': '/images/events/patternplay.jpg',
+    'switch-and-scene': '/images/events/switchandscene.jpg',
+    'the-nexus': '/images/events/thenexus.jpg',
+    'severance-cup': '/images/events/SEVERANCE CUP.jpg'
+}
+
 os.makedirs('events', exist_ok=True)
 
 html_template = '''<!DOCTYPE html>
@@ -809,7 +964,7 @@ html_template = '''<!DOCTYPE html>
     <meta name="description" content="{tagline}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
@@ -899,77 +1054,93 @@ html_template = '''<!DOCTYPE html>
     </div>
 
     <!-- Main Event Details Content -->
-    <main class="events-section container" style="padding-top: 7rem; padding-bottom: 5rem;">
-      <div style="max-width: 900px; margin: 0 auto;">
+    <main class="events-section container" style="padding-top: 7rem; padding-bottom: 6rem;">
+      <div style="max-width: 960px; margin: 0 auto;">
         
-        <!-- Back Link -->
-        <a href="/events.html" class="btn-primary" style="display: inline-flex; width: auto; padding: 0.6rem 1.25rem; font-size: 0.9rem; text-decoration: none; margin-bottom: 1.5rem;">
-          ← Back to Events Grid
-        </a>
-
-        <!-- Category Chip & Title -->
-        <div style="margin-bottom: 1.25rem;">
-          <span class="card-badge">{category}</span>
-          <h1 class="hero-title" style="font-size: clamp(2rem, 4vw, 3.2rem); margin: 0.5rem 0 0.4rem;">{title}</h1>
-          <p class="modal-event-tagline" style="font-size: 1.15rem; color: #ff9d5c; font-weight: 500;">{tagline}</p>
+        <!-- Back Link Button -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+          <a href="/events.html" class="btn-primary" style="display: inline-flex; width: auto; padding: 0.65rem 1.4rem; font-size: 0.88rem; text-decoration: none; border-radius: 999px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(10px);">
+            ← Back to Events Grid
+          </a>
+          
+          <!-- TODO: paste Google Form link here -->
+          <a href="#" class="btn-primary modal-register-btn" data-register-link="PENDING" style="display: inline-flex; width: auto; padding: 0.65rem 1.6rem; font-size: 0.92rem; text-decoration: none; border-radius: 999px;">
+            <span>Register Now</span> ↗
+          </a>
         </div>
 
-        <!-- Hero Image -->
-        <div style="border-radius: var(--radius-md); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.12); margin-bottom: 2rem; background: #0f121d;">
-          <img src="/images/events/{slug}.jpg" alt="{title}" style="width: 100%; height: auto; max-height: 420px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/images/shaanrahman.jpg';" />
+        <!-- Header Section -->
+        <div style="margin-bottom: 2rem; background: rgba(14, 18, 28, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 2rem 2.25rem; backdrop-filter: blur(16px);">
+          <span class="card-badge" style="font-size: 0.82rem; padding: 0.4rem 0.9rem; letter-spacing: 0.12em; background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.1)); border: 1px solid rgba(249, 115, 22, 0.35); text-transform: uppercase;">{category}</span>
+          <h1 class="hero-title" style="font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 900; color: #ffffff; letter-spacing: -0.02em; margin: 0.85rem 0 0.5rem; text-shadow: 0 4px 24px rgba(0,0,0,0.6);">{title}</h1>
+          <p class="modal-event-tagline" style="font-size: 1.2rem; color: #ff9d5c; font-weight: 500; line-height: 1.4; margin: 0;">{tagline}</p>
         </div>
 
-        <!-- Description Card -->
-        <div class="modal-rules-section" style="margin-bottom: 1.75rem;">
-          <h3 style="font-family: var(--font-heading); color: #fff; margin-bottom: 0.75rem;">Event Overview</h3>
-          <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1rem;">{desc}</p>
+        <!-- Showcase Hero Image -->
+        <div style="border-radius: 20px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14); margin-bottom: 2.25rem; background: #0f121d; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(249, 115, 22, 0.15); position: relative;">
+          <img src="{image_src}" alt="{title}" style="width: 100%; height: auto; max-height: 480px; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='/images/shaanrahman.jpg';" />
+          <div style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(6, 8, 14, 0.8) 100%); pointer-events: none;"></div>
         </div>
 
-        <!-- Prize Pool Card -->
-        <div class="modal-prize-card" style="margin-bottom: 1.75rem;">
-          <span class="modal-prize-label">TOTAL PRIZE POOL</span>
-          <div class="modal-prize-amount">🏆 {prize}</div>
+        <!-- Overview Card -->
+        <div class="modal-rules-section" style="background: rgba(14, 18, 28, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 2rem 2.25rem; margin-bottom: 2rem;">
+          <h2 style="font-family: var(--font-heading); font-size: 1.35rem; color: #fff; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.6rem;">📌 Event Overview</h2>
+          <p style="color: var(--text-secondary); line-height: 1.75; font-size: 1.02rem; margin: 0;">{desc}</p>
         </div>
 
-        <!-- Info Grid -->
-        <div class="modal-info-grid" style="margin-bottom: 1.75rem;">
-          <div class="info-grid-item">
-            <span class="info-item-label">Date</span>
-            <span class="info-item-val">{date}</span>
+        <!-- Prize Pool Stat Card -->
+        <div class="modal-prize-card" style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.16) 0%, rgba(234, 88, 12, 0.06) 100%); border: 1px solid rgba(249, 115, 22, 0.4); border-radius: 16px; padding: 1.5rem 2rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 30px rgba(249, 115, 22, 0.15);">
+          <span class="modal-prize-label" style="font-size: 0.82rem; letter-spacing: 0.15em; color: #ff9d5c; font-weight: 800; text-transform: uppercase;">TOTAL PRIZE POOL</span>
+          <div class="modal-prize-amount" style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 16px rgba(249, 115, 22, 0.5);">🏆 {prize}</div>
+        </div>
+
+        <!-- Info Grid (4 Metric Cards) -->
+        <div class="modal-info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
+          <div class="info-grid-item" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 1.1rem 1.25rem;">
+            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">📅 Date</span>
+            <span class="info-item-val" style="color: #fff; font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; display: block;">{date}</span>
           </div>
-          <div class="info-grid-item">
-            <span class="info-item-label">Registration Fee</span>
-            <span class="info-item-val">{fee}</span>
+          <div class="info-grid-item" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 1.1rem 1.25rem;">
+            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">💰 Registration Fee</span>
+            <span class="info-item-val" style="color: #fff; font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; display: block;">{fee}</span>
           </div>
-          <div class="info-grid-item">
-            <span class="info-item-label">Team Size</span>
-            <span class="info-item-val">{team_size}</span>
+          <div class="info-grid-item" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 1.1rem 1.25rem;">
+            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">👥 Team Size</span>
+            <span class="info-item-val" style="color: #fff; font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; display: block;">{team_size}</span>
           </div>
-          <div class="info-grid-item">
-            <span class="info-item-label">Format / Rounds</span>
-            <span class="info-item-val">{rounds}</span>
+          <div class="info-grid-item" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 1.1rem 1.25rem;">
+            <span class="info-item-label" style="color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">🎯 Format / Rounds</span>
+            <span class="info-item-val" style="color: #fff; font-size: 1.05rem; font-weight: 600; margin-top: 0.25rem; display: block;">{rounds}</span>
+          </div>
+        </div>
+
+        <!-- Round Structure -->
+        <div class="modal-rules-section" style="background: rgba(14, 18, 28, 0.75); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 2rem 2.25rem; margin-bottom: 2rem;">
+          <h3 class="modal-rules-title" style="font-size: 1.2rem; margin-bottom: 1.25rem; color: #fff;">Round Structure</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
+            {rounds_html}
           </div>
         </div>
 
         <!-- Rules & Guidelines -->
-        <div class="modal-rules-section" style="margin-bottom: 1.75rem;">
-          <h3 class="modal-rules-title" style="font-size: 1.1rem; margin-bottom: 1rem;">Rules & Guidelines</h3>
+        <div class="modal-rules-section" style="background: rgba(14, 18, 28, 0.75); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 2rem 2.25rem; margin-bottom: 2rem;">
+          <h3 class="modal-rules-title" style="font-size: 1.2rem; margin-bottom: 1.25rem; color: #fff;">Rules & Guidelines</h3>
           <ul class="modal-rules-list">
             {rules_html}
           </ul>
         </div>
 
         <!-- FAQ Section -->
-        <div class="modal-rules-section" style="margin-bottom: 1.75rem;">
-          <h3 class="modal-rules-title" style="font-size: 1.1rem; margin-bottom: 1rem;">Frequently Asked Questions</h3>
+        <div class="modal-rules-section" style="background: rgba(14, 18, 28, 0.75); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 2rem 2.25rem; margin-bottom: 2rem;">
+          <h3 class="modal-rules-title" style="font-size: 1.2rem; margin-bottom: 1.25rem; color: #fff;">Frequently Asked Questions</h3>
           <div style="display: flex; flex-direction: column; gap: 1rem;">
             {faqs_html}
           </div>
         </div>
 
-        <!-- Contact Details -->
-        <div class="modal-contacts-section" style="margin-bottom: 2.25rem;">
-          <h3 class="modal-contacts-title" style="font-size: 1.1rem; margin-bottom: 1rem;">Event Contacts & Coordinators</h3>
+        <!-- Contact Details Grid -->
+        <div class="modal-contacts-section" style="background: rgba(14, 18, 28, 0.75); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 2rem 2.25rem; margin-bottom: 2.5rem;">
+          <h3 class="modal-contacts-title" style="font-size: 1.2rem; margin-bottom: 1.25rem; color: #fff;">Event Contacts & Coordinators</h3>
           <div class="modal-contacts-grid">
             {contacts_html}
           </div>
@@ -977,8 +1148,10 @@ html_template = '''<!DOCTYPE html>
 
         <!-- REGISTER NOW BUTTON (Step 4 Requirement) -->
         <!-- TODO: paste Google Form link here -->
-        <div style="text-align: center;">
-          <a href="#" class="btn-primary modal-register-btn" data-register-link="PENDING" style="display: inline-flex; width: 100%; justify-content: center; padding: 1rem 2rem; font-size: 1.05rem; text-decoration: none;">
+        <div style="text-align: center; background: rgba(14, 18, 28, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 2.25rem; backdrop-filter: blur(16px);">
+          <h3 style="color: #fff; font-family: var(--font-heading); margin-bottom: 0.5rem; font-size: 1.3rem;">Ready to Compete?</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">Secure your spot in {title} before team registrations close.</p>
+          <a href="#" class="btn-primary modal-register-btn" data-register-link="PENDING" style="display: inline-flex; width: 100%; justify-content: center; padding: 1.1rem 2.5rem; font-size: 1.1rem; text-decoration: none; border-radius: 999px; box-shadow: 0 10px 30px rgba(249, 115, 22, 0.35);">
             <span>Register Now</span> ↗
           </a>
         </div>
@@ -993,14 +1166,27 @@ html_template = '''<!DOCTYPE html>
 
 count = 0
 for ev in events_data:
+    image_src = image_map.get(ev['slug'], f"/images/events/{ev['slug']}.jpg")
+
     rules_html = ''.join([f'<li>{r}</li>' for r in ev['rules']])
+    
+    rounds_html = ''
+    if ev.get('round_details'):
+        rounds_html = ''.join([
+            f'<div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.07); padding: 1.1rem 1.25rem; border-radius: 14px;"><strong style="color: #ff9d5c; font-size: 1rem; display: block; margin-bottom: 0.35rem;">{rd["title"]}</strong><p style="color: #cfcfcf; font-size: 0.88rem; margin: 0; line-height: 1.5;">{rd["desc"]}</p></div>'
+            for rd in ev['round_details']
+        ])
+    else:
+        rounds_html = f'<div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.07); padding: 1.1rem 1.25rem; border-radius: 14px;"><strong style="color: #ff9d5c; font-size: 1rem; display: block; margin-bottom: 0.35rem;">Event Structure</strong><p style="color: #cfcfcf; font-size: 0.88rem; margin: 0;">{ev["rounds"]}</p></div>'
+
     faqs_html = ''.join([
-        f'<div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 0.85rem 1rem; border-radius: var(--radius-sm);"><strong style="color: #fff; font-size: 0.95rem;">Q: {f["q"]}</strong><p style="color: var(--text-secondary); margin-top: 0.35rem; font-size: 0.88rem;">A: {f["a"]}</p></div>'
+        f'<div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 1rem 1.25rem; border-radius: 12px;"><strong style="color: #fff; font-size: 0.95rem;">Q: {f["q"]}</strong><p style="color: var(--text-secondary); margin-top: 0.35rem; font-size: 0.88rem; margin-bottom: 0;">A: {f["a"]}</p></div>'
         for f in ev['faqs']
     ])
+    
     contacts_html = ''.join([
-        f'<div class="contact-card"><div class="contact-name">{c["name"]}</div>' +
-        (f'<a href="tel:{c["phone"]}" class="contact-link contact-phone">📞 {c["phone"]}</a>' if c.get('phone') else '') +
+        f'<div class="contact-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1rem 1.25rem;"><div class="contact-name" style="font-weight: 700; color: #fff; margin-bottom: 0.35rem;">{c["name"]}</div>' +
+        (f'<a href="tel:{c["phone"]}" class="contact-link contact-phone">📞 {c["phone"]}</a><br/>' if c.get('phone') else '') +
         (f'<a href="mailto:{c["email"]}" class="contact-link contact-email">✉️ {c["email"]}</a>' if c.get('email') else '') +
         '</div>'
         for c in ev['contacts']
@@ -1017,7 +1203,9 @@ for ev in events_data:
         team_size=ev['team_size'],
         rounds=ev['rounds'],
         slug=ev['slug'],
+        image_src=image_src,
         rules_html=rules_html,
+        rounds_html=rounds_html,
         faqs_html=faqs_html,
         contacts_html=contacts_html
     )
@@ -1027,4 +1215,4 @@ for ev in events_data:
         f.write(content)
     count += 1
 
-print(f'Successfully generated {count} static HTML event files in /events!')
+print(f'Successfully re-generated {count} premium static HTML event files in /events!')
