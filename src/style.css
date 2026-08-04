@@ -110,7 +110,7 @@ body {
 }
 
 .header-logo-magnovite {
-  height: 36px;
+  height: 24px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
@@ -118,39 +118,35 @@ body {
 }
 
 .header-logo-magnovite:hover {
-  transform: scale(1.04);
+  transform: scale(1.06);
 }
 
 .menu-toggle-btn {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: transparent;
+  border: none;
+  outline: none;
   color: #ffffff;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  padding: 8px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 0;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: none;
 }
 
 .menu-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
-  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.08);
 }
 
 .menu-toggle-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.92);
 }
 
 .hamburger-icon {
-  width: 20px;
+  width: 22px;
   height: 14px;
   position: relative;
   display: flex;
@@ -172,7 +168,7 @@ body {
 }
 
 .hamburger-line.middle {
-  width: 70%;
+  width: 65%;
   align-self: flex-end;
 }
 
@@ -182,8 +178,7 @@ body {
 
 /* Active / Open state (Morphs to X) */
 .menu-toggle-btn.is-active {
-  background: rgba(255, 255, 255, 0.16);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .menu-toggle-btn.is-active .hamburger-line.top {
