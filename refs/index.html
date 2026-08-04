@@ -1,0 +1,2191 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Home - Magnovite'25</title>
+		<link rel="preload" as="video" href="./public/initialbg.mp4" type="video/mp4" />
+		<link
+			rel="icon"
+			type="image/png"
+			href="./public/magnovite.png"
+			sizes="32x32 64x64 128x128 192x192"
+		/>
+		<link
+			rel="apple-touch-icon"
+			href="./public/magnovite.png"
+			sizes="180x180"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+			<link
+				href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+				rel="stylesheet"
+			/>
+			<link
+				href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+				rel="stylesheet"
+			/>
+		<link rel="stylesheet" href="./src/style.css" />
+		<style>
+			/* Enhanced Loading Screen */
+			.loading-screen {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				z-index: 9999;
+				transition: opacity 0.8s ease, visibility 0.8s ease;
+			}
+
+			.loading-screen.fade-out {
+				opacity: 0;
+				visibility: hidden;
+			}
+
+			.loading-spinner {
+				width: 60px;
+				height: 60px;
+				border: 4px solid rgba(255, 255, 255, 0.3);
+				border-top: 4px solid #ffffff;
+				border-radius: 50%;
+				animation: spin 1s linear infinite;
+			}
+
+
+			@keyframes spin {
+				0% {
+					transform: rotate(0deg);
+				}
+				100% {
+					transform: rotate(360deg);
+				}
+			}
+
+
+			/* Hide main content initially */
+			body.loading .main-content {
+				opacity: 0;
+				visibility: hidden;
+			}
+
+			body.loaded .main-content {
+				opacity: 1;
+				visibility: visible;
+				transition: opacity 0.8s ease, visibility 0.8s ease;
+			}
+
+			/* Video loading enhancements */
+			.hero-main-image {
+				background-color: #000;
+				object-fit: cover;
+				width: 100%;
+				height: 100%;
+				backface-visibility: hidden;
+				transform: translateZ(0);
+				contain: paint;
+				will-change: transform, opacity;
+			}
+
+			/* Stabilize hero container and logo to prevent wobble */
+			.hero-main-container,
+			.hero-main-logo,
+			.hero-1-container {
+				backface-visibility: hidden;
+				transform: translateZ(0);
+				will-change: transform, opacity;
+				transform-origin: 50% 50% 0;
+			}
+
+			/* Always hide native video controls (playbar) */
+			video.hero-main-image::-webkit-media-controls-enclosure,
+			video.hero-main-image::-webkit-media-controls,
+			video.hero-main-image::-webkit-media-controls-panel,
+			video.hero-main-image::-moz-media-controls,
+			video.hero-main-image::-ms-media-controls {
+				display: none !important;
+				opacity: 0 !important;
+				visibility: hidden !important;
+			}
+
+			/* Video poster fallback */
+			.hero-main-image::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+				z-index: -1;
+			}
+
+			/* Ensure video container is ready */
+			.hero-main-container {
+				position: relative;
+				overflow: hidden;
+			}
+
+			/* Video loading state */
+			.hero-main-image:not([poster]) {
+				background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+			}
+
+			/* Remove list styling from navigation elements */
+			.mobile-menu-toggle,
+			.mobile-menu-toggle li,
+			.nav-menu,
+			.nav-menu li,
+			.nav-menu__links,
+			.nav-menu__links li,
+			.nav-link,
+			.nav-link li,
+			.nav-link-text,
+			.nav-link-text li,
+			.link,
+			.link li {
+				list-style-type: none !important;
+				list-style: none !important;
+			}
+
+			/* Additional fix for navigation links specifically */
+			.nav-menu__links .nav-link::before,
+			.nav-menu__links .nav-link::after {
+				content: none !important;
+			}
+
+			/* New Simple Mobile Toggle Button */
+			.simple-mobile-toggle {
+				display: none;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 32px;
+				height: 32px;
+				background: transparent;
+				border: none;
+				cursor: pointer;
+				transition: all 0.2s ease;
+				z-index: 1003;
+				position: relative;
+				padding: 0;
+				margin: 0;
+				margin-left: -20px;
+			}
+
+			.simple-mobile-toggle:hover {
+				opacity: 0.7;
+			}
+
+			.toggle-line {
+				width: 20px;
+				height: 2px;
+				background: #ffffff;
+				margin: 3px 0;
+				transition: all 0.3s ease;
+				transform-origin: center;
+			}
+
+			.simple-mobile-toggle.is-active .toggle-line:nth-child(1) {
+				transform: rotate(45deg) translate(5px, 5px);
+			}
+
+			.simple-mobile-toggle.is-active .toggle-line:nth-child(2) {
+				opacity: 0;
+			}
+
+			.simple-mobile-toggle.is-active .toggle-line:nth-child(3) {
+				transform: rotate(-45deg) translate(5px, -5px);
+			}
+
+			/* Ensure hamburger button stays visible when menu is open */
+			body.mobile-menu-open .simple-mobile-toggle {
+				z-index: 1003 !important;
+			}
+
+			/* Hide simple toggle on desktop */
+			@media (min-width: 769px) {
+				.simple-mobile-toggle {
+					display: none !important;
+					visibility: hidden !important;
+					opacity: 0 !important;
+					width: 0 !important;
+					height: 0 !important;
+					margin: 0 !important;
+					padding: 0 !important;
+					border: none !important;
+					background: transparent !important;
+					pointer-events: none !important;
+					position: absolute !important;
+					left: -9999px !important;
+					top: -9999px !important;
+					overflow: hidden !important;
+					clip: rect(0, 0, 0, 0) !important;
+				}
+
+				.toggle-line {
+					display: none !important;
+					visibility: hidden !important;
+					opacity: 0 !important;
+					width: 0 !important;
+					height: 0 !important;
+				}
+			}
+
+			/* Show simple toggle on mobile */
+			@media (max-width: 768px) {
+				.simple-mobile-toggle {
+					display: flex;
+				}
+
+				.toggle-line {
+					display: block;
+				}
+			}
+
+			/* Mobile Navigation Styles */
+			@media (max-width: 768px) {
+				.nav-menu__links {
+					position: fixed;
+					top: 0;
+					right: -100%;
+					width: 50vw;
+					height: 100vh;
+					background: rgba(0, 0, 0, 0.95);
+					backdrop-filter: blur(20px);
+					border-left: 1px solid rgba(255, 255, 255, 0.1);
+					display: flex;
+					flex-direction: column;
+					padding: 80px 0 40px;
+					transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+					z-index: 1000;
+					box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+				}
+
+				.nav-menu__links.is-open {
+					right: 0;
+				}
+
+				/* Page blur when menu is open - only blur specific content sections */
+                body.mobile-menu-open .hero-1-container,
+                body.mobile-menu-open .hero-2-container,
+                body.mobile-menu-open .hero-main-container,
+                body.mobile-menu-open .hero-main-image,
+                body.mobile-menu-open .hero-main-logo,
+                body.mobile-menu-open .hero-text-logo-container,
+                body.mobile-menu-open .masala-section,
+                body.mobile-menu-open .masala-card,
+                body.mobile-menu-open .masala-content,
+                body.mobile-menu-open .cta-section,
+                body.mobile-menu-open .site-footer {
+                    filter: blur(8px);
+                    transition: filter 0.3s ease;
+                }
+
+				/* Keep navigation and header completely sharp */
+				body.mobile-menu-open .header,
+				body.mobile-menu-open .nav-container,
+				body.mobile-menu-open .nav-row,
+				body.mobile-menu-open .nav-inner,
+				body.mobile-menu-open .nav-menu,
+				body.mobile-menu-open .mobile-menu-toggle,
+				body.mobile-menu-open .nav-menu__links,
+				body.mobile-menu-open .mobile-nav-backdrop {
+					filter: none !important;
+				}
+
+				/* Ensure proper z-index layering */
+				body.mobile-menu-open .header {
+					z-index: 1002;
+				}
+
+				body.mobile-menu-open .mobile-menu-toggle {
+					z-index: 1003;
+				}
+
+				body.mobile-menu-open .nav-menu__links {
+					z-index: 1001;
+				}
+
+				.nav-menu__links .nav-link {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					padding: 16px 24px;
+					margin: 4px 16px;
+					border-radius: 12px;
+					background: rgba(255, 255, 255, 0.05);
+					border: 1px solid rgba(255, 255, 255, 0.1);
+					transition: all 0.3s ease;
+					text-decoration: none;
+					color: #fff;
+					font-weight: 600;
+					min-height: 56px;
+					width: calc(100% - 32px);
+					box-sizing: border-box;
+				}
+
+				.nav-menu__links .nav-link-text {
+					flex: 1;
+					text-align: left;
+					font-size: 16px;
+					line-height: 1.2;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+
+				.nav-menu__links .nav-link:hover {
+					background: rgba(255, 255, 255, 0.1);
+					border-color: rgba(255, 255, 255, 0.3);
+					transform: translateX(8px);
+				}
+
+				.nav-menu__links .nav-link::after,
+				.nav-menu__links .nav-link::before {
+					content: none !important;
+				}
+
+				/* Hide navigation arrows on mobile */
+				.nav-menu__links .nav-link-arrow {
+					display: none;
+				}
+
+				/* Mobile Menu Toggle Button */
+				.mobile-menu-toggle {
+					display: none;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					width: 44px;
+					height: 44px;
+					background: rgba(255, 255, 255, 0.1);
+					border: 1px solid rgba(255, 255, 255, 0.2);
+					border-radius: 12px;
+					cursor: pointer;
+					transition: all 0.3s ease;
+					z-index: 1001;
+					position: relative;
+				}
+
+				/* Hide lines on desktop to avoid stray dots */
+				.hamburger-line {
+					display: none;
+				}
+
+				/* Ensure button is completely hidden on desktop */
+				@media (min-width: 769px) {
+					.mobile-menu-toggle {
+						display: none !important;
+						visibility: hidden !important;
+						opacity: 0 !important;
+						width: 0 !important;
+						height: 0 !important;
+						margin: 0 !important;
+						padding: 0 !important;
+						border: none !important;
+						background: transparent !important;
+						pointer-events: none !important;
+						position: absolute !important;
+						left: -9999px !important;
+						top: -9999px !important;
+						overflow: hidden !important;
+						clip: rect(0, 0, 0, 0) !important;
+					}
+
+					.hamburger-line {
+						display: none !important;
+						visibility: hidden !important;
+						opacity: 0 !important;
+						width: 0 !important;
+						height: 0 !important;
+					}
+				}
+
+				/* Only apply hover styles on mobile */
+				@media (max-width: 768px) {
+					.mobile-menu-toggle:hover {
+						background: rgba(255, 0, 255, 0.1);
+						border-color: rgba(255, 0, 255, 0.3);
+					}
+				}
+
+				.mobile-menu-toggle.is-active {
+					background: rgba(255, 0, 255, 0.2);
+					border-color: rgba(255, 0, 255, 0.5);
+				}
+
+				.hamburger-line {
+					width: 20px;
+					height: 2px;
+					background: #fff;
+					margin: 2px 0;
+					transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+					transform-origin: center;
+				}
+
+				.mobile-menu-toggle.is-active .hamburger-line:nth-child(1) {
+					transform: rotate(45deg) translate(0, 8px);
+				}
+
+				.mobile-menu-toggle.is-active .hamburger-line:nth-child(2) {
+					opacity: 0;
+					transform: scaleX(0);
+				}
+
+				.mobile-menu-toggle.is-active .hamburger-line:nth-child(3) {
+					transform: rotate(-45deg) translate(0, -8px);
+				}
+
+				/* Show mobile toggle on mobile */
+				@media (max-width: 768px) {
+					.mobile-menu-toggle {
+						display: flex;
+					}
+					/* Show lines on mobile */
+					.hamburger-line {
+						display: block;
+					}
+
+					.nav-menu__links {
+						display: flex;
+					}
+				}
+
+				/* Mobile backdrop */
+				.mobile-nav-backdrop {
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background: rgba(0, 0, 0, 0.5);
+					backdrop-filter: blur(4px);
+					opacity: 0;
+					visibility: hidden;
+					transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+					z-index: 999;
+				}
+
+				.mobile-nav-backdrop.is-open {
+					opacity: 1;
+					visibility: visible;
+				}
+
+				.mobile-nav-backdrop::before {
+					content: '';
+					position: absolute;
+					top: 50vh;
+					left: 25%;
+					transform: translate(-50%, -50%) scale(0.8);
+					width: 120px;
+					height: 120px;
+					background-image: url('./public/MAGNOVITEBW.png');
+					background-size: contain;
+					background-repeat: no-repeat;
+					background-position: center;
+					opacity: 0;
+					z-index: 1000;
+					transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+					transition-delay: 0.1s;
+				}
+
+				.mobile-nav-backdrop.is-open::before {
+					opacity: 0.9;
+					transform: translate(-50%, -50%) scale(1);
+					transition-delay: 0.1s;
+				}
+			}
+			/* CTA Section Styles */
+			.cta-section {
+				text-align: center;
+				padding: 6rem 2rem;
+				background: linear-gradient(
+					135deg,
+					rgba(255, 0, 255, 0.15),
+					rgba(128, 0, 255, 0.15),
+					rgba(255, 20, 147, 0.1)
+				);
+				margin: 6rem 0 4rem;
+				border-radius: 30px;
+				position: relative;
+				overflow: hidden;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+			}
+
+			.cta-section::before {
+				content: '';
+				position: absolute;
+				top: -50%;
+				left: -50%;
+				width: 200%;
+				height: 200%;
+				background: radial-gradient(
+					circle,
+					rgba(255, 0, 255, 0.1) 0%,
+					transparent 70%
+				);
+				animation: rotate 20s linear infinite;
+			}
+
+			@keyframes rotate {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+
+			.cta-title {
+				font-size: clamp(2.5rem, 6vw, 4rem);
+				font-weight: 800;
+				color: #ffffff;
+				margin-bottom: 1.5rem;
+				position: relative;
+				z-index: 2;
+				background: linear-gradient(45deg, #ffffff, #ff00ff, #8000ff);
+				background-size: 200% 200%;
+				-webkit-background-clip: text;
+				background-clip: text;
+				-webkit-text-fill-color: transparent;
+				animation: gradient-shift 3s ease infinite;
+			}
+
+			@keyframes gradient-shift {
+				0%,
+				100% {
+					background-position: 0% 50%;
+				}
+				50% {
+					background-position: 100% 50%;
+				}
+			}
+
+			.cta-text {
+				font-size: 1.3rem;
+				color: rgba(255, 255, 255, 0.9);
+				margin-bottom: 3rem;
+				max-width: 700px;
+				margin-left: auto;
+				margin-right: auto;
+				position: relative;
+				z-index: 2;
+				line-height: 1.6;
+			}
+
+			.cta-buttons {
+				display: flex;
+				gap: 1.5rem;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+
+			.cta-button {
+				background: linear-gradient(45deg, #ff00ff, #8000ff);
+				border: none;
+				color: white;
+				padding: 1.2rem 3rem;
+				font-size: 1.1rem;
+				font-weight: 700;
+				border-radius: 50px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				position: relative;
+				z-index: 2;
+				overflow: hidden;
+				min-width: 200px;
+			}
+
+			.cta-button.secondary {
+				background: transparent;
+				border: 2px solid rgba(255, 0, 255, 0.5);
+				color: #ffffff;
+			}
+
+			.cta-button.secondary:hover {
+				background: rgba(255, 0, 255, 0.1);
+				border-color: #ff00ff;
+			}
+
+			.cta-button::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: -100%;
+				width: 100%;
+				height: 100%;
+				background: linear-gradient(
+					90deg,
+					transparent,
+					rgba(255, 255, 255, 0.2),
+					transparent
+				);
+				transition: left 0.6s ease;
+			}
+
+			.cta-button:hover::before {
+				left: 100%;
+			}
+
+			.cta-button:hover {
+				transform: translateY(-5px) scale(1.05);
+				box-shadow: 0 15px 40px rgba(255, 0, 255, 0.4);
+			}
+
+			/* Scroll animations */
+			.scroll-reveal {
+				opacity: 0;
+				transform: translateY(50px);
+				transition: all 0.8s ease;
+			}
+
+			.scroll-reveal.revealed {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Responsive Design */
+			@media (max-width: 768px) {
+				.cta-section {
+					padding: 4rem 1rem;
+					margin: 4rem 0 2rem;
+				}
+
+				.cta-buttons {
+					flex-direction: column;
+					align-items: center;
+				}
+
+				.cta-button {
+					min-width: 250px;
+				}
+			}
+
+			/* Promo Video Section (Desktop Only) */
+			.promo-video-section {
+				/* removed actual usage; kept selector reserved */
+			}
+
+			/* Masala Coffee Section */
+			.masala-section {
+				margin: 4rem auto 0;
+				max-width: 1200px;
+				padding: 0 3rem;
+			}
+			.masala-card {
+				position: relative;
+				display: grid;
+				grid-template-columns: 1.2fr 1fr;
+				gap: 2rem;
+				border-radius: 32px;
+				overflow: hidden;
+				background: radial-gradient(circle at 20% -10%, rgba(255,255,255,0.08), rgba(0,0,0,0.85));
+				border: 1px solid rgba(255,255,255,0.08);
+				box-shadow: 0 28px 60px rgba(0,0,0,0.35);
+			}
+			.masala-content {
+				padding: 2.2rem 2.4rem;
+			}
+			.masala-eyebrow {
+				display: inline-block;
+				font-weight: 700;
+				letter-spacing: .1em;
+				text-transform: uppercase;
+				color: #ffbddb;
+				background: rgba(255, 0, 255, 0.08);
+				border: 1px solid rgba(255, 0, 255, 0.25);
+				border-radius: 999px;
+				padding: .4rem .8rem;
+				margin-bottom: 1rem;
+			}
+			.masala-title {
+				font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+				font-weight: 800;
+				margin: .2rem 0 1rem;
+				color: #fff;
+			}
+			.masala-text {
+				color: rgba(255,255,255,0.9);
+				line-height: 1.7;
+				font-size: 1.05rem;
+				margin-bottom: .8rem;
+			}
+			.masala-actions {
+				margin-top: 1.4rem;
+				display: flex;
+				gap: 1rem;
+				flex-wrap: wrap;
+			}
+			.masala-btn {
+				background: rgba(24, 24, 28, 0.78);
+				color: #fff;
+				border: 1px solid rgba(255,255,255,0.22);
+				border-radius: 14px;
+				padding: .85rem 1.2rem;
+				cursor: pointer;
+				display: inline-flex;
+				align-items: center;
+				gap: .6rem;
+				transition: background .2s ease, border-color .2s ease, transform .2s ease;
+				backdrop-filter: blur(10px);
+				text-decoration: none;
+			}
+			.masala-btn:hover {
+				background: rgba(48,48,52,0.85);
+				border-color: rgba(255,255,255,0.28);
+				transform: translateY(-2px);
+			}
+			.masala-media {
+				position: relative;
+				min-height: 100%;
+				background: #000;
+				overflow: hidden;
+				border-radius: 0 32px 32px 0;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 12px; /* give breathing room so full edges are visible */
+			}
+			.masala-media img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: contain; /* show full poster including edges */
+				aspect-ratio: auto;
+				filter: saturate(1.05) contrast(1.02);
+				border-radius: 16px; /* inner rounding to match container padding */
+				background: #000;
+			}
+			@media (max-width: 1024px) {
+				.masala-card {
+					grid-template-columns: 1fr;
+				}
+				.masala-media img {
+					aspect-ratio: auto;
+					border-radius: 16px;
+				}
+			}
+
+			/* Generic Modal for Poster/Promo with Blur */
+			.modal-overlay {
+				position: fixed;
+				inset: 0;
+				background: rgba(0,0,0,0.6);
+				opacity: 0;
+				visibility: hidden;
+				display: grid;
+				place-items: center;
+				transition: opacity .25s ease, visibility .25s ease;
+				z-index: 2000;
+				padding: 2rem;
+			}
+			.modal-overlay.is-open {
+				opacity: 1;
+				visibility: visible;
+			}
+			.modal-dialog {
+				background: #0b0b0c;
+				border: 1px solid rgba(255,255,255,0.12);
+				border-radius: 24px;
+				box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+				overflow: hidden;
+				max-width: min(1100px, 92vw);
+				max-height: 88vh;
+				opacity: 0;
+				transform: translateY(10px) scale(.98);
+				transition: opacity .25s ease, transform .25s ease;
+			}
+			.modal-overlay.is-open .modal-dialog {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+			}
+			.modal-media {
+				display: block;
+				max-width: 100%;
+				max-height: 88vh;
+				width: auto;
+				height: auto;
+			}
+			.modal-close {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				background: rgba(24,24,28,0.78);
+				border: 1px solid rgba(255,255,255,0.18);
+				color: #fff;
+				border-radius: 10px;
+				width: 36px;
+				height: 36px;
+				display: grid;
+				place-items: center;
+				cursor: pointer;
+				transition: background .2s ease, border-color .2s ease;
+			}
+			.modal-close:hover {
+				background: rgba(48,48,52,0.85);
+				border-color: rgba(255,255,255,0.28);
+			}
+			body.modal-open .main-content {
+				filter: blur(8px);
+				transition: filter .25s ease;
+			}
+
+			.promo-video-wrapper {
+				position: relative;
+				width: 100%;
+				border-radius: 32px;
+				overflow: hidden;
+				box-shadow: 0 28px 60px rgba(0, 0, 0, 0.4);
+				background: radial-gradient(circle at top, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.85));
+				isolation: isolate;
+			}
+
+			.promo-video-wrapper::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				border-radius: inherit;
+				border: 1px solid rgba(255, 255, 255, 0.08);
+				pointer-events: none;
+			}
+
+			.promo-video {
+				display: block;
+				width: 100%;
+				height: auto;
+				object-fit: cover;
+				aspect-ratio: 16 / 9;
+				background: #000;
+			}
+
+			.promo-controls {
+				position: absolute;
+				top: 24px;
+				right: 24px;
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+				z-index: 5;
+			}
+
+			.promo-control-btn {
+				width: 48px;
+				height: 48px;
+				border-radius: 16px;
+				border: 1px solid rgba(255, 255, 255, 0.22);
+				background: rgba(24, 24, 28, 0.78);
+				display: grid;
+				place-items: center;
+				color: #f5f5f5;
+				cursor: pointer;
+				transition: background 0.2s ease, border 0.2s ease;
+				backdrop-filter: blur(10px);
+			}
+
+			.promo-control-btn:hover {
+				background: rgba(48, 48, 52, 0.85);
+				border-color: rgba(255, 255, 255, 0.28);
+			}
+
+			.promo-control-btn svg {
+				width: 18px;
+				height: 18px;
+				fill: currentColor;
+			}
+
+			.promo-control-btn .icon {
+				display: none;
+			}
+
+			.promo-control-btn.is-playing .icon-pause,
+			.promo-control-btn:not(.is-playing) .icon-play {
+				display: block;
+			}
+
+			.promo-control-btn.is-muted .icon-muted,
+			.promo-control-btn:not(.is-muted) .icon-volume {
+				display: block;
+			}
+
+			@media (max-width: 1024px) {
+				.promo-video-section {
+					display: none;
+				}
+			}
+
+			/* YouTube Play Button */
+			.youtube-play-button {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				background: rgba(24, 24, 28, 0.78);
+				backdrop-filter: blur(10px);
+				border: 1px solid rgba(255, 255, 255, 0.22);
+				border-radius: 14px;
+				padding: 0.85rem 1.2rem;
+				cursor: pointer;
+				margin-top: 2rem;
+				opacity: 0;
+				transform: none; /* No translateY - will use opacity fade only */
+				transition: all 0.3s ease;
+				color: #ffffff;
+				gap: 0.6rem;
+			}
+			
+			/* Desktop: button starts with no transform, GSAP will handle opacity fade */
+			@media (min-width: 769px) {
+				.youtube-play-button {
+					transform: none; /* Static reveal - no translateY */
+				}
+			}
+
+			.play-button-icon {
+				width: 28px;
+				height: 28px;
+				transition: transform 0.3s ease;
+				display: block;
+				flex-shrink: 0;
+			}
+
+			.youtube-play-button:hover {
+				background: rgba(48, 48, 52, 0.85);
+				border-color: rgba(255, 255, 255, 0.28);
+				transform: translateY(-2px);
+			}
+
+			.youtube-play-button:hover .play-button-icon {
+				transform: scale(1.1);
+			}
+
+			.youtube-play-button:active {
+				transform: translateY(0) scale(0.98);
+			}
+
+			@media (max-width: 768px) {
+				.youtube-play-button {
+					padding: 0.75rem 1rem;
+				}
+
+				.play-button-icon {
+					width: 24px;
+					height: 24px;
+				}
+			}
+
+			/* YouTube Video Modal */
+			.youtube-modal {
+				position: fixed;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.9);
+				backdrop-filter: blur(8px);
+				opacity: 0;
+				visibility: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				z-index: 2000;
+				padding: 2rem;
+				transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+			}
+
+			.youtube-modal::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: #000;
+				z-index: -1;
+			}
+
+			.youtube-modal.is-open {
+				opacity: 1;
+				visibility: visible;
+				transition: opacity 0.3s ease, visibility 0s linear 0s;
+			}
+
+			.youtube-modal__backdrop {
+				position: absolute;
+				inset: 0;
+				cursor: pointer;
+			}
+
+			.youtube-modal__dialog {
+				position: relative;
+				background: #0f0f0f;
+				border: none;
+				border-radius: 12px;
+				box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+				overflow: hidden;
+				max-width: min(1200px, 95vw);
+				width: 100%;
+				opacity: 0;
+				transform: translateY(20px) scale(0.95);
+				transform-origin: center center;
+				transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+			}
+
+			.youtube-modal.is-open .youtube-modal__dialog {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+				transform-origin: center center;
+			}
+
+			.youtube-modal__close {
+				position: absolute;
+				top: 12px;
+				right: 12px;
+				width: 36px;
+				height: 36px;
+				background: rgba(0, 0, 0, 0.6);
+				border: none;
+				border-radius: 50%;
+				color: #fff;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				z-index: 10;
+				transition: all 0.2s ease;
+			}
+
+			.youtube-modal__close:hover {
+				background: rgba(255, 255, 255, 0.1);
+				transform: scale(1.1);
+			}
+
+			.youtube-modal__video-wrapper {
+				position: relative;
+				width: 100%;
+				background: #000;
+				border-radius: 0;
+				overflow: hidden;
+			}
+			
+			/* Mobile: Allow full image to be visible */
+			@media (max-width: 768px) {
+				.youtube-modal__video-wrapper {
+					overflow: visible !important;
+				}
+			}
+
+			.youtube-modal__thumbnail {
+				width: 100%;
+				height: auto;
+				display: block;
+				aspect-ratio: 16 / 9;
+				object-fit: cover;
+				background: #000;
+			}
+			
+			/* Mobile: Show full image by default (no crop/zoom) */
+			@media (max-width: 768px) {
+				.youtube-modal__thumbnail {
+					object-fit: contain !important;
+					width: auto;
+					height: auto;
+					max-width: 100%;
+					max-height: 100%;
+				}
+			}
+
+			.youtube-modal__play-overlay {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				width: 68px;
+				height: 48px;
+				background: rgba(33, 33, 33, 0.8);
+				border-radius: 12px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				cursor: pointer;
+				transition: all 0.2s ease;
+				z-index: 2;
+				backdrop-filter: blur(4px);
+			}
+
+			.youtube-modal__play-overlay:hover {
+				background: rgba(255, 0, 0, 0.9);
+				transform: translate(-50%, -50%) scale(1.05);
+			}
+
+			.youtube-modal__play-icon {
+				width: 0;
+				height: 0;
+				border-left: 20px solid #fff;
+				border-top: 12px solid transparent;
+				border-bottom: 12px solid transparent;
+				margin-left: 4px;
+			}
+
+			.youtube-modal__info {
+				padding: 1rem 1rem 1.5rem;
+				background: #0f0f0f;
+			}
+
+			.youtube-modal__title {
+				font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+				font-size: 1rem;
+				font-weight: 500;
+				color: #ffffff;
+				margin: 0;
+				line-height: 1.4;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+
+			body.youtube-modal-open .main-content {
+				filter: blur(8px);
+				transition: filter 0.3s ease;
+			}
+
+            @media (max-width: 768px) {
+                .youtube-modal {
+                    padding: 1rem;
+                }
+
+                .youtube-modal__dialog {
+                    max-width: 100%;
+                    border-radius: 16px;
+                }
+
+				.youtube-modal__close {
+					top: 12px;
+					right: 12px;
+					width: 36px;
+					height: 36px;
+				}
+
+				.youtube-modal__actions {
+					padding: 1rem;
+					flex-direction: column;
+				}
+
+                .youtube-modal__open-link {
+                    width: 100%;
+                    justify-content: center;
+                }
+
+                /* Mobile fix: ensure thumbnail is centered and shows full image (no zoom) */
+                .youtube-modal__video-wrapper {
+                    aspect-ratio: 16 / 9; /* maintain consistent video frame ratio */
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    overflow: visible; /* Allow full image to be visible */
+                }
+
+                .youtube-modal__thumbnail {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) scale(1); /* Ensure no initial zoom */
+                    width: auto;
+                    height: auto;
+                    max-width: 100%;
+                    max-height: 100%;
+                    object-fit: contain !important;
+                    object-position: center !important;
+                    transform-origin: center center !important;
+                }
+            }
+
+            /* Explicitly target touch devices to ensure contain-fit under devtools mobile emulation */
+            @media (hover: none), (pointer: coarse) {
+                /* Use padding-top ratio for broad mobile compatibility */
+                .youtube-modal__video-wrapper {
+                    position: relative;
+                    width: 100%;
+                    overflow: hidden;
+                    background: #000;
+                    aspect-ratio: auto !important; /* disable aspect-ratio to avoid conflicts */
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                .youtube-modal__video-wrapper::before {
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    padding-top: 56.25%; /* 16:9 ratio */
+                }
+                .youtube-modal__thumbnail {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) scale(1); /* Ensure no initial zoom */
+                    width: auto;
+                    height: auto;
+                    max-width: 100%;
+                    max-height: 100%;
+                    object-fit: contain !important;
+                    object-position: center !important;
+                    transform-origin: center center !important;
+                }
+            }
+		</style>
+	</head>
+	<body id="home" class="loading">
+		<!-- Enhanced Loading Screen -->
+		<div class="loading-screen" id="loadingScreen">
+			<div class="loading-spinner"></div>
+		</div>
+
+		<!-- Main Content -->
+		<div class="main-content">
+			<!-- Navigation -->
+			<header class="header">
+				<div class="nav-container">
+					<nav class="nav-row">
+						<div class="nav-inner">
+							<a
+								href="https://www.christuniversity.in/"
+								target="_blank"
+								class="nav-logo-row"
+							>
+								<img
+									src="./public/christwhite.png"
+									alt="Christ University"
+									class="nav-logo-img"
+								/>
+							</a>
+							<div class="nav-menu">
+								<!-- New Simple Mobile Menu Toggle Button -->
+								<button
+									class="simple-mobile-toggle"
+									id="simpleMobileToggle"
+									aria-label="Toggle mobile menu"
+								>
+									<span class="toggle-line"></span>
+									<span class="toggle-line"></span>
+									<span class="toggle-line"></span>
+								</button>
+
+								<!-- Mobile Navigation Backdrop -->
+								<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+
+								<div class="nav-menu__links" id="navMenuLinks">
+									<a href="index.html" class="link nav-link">
+										<span class="nav-link-text">Home</span>
+										<svg
+											class="nav-link-arrow"
+											width="12"
+											height="12"
+											viewBox="0 0 12 12"
+											fill="none"
+										>
+											<path
+												d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+												fill="currentColor"
+											></path>
+										</svg>
+									</a>
+									<a href="events.html" class="link nav-link">
+										<span class="nav-link-text">Events</span>
+										<svg
+											class="nav-link-arrow"
+											width="12"
+											height="12"
+											viewBox="0 0 12 12"
+											fill="none"
+										>
+											<path
+												d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+												fill="currentColor"
+											></path>
+										</svg>
+									</a>
+									<a
+										href="schedule.html"
+										class="link nav-link"
+									>
+										<span class="nav-link-text">Schedule</span>
+										<svg
+											class="nav-link-arrow"
+											width="12"
+											height="12"
+											viewBox="0 0 12 12"
+											fill="none"
+										>
+											<path
+												d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+												fill="currentColor"
+											></path>
+										</svg>
+									</a>
+									<a href="about.html" class="link nav-link">
+										<span class="nav-link-text">About</span>
+										<svg
+											class="nav-link-arrow"
+											width="12"
+											height="12"
+											viewBox="0 0 12 12"
+											fill="none"
+										>
+											<path
+												d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+												fill="currentColor"
+											></path>
+										</svg>
+									</a>
+									<a href="gallery.html" class="link nav-link">
+										<span class="nav-link-text">Gallery</span>
+										<svg
+											class="nav-link-arrow"
+											width="12"
+											height="12"
+											viewBox="0 0 12 12"
+											fill="none"
+										>
+											<path
+												d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+												fill="currentColor"
+											></path>
+										</svg>
+									</a>
+								</div>
+
+								<!-- Magnovite Logo on Right -->
+								<a href="index.html" class="nav-right-logo">
+									<img
+										src="./public/magnovite.png"
+										alt="Magnovite"
+										class="nav-right-logo-img"
+									/>
+								</a>
+							</div>
+						</div>
+					</nav>
+				</div>
+			</header>
+
+			<div class="container">
+				<div class="overlay"></div>
+				<div class="hero-1-container">
+					<div class="hero-main-container">
+						<h1 class="hero-main-logo" aria-label="Are you excited?">
+							<img src="./public/excited.png" alt="Are you excited?" />
+						</h1>
+						<video class="hero-main-image" autoplay muted loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback controlslist="nodownload noplaybackrate nofullscreen noremoteplayback">
+							<source src="./public/initialbg.mp4" type="video/mp4" />
+							Your browser does not support the video tag.
+						</video>
+					</div>
+					<div class="hero-text-logo-container">
+						<div class="hero-text-logo"></div>
+						<div>
+							<h3 class="hero-text">
+								MAGNOVITE<br />
+								2025
+							</h3>
+						</div>
+					</div>
+				</div>
+				<div class="hero-2-container">
+					<h3>Welcome to Magnovite'25</h3>
+					<p>
+						MAGNOVITE is the annual flagship fest organised by CHRIST (Deemed To
+						be University), Kengeri Campus. It is an enigmatic nexus of
+						creativity and collaboration, bringing healthy competition and
+						positive connections between participants. It returns this year with
+						its 15th edition, bringing back its unfading charm.
+					</p>
+					<button type="button" class="youtube-play-button" id="youtubeButton" aria-label="View promo video on YouTube">
+						<svg class="play-button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M8 6L18 12L8 18V6Z" fill="currentColor"/>
+						</svg>
+					</button>
+				</div>
+
+				<!-- Masala Coffee Section (after scroll, before video) -->
+				<section class="masala-section" aria-label="Masala Coffee at Magnovite 2025">
+					<div class="masala-card">
+						<div class="masala-content">
+							<span class="masala-eyebrow">Live Performance</span>
+							<h3 class="masala-title">Welcoming Masala Coffee to Magnovite 2025</h3>
+							<p class="masala-text">
+								This dynamic Indian band is celebrated for blending diverse genres—including Indian folk,
+								blues, pop, and rock—into a unique and high-energy sound.
+							</p>
+							<p class="masala-text">
+								Since their founding in 2014, Masala Coffee has captivated audiences with original
+								compositions and covers in multiple languages (Malayalam, Hindi, Tamil, Telugu, etc.).
+								They are also recognized for their film music contributions to movies like
+								<i>Solo</i> and <i>Kannum Kannum Kollaiyadithaal</i>.
+							</p>
+							<p class="masala-text">
+								<strong>Don't miss</strong> their genre-bending set on the main stage!
+							</p>
+							<div class="masala-actions">
+								<!-- Actions removed as per request -->
+							</div>
+						</div>
+						<div class="masala-media">
+							<img src="./public/masalacoffee.jpeg" alt="Masala Coffee poster" loading="lazy" />
+						</div>
+					</div>
+				</section>
+				
+<!-- DJ Rubz Section (placed below Masala Coffee) -->
+				<section class="masala-section" id="dj-rubz" aria-label="DJ Rubz at Magnovite 2025">
+					<div class="masala-card">
+						<div class="masala-content">
+							<span class="masala-eyebrow">DJ Event</span>
+							<h3 class="masala-title">Witness DJ Rubz Live on the Main Stage</h3>
+							<p class="masala-text">
+								We are ecstatic to welcome the sensational DJ Rubz to our campus! As an official
+								Sunburn-affiliated artist, DJ Rubz is a force to be reckoned with in the Indian music scene,
+								renowned for his versatility and ability to keep any crowd engaged.
+							</p>
+							<p class="masala-text">
+								With years of experience tearing up stages across the nation, Rubz has perfected a high-energy
+								set that fuses the best of Bollywood bangers with cutting-edge EDM, Hip-Hop, and Commercial hits.
+							</p>
+							<p class="masala-text">
+								His unique style isn't just about playing music; it's about curating an immersive experience—a
+								journey of rhythm and light that leaves the audience breathless.
+							</p>
+							<div class="masala-actions">
+								
+							</div>
+						</div>
+						<div class="masala-media">
+							<img src="./public/djrubz.jpg" alt="DJ Rubz poster" loading="lazy" />
+						</div>
+					</div>
+				</section>
+				
+
+
+				<!-- Modals moved outside of .main-content to prevent blur -->
+
+				<!-- Call to Action Section -->
+				<section class="cta-section scroll-reveal">
+					<h2 class="cta-title">Join the Revolution</h2>
+					<p class="cta-text">
+						Be part of something extraordinary. MAGNOVITE'25 is more than an
+						event—it's a movement that shapes the future of technology and
+						innovation.
+					</p>
+					<div class="cta-buttons">
+						<button
+							class="cta-button secondary"
+							onclick="window.location.href='./events.html'"
+						>
+							Explore Events
+						</button>
+						<button
+							class="cta-button primary"
+							onclick="window.location.href='./about.html'"
+						>
+							Learn More
+						</button>
+					</div>
+				</section>
+
+				<footer class="site-footer">
+					<div class="footer-inner">
+						<div class="footer-brand">
+							<img
+								src="./public/magnovite.png"
+								alt="Magnovite"
+								class="footer-logo"
+							/>
+							<span class="footer-divider"></span>
+							<img
+								src="./public/christwhite.png"
+								alt="Christ University"
+								class="footer-logo footer-logo--christ"
+							/>
+						</div>
+						<div class="footer-columns">
+							<div class="footer-col footer-about">
+								<p>
+									Christ University, Kengeri Campus offers a blend of
+									traditional and world-class facilities, including
+									department-specific buildings, libraries, research facilities,
+									and residences, amidst the city's greenery.
+								</p>
+							</div>
+							<div class="footer-col footer-desc">
+								<p>
+									MAGNOVITE, the 15th edition of CHRIST University's flagship
+									fest, fosters creativity, collaboration, healthy competition,
+									and positive connections among participants.
+								</p>
+								<div class="footer-social">
+									<a
+										href="https://www.linkedin.com/company/christ-university-faculty-of-engineering/?originalSubdomain=in"
+										target="_blank"
+										class="social-link linkedin-link"
+										aria-label="LinkedIn"
+									>
+										<svg
+											class="social-icon"
+											width="20"
+											height="20"
+											viewBox="0 0 24 24"
+											fill="none"
+										>
+											<path
+												d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+												fill="currentColor"
+											/>
+										</svg>
+									</a>
+									<a
+										href="https://www.instagram.com/magnovite.kengeri/"
+										target="_blank"
+										class="social-link instagram-link"
+										aria-label="Instagram"
+									>
+										<svg
+											class="social-icon"
+											width="20"
+											height="20"
+											viewBox="0 0 24 24"
+											fill="none"
+										>
+											<path
+												d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+												fill="currentColor"
+											/>
+										</svg>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</footer>
+
+				<!-- Main Video Overlay -->
+				<div
+					class="video-modal"
+					id="videoModal"
+					aria-hidden="true"
+					role="dialog"
+					aria-label="Main video"
+				>
+					<div class="video-modal__backdrop" data-close="video"></div>
+					<div class="video-modal__dialog" role="document">
+						<button
+							class="video-modal__close"
+							type="button"
+							aria-label="Close video"
+							data-close="video"
+						>
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+								<path
+									d="M18 6L6 18M6 6l12 12"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+								/>
+							</svg>
+						</button>
+						<div class="video-modal__video-wrap">
+							<video
+								id="mainVideoModal"
+								class="video-modal__video"
+								preload="metadata"
+								playsinline
+							>
+								<source src="./public/initialbg.mp4" type="video/mp4" />
+								Your browser does not support the video tag.
+							</video>
+
+							<!-- Elegant Custom Controls -->
+							<div class="video-modal__controls">
+								<button
+									class="video-modal__play-pause"
+									id="playPauseBtn"
+									aria-label="Play/Pause"
+								>
+									<svg
+										id="playIcon"
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="currentColor"
+									>
+										<path d="M8 5v14l11-7z" />
+									</svg>
+									<svg
+										id="pauseIcon"
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="currentColor"
+										style="display: none"
+									>
+										<path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+									</svg>
+								</button>
+
+								<div class="video-modal__progress" id="progressBar">
+									<div
+										class="video-modal__progress-bar"
+										id="progressFill"
+									></div>
+								</div>
+
+								<div class="video-modal__time" id="timeDisplay">
+									0:00 / 0:00
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Scroll Indicator -->
+				<div class="scroll-indicator">
+					<svg
+						width="34"
+						height="14"
+						viewBox="0 0 34 14"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+						aria-hidden="true"
+						class="_1smfa210"
+						focusable="false"
+					>
+						<path
+							fill-rule="evenodd"
+							clip-rule="evenodd"
+							d="M33.5609 1.54346C34.0381 2.5875 33.6881 3.87821 32.7791 4.42633L17.0387 13.9181L1.48663 4.42115C0.580153 3.86761 0.235986 2.57483 0.717909 1.53365C1.19983 0.492464 2.32535 0.097152 3.23182 0.650692L17.0497 9.08858L31.051 0.64551C31.96 0.0973872 33.0837 0.499411 33.5609 1.54346Z"
+							fill="currentColor"
+						></path>
+					</svg>
+				</div>
+			</div>
+		</div>
+		<!-- End main-content -->
+
+		<!-- YouTube Video Modal (outside main-content for blur effect) -->
+		<div class="youtube-modal" id="youtubeModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="youtubeModalTitle">
+			<div class="youtube-modal__backdrop" data-close="youtube"></div>
+			<div class="youtube-modal__dialog" role="document">
+				<button class="youtube-modal__close" type="button" aria-label="Close video" data-close="youtube">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+						<path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+					</svg>
+				</button>
+				<div class="youtube-modal__video-wrapper" id="youtubeThumbnailWrapper">
+					<img src="./public/thumbnail.jpg" alt="Magnovite 2025 Promo Video" class="youtube-modal__thumbnail" id="youtubeThumbnail" />
+					<div class="youtube-modal__play-overlay" id="youtubePlayOverlay">
+						<div class="youtube-modal__play-icon"></div>
+					</div>
+				</div>
+				<div class="youtube-modal__info">
+					<h3 class="youtube-modal__title">You're about to witness the IGNITION of something monumental... | Magnovite 2025</h3>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!-- Keep promo video source present (hidden) for future logic -->
+	<video id="promoPreload" preload="metadata" style="display:none" playsinline webkit-playsinline muted>
+		<source src="./public/promo.mp4" type="video/mp4" />
+	</video>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+	<script defer src="./src/script.js"></script>
+		<script>
+		// Enhanced Video Loading Screen Management with Synchronization
+		document.addEventListener('DOMContentLoaded', function () {
+			const loadingScreen = document.getElementById('loadingScreen');
+			const body = document.body;
+			const video = document.querySelector('.hero-main-image');
+			let videoLoadTimeout;
+			let loadingScreenHidden = false;
+
+			// Force remove any native controls/playbar just in case
+			if (video) {
+				video.removeAttribute('controls');
+				video.setAttribute('controlslist', 'nodownload noplaybackrate nofullscreen noremoteplayback');
+				video.setAttribute('disablepictureinpicture', '');
+				video.setAttribute('disableremoteplayback', '');
+			}
+
+			// Enhanced function to hide loading screen
+			function hideLoadingScreen() {
+				if (loadingScreenHidden) return;
+				loadingScreenHidden = true;
+				
+				loadingScreen.classList.add('fade-out');
+				body.classList.remove('loading');
+				body.classList.add('loaded');
+
+				// Remove loading screen from DOM after animation
+				setTimeout(() => {
+					if (loadingScreen && loadingScreen.parentNode) {
+						loadingScreen.remove();
+					}
+				}, 800);
+			}
+
+			// Comprehensive video loading check
+			function checkVideoCompletelyLoaded() {
+				if (!video) {
+					// No video element, hide loading screen after short delay
+					setTimeout(hideLoadingScreen, 1000);
+					return;
+				}
+
+				// Check if video has enough data to play smoothly
+				const isVideoReady = video.readyState >= 4 && // HAVE_ENOUGH_DATA
+					video.duration > 0 && // Has valid duration
+					video.videoWidth > 0 && // Has video dimensions
+					video.videoHeight > 0;
+
+				if (isVideoReady) {
+					// Video is completely ready
+					hideLoadingScreen();
+					return true;
+				}
+
+				return false;
+			}
+
+			// Enhanced video loading event handlers
+			function setupVideoLoading() {
+				if (!video) {
+					setTimeout(hideLoadingScreen, 2000);
+					return;
+				}
+
+				// Set video attributes for better loading and smooth playback
+				video.preload = 'auto';
+				video.muted = true; // ensure autoplay
+				video.playsInline = true;
+				video.load();
+
+
+				// Multiple event listeners for comprehensive loading detection
+				const loadingEvents = [
+					'canplaythrough',
+					'loadeddata',
+					'loadedmetadata',
+					'progress',
+					'stalled',
+					'suspend',
+					'waiting'
+				];
+
+				loadingEvents.forEach(eventType => {
+					video.addEventListener(eventType, function() {
+						console.log(`Video event: ${eventType}, readyState: ${video.readyState}`);
+						
+						// Check if video is ready after each event
+						if (checkVideoCompletelyLoaded()) {
+							// Remove all event listeners once video is ready
+							loadingEvents.forEach(evt => {
+								video.removeEventListener(evt, arguments.callee);
+							});
+						}
+					});
+				});
+
+				// Special handling for canplaythrough event
+				video.addEventListener('canplaythrough', function() {
+					console.log('Video can play through - ready for scroll sync');
+					// Add small delay to ensure video is fully buffered
+					setTimeout(() => {
+						if (checkVideoCompletelyLoaded()) {
+							clearTimeout(videoLoadTimeout);
+						}
+					}, 500);
+				});
+
+				// Handle video errors
+				video.addEventListener('error', function(e) {
+					console.error('Video loading error:', e);
+					// Hide loading screen even if video fails
+					setTimeout(hideLoadingScreen, 1000);
+				});
+
+				// Handle video stalled (network issues)
+				video.addEventListener('stalled', function() {
+					console.log('Video stalled - checking if enough data loaded');
+					setTimeout(() => {
+						if (video.readyState >= 3) {
+							checkVideoCompletelyLoaded();
+						}
+					}, 1000);
+				});
+
+				// Start video playback attempt
+				video.play().catch((e) => {
+					console.log('Video autoplay prevented:', e);
+					// Even if autoplay fails, check if video is loaded
+					setTimeout(checkVideoCompletelyLoaded, 1000);
+				});
+
+				// Nudge decoder to keep pipeline primed (helps avoid stutter)
+				let lastTime = 0;
+				const keepAlive = () => {
+					if (!video) return;
+					const t = video.currentTime;
+					if (video.readyState < 4 && !video.paused) {
+						video.currentTime = Math.max(0, t - 0.000001);
+					}
+					lastTime = t;
+					requestAnimationFrame(keepAlive);
+				};
+				requestAnimationFrame(keepAlive);
+			}
+
+			// Start the video loading process
+			setupVideoLoading();
+
+			// Progressive loading check with increasing intervals
+			let checkInterval = 500;
+			const maxChecks = 20; // Maximum 10 seconds of checking
+			let checkCount = 0;
+
+			const progressiveCheck = setInterval(() => {
+				checkCount++;
+				
+				if (checkVideoCompletelyLoaded() || checkCount >= maxChecks) {
+					clearInterval(progressiveCheck);
+					if (checkCount >= maxChecks) {
+						console.log('Video loading timeout - hiding loading screen');
+						hideLoadingScreen();
+					}
+				}
+				
+				// Increase check interval progressively
+				if (checkCount > 5) {
+					checkInterval = 1000;
+				}
+			}, checkInterval);
+
+			// Ultimate fallback: hide loading screen after 8 seconds regardless
+			videoLoadTimeout = setTimeout(() => {
+				console.log('Video loading ultimate timeout - forcing hide');
+				hideLoadingScreen();
+			}, 8000);
+
+			// Handle page visibility changes
+			document.addEventListener('visibilitychange', function() {
+				if (!document.hidden && video && video.readyState < 4) {
+					// Page became visible and video might not be ready
+					console.log('Page visible - rechecking video state');
+					setTimeout(checkVideoCompletelyLoaded, 500);
+				}
+			});
+
+			// Handle network status changes
+			window.addEventListener('online', function() {
+				if (video && video.readyState < 4) {
+					console.log('Network online - rechecking video state');
+					setTimeout(checkVideoCompletelyLoaded, 1000);
+				}
+			});
+		});
+
+		// Mobile Navigation JavaScript
+		document.addEventListener('DOMContentLoaded', function () {
+			const mobileMenuToggle = document.getElementById('simpleMobileToggle');
+			const navMenuLinks = document.getElementById('navMenuLinks');
+			const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
+			const navLinks = document.querySelectorAll('.nav-menu__links .nav-link');
+
+			// Toggle mobile menu
+			function toggleMobileMenu() {
+				const isOpen = navMenuLinks.classList.contains('is-open');
+
+				if (isOpen) {
+					closeMobileMenu();
+				} else {
+					openMobileMenu();
+				}
+			}
+
+			// Open mobile menu
+			function openMobileMenu() {
+				navMenuLinks.classList.add('is-open');
+				mobileNavBackdrop.classList.add('is-open');
+				mobileMenuToggle.classList.add('is-active');
+				document.body.classList.add('mobile-menu-open');
+				document.body.style.overflow = 'hidden';
+			}
+
+			// Close mobile menu
+			function closeMobileMenu() {
+				navMenuLinks.classList.remove('is-open');
+				mobileNavBackdrop.classList.remove('is-open');
+				mobileMenuToggle.classList.remove('is-active');
+				document.body.classList.remove('mobile-menu-open');
+				document.body.style.overflow = 'visible';
+				document.body.style.overflowX = 'hidden';
+
+				// Refresh ScrollTrigger to ensure proper scroll behavior
+				if (typeof window !== 'undefined' && window.ScrollTrigger) {
+					window.ScrollTrigger.refresh();
+				}
+			}
+
+			// Event listeners
+			if (mobileMenuToggle) {
+				mobileMenuToggle.addEventListener('click', function (e) {
+					e.stopPropagation();
+					toggleMobileMenu();
+				});
+			}
+
+			if (mobileNavBackdrop) {
+				mobileNavBackdrop.addEventListener('click', closeMobileMenu);
+			}
+
+			// Prevent menu from closing when clicking on the menu itself
+			if (navMenuLinks) {
+				navMenuLinks.addEventListener('click', function (e) {
+					e.stopPropagation();
+				});
+			}
+
+			// Close menu when clicking on nav links
+			navLinks.forEach((link) => {
+				link.addEventListener('click', closeMobileMenu);
+			});
+
+			// Close menu on escape key
+			document.addEventListener('keydown', function (e) {
+				if (e.key === 'Escape' && navMenuLinks.classList.contains('is-open')) {
+					closeMobileMenu();
+				}
+			});
+
+			// Close menu when clicking anywhere else on the screen
+			document.addEventListener('click', function (e) {
+				if (navMenuLinks.classList.contains('is-open')) {
+					// Check if click is outside the menu and hamburger button
+					if (
+						!navMenuLinks.contains(e.target) &&
+						!mobileMenuToggle.contains(e.target) &&
+						!mobileNavBackdrop.contains(e.target)
+					) {
+						closeMobileMenu();
+					}
+				}
+			});
+
+			// Close menu on window resize (if screen becomes larger)
+			window.addEventListener('resize', function () {
+				if (window.innerWidth > 768) {
+					closeMobileMenu();
+				}
+			});
+		});
+
+		// CTA Section JavaScript
+		document.addEventListener('DOMContentLoaded', function () {
+			// Scroll reveal animation for CTA section
+			const ctaSection = document.querySelector('.cta-section');
+
+			if (ctaSection) {
+				const observer = new IntersectionObserver(
+					(entries) => {
+						entries.forEach((entry) => {
+							if (entry.isIntersecting) {
+								entry.target.classList.add('revealed');
+							}
+						});
+					},
+					{
+						threshold: 0.1,
+						rootMargin: '0px 0px -50px 0px',
+					}
+				);
+
+				observer.observe(ctaSection);
+			}
+
+			// Enhanced button interactions
+			document.querySelectorAll('.cta-button').forEach((button) => {
+				// Ripple effect on click
+				button.addEventListener('click', function (e) {
+					const rect = this.getBoundingClientRect();
+					const size = Math.max(rect.width, rect.height);
+					const x = e.clientX - rect.left - size / 2;
+					const y = e.clientY - rect.top - size / 2;
+
+					const ripple = document.createElement('span');
+					ripple.style.cssText = `
+						position: absolute;
+						width: ${size}px;
+						height: ${size}px;
+						left: ${x}px;
+						top: ${y}px;
+						background: rgba(255, 255, 255, 0.3);
+						border-radius: 50%;
+						pointer-events: none;
+						transform: scale(0);
+						animation: ripple-animation 0.6s ease-out;
+					`;
+
+					this.appendChild(ripple);
+
+					setTimeout(() => {
+						ripple.remove();
+					}, 600);
+				});
+
+				// Hover glow effect
+				button.addEventListener('mouseenter', function () {
+					this.style.boxShadow = '0 0 30px rgba(255, 0, 255, 0.5)';
+				});
+
+				button.addEventListener('mouseleave', function () {
+					this.style.boxShadow = '';
+				});
+			});
+
+			// Add ripple animation keyframes if not already present
+			if (!document.querySelector('style[data-cta-animations]')) {
+				const style = document.createElement('style');
+				style.setAttribute('data-cta-animations', 'true');
+				style.textContent = `
+					@keyframes ripple-animation {
+						to {
+							transform: scale(2);
+							opacity: 0;
+						}
+					}
+				`;
+				document.head.appendChild(style);
+			}
+		});
+
+		// Poster/Promo UI temporarily removed per request; promo video kept hidden for future logic
+
+		// YouTube Modal Logic
+		document.addEventListener('DOMContentLoaded', function() {
+			const youtubeButton = document.getElementById('youtubeButton');
+			const youtubeModal = document.getElementById('youtubeModal');
+			const youtubePlayOverlay = document.getElementById('youtubePlayOverlay');
+			const youtubeBackdrop = youtubeModal?.querySelector('.youtube-modal__backdrop');
+			const youtubeCloseBtn = youtubeModal?.querySelector('.youtube-modal__close');
+
+			function openYouTubeModal() {
+				if (!youtubeModal) return;
+				
+				// Prevent body scroll immediately to avoid flash
+				document.body.style.overflow = 'hidden';
+				
+				// Set modal to be visible immediately (no transition delay for visibility)
+				// This prevents the flash of content behind the modal
+				youtubeModal.style.visibility = 'visible';
+				youtubeModal.style.background = 'rgba(0, 0, 0, 0.9)';
+				
+				// Use requestAnimationFrame to ensure backdrop is rendered before opacity transition
+				requestAnimationFrame(() => {
+					// Now add class to trigger opacity transition
+					youtubeModal.classList.add('is-open');
+					document.body.classList.add('youtube-modal-open');
+				});
+				
+				// Mobile fix: Ensure thumbnail is centered and shows full image (no zoom)
+				const isMobile = window.innerWidth <= 768;
+				if (isMobile) {
+					const thumbnail = document.getElementById('youtubeThumbnail');
+					const wrapper = document.getElementById('youtubeThumbnailWrapper');
+					if (thumbnail && wrapper) {
+						// Force center positioning and full image display on mobile
+						thumbnail.style.position = 'absolute';
+						thumbnail.style.top = '50%';
+						thumbnail.style.left = '50%';
+						thumbnail.style.transform = 'translate(-50%, -50%) scale(1)'; // No zoom
+						thumbnail.style.transformOrigin = 'center center';
+						thumbnail.style.objectFit = 'contain';
+						thumbnail.style.objectPosition = 'center';
+						thumbnail.style.width = 'auto';
+						thumbnail.style.height = 'auto';
+						thumbnail.style.maxWidth = '100%';
+						thumbnail.style.maxHeight = '100%';
+						
+						// Ensure wrapper allows full image to be visible
+						wrapper.style.overflow = 'visible';
+					}
+				}
+				
+				// Set aria attributes
+				youtubeModal.setAttribute('aria-hidden', 'false');
+			}
+
+			function closeYouTubeModal() {
+				if (!youtubeModal) return;
+				
+				// Close modal
+				youtubeModal.classList.remove('is-open');
+				document.body.classList.remove('youtube-modal-open');
+				
+				// Restore scrolling - explicitly set to allow scrolling
+				document.body.style.overflow = 'auto';
+				document.body.style.overflowX = 'hidden';
+				
+				// Reset inline styles after transition completes
+				setTimeout(() => {
+					if (!youtubeModal.classList.contains('is-open')) {
+						youtubeModal.style.visibility = '';
+						youtubeModal.style.background = '';
+					}
+				}, 300); // Match transition duration
+				
+				// Set aria attributes
+				youtubeModal.setAttribute('aria-hidden', 'true');
+			}
+
+			// Open modal on button click
+			if (youtubeButton) {
+				youtubeButton.addEventListener('click', openYouTubeModal);
+			}
+
+			// Clicking play overlay opens YouTube
+			if (youtubePlayOverlay) {
+				youtubePlayOverlay.addEventListener('click', function() {
+					window.open('https://youtu.be/EGSUtEnfX9g', '_blank', 'noopener,noreferrer');
+				});
+			}
+
+			// Close modal on backdrop click
+			if (youtubeBackdrop) {
+				youtubeBackdrop.addEventListener('click', closeYouTubeModal);
+			}
+
+			// Close modal on close button click
+			if (youtubeCloseBtn) {
+				youtubeCloseBtn.addEventListener('click', closeYouTubeModal);
+			}
+
+			// Close modal on Escape key
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'Escape' && youtubeModal?.classList.contains('is-open')) {
+					closeYouTubeModal();
+				}
+			});
+
+			// Close modal when clicking on elements with data-close attribute
+			if (youtubeModal) {
+				youtubeModal.addEventListener('click', function(e) {
+					if (e.target.closest('[data-close="youtube"]')) {
+						closeYouTubeModal();
+					}
+				});
+			}
+		});
+	</script>
+</html>

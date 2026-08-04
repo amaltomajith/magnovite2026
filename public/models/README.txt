@@ -1,0 +1,1 @@
+Place your hero.glb 3D model here.

@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Gallery - Magnovite'25</title>
+		<link
+			rel="icon"
+			type="image/png"
+			href="./public/magnovite.png"
+			sizes="32x32 64x64 128x128 192x192"
+		/>
+		<link
+			rel="apple-touch-icon"
+			href="./public/magnovite.png"
+			sizes="180x180"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="./src/style.css" />
+		<style>
+			/* Remove list styling from navigation elements */
+			.mobile-menu-toggle,
+			.mobile-menu-toggle li,
+			.nav-menu,
+			.nav-menu li,
+			.nav-menu__links,
+			.nav-menu__links li,
+			.nav-link,
+			.nav-link li,
+			.nav-link-text,
+			.nav-link-text li,
+			.link,
+			.link li {
+				list-style-type: none !important;
+				list-style: none !important;
+			}
+
+			/* Additional fix for navigation links specifically */
+			.nav-menu__links .nav-link::before,
+			.nav-menu__links .nav-link::after {
+				content: none !important;
+			}
+
+			/* New Simple Mobile Toggle Button */
+			.simple-mobile-toggle {
+				display: none;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 32px;
+				height: 32px;
+				background: transparent;
+				border: none;
+				cursor: pointer;
+				transition: all 0.2s ease;
+				z-index: 1003;
+				position: relative;
+				padding: 0;
+				margin: 0;
+				margin-left: -20px;
+			}
+
+			.simple-mobile-toggle:hover {
+				opacity: 0.7;
+			}
+
+			.toggle-line {
+				width: 20px;
+				height: 2px;
+				background: #ffffff;
+				margin: 3px 0;
+				transition: all 0.3s ease;
+				transform-origin: center;
+			}
+
+			.simple-mobile-toggle.is-active .toggle-line:nth-child(1) {
+				transform: rotate(45deg) translate(5px, 5px);
+			}
+
+			.simple-mobile-toggle.is-active .toggle-line:nth-child(2) {
+				opacity: 0;
+			}
+
+			.simple-mobile-toggle.is-active .toggle-line:nth-child(3) {
+				transform: rotate(-45deg) translate(5px, -5px);
+			}
+
+			/* Ensure hamburger button stays visible when menu is open */
+			body.mobile-menu-open .simple-mobile-toggle {
+				z-index: 1003 !important;
+			}
+
+			/* Hide simple toggle on desktop */
+			@media (min-width: 769px) {
+				.simple-mobile-toggle {
+					display: none !important;
+					visibility: hidden !important;
+					opacity: 0 !important;
+					width: 0 !important;
+					height: 0 !important;
+					margin: 0 !important;
+					padding: 0 !important;
+					border: none !important;
+					background: transparent !important;
+					pointer-events: none !important;
+					position: absolute !important;
+					left: -9999px !important;
+					top: -9999px !important;
+					overflow: hidden !important;
+					clip: rect(0, 0, 0, 0) !important;
+				}
+
+				.toggle-line {
+					display: none !important;
+					visibility: hidden !important;
+					opacity: 0 !important;
+					width: 0 !important;
+					height: 0 !important;
+				}
+			}
+
+			/* Show simple toggle on mobile */
+			@media (max-width: 768px) {
+				.simple-mobile-toggle {
+					display: flex;
+				}
+
+				.toggle-line {
+					display: block;
+				}
+			}
+
+			/* Mobile Navigation Styles */
+			@media (max-width: 768px) {
+				.nav-menu__links {
+					position: fixed;
+					top: 0;
+					right: -100%;
+					width: 50vw;
+					height: 100vh;
+					background: rgba(0, 0, 0, 0.95);
+					backdrop-filter: blur(20px);
+					border-left: 1px solid rgba(255, 255, 255, 0.1);
+					display: flex;
+					flex-direction: column;
+					padding: 80px 0 40px;
+					transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+					z-index: 1000;
+					box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+				}
+
+				.nav-menu__links.is-open {
+					right: 0;
+				}
+
+				/* Page blur when menu is open - only blur specific content sections */
+                body.mobile-menu-open .hero-1-container,
+                body.mobile-menu-open .hero-2-container,
+                body.mobile-menu-open .hero-main-container,
+                body.mobile-menu-open .hero-main-image,
+                body.mobile-menu-open .hero-main-logo,
+                body.mobile-menu-open .hero-text-logo-container,
+                body.mobile-menu-open .masala-section,
+                body.mobile-menu-open .masala-card,
+                body.mobile-menu-open .masala-content,
+                body.mobile-menu-open .cta-section,
+                body.mobile-menu-open .site-footer,
+				body.mobile-menu-open #professional-header,
+				body.mobile-menu-open .gallery-container,
+				body.mobile-menu-open .gallery-grid {
+                    filter: blur(8px);
+                    transition: filter 0.3s ease;
+                }
+
+				/* Keep navigation and header completely sharp */
+				body.mobile-menu-open .header,
+				body.mobile-menu-open .nav-container,
+				body.mobile-menu-open .nav-row,
+				body.mobile-menu-open .nav-inner,
+				body.mobile-menu-open .nav-menu,
+				body.mobile-menu-open .mobile-menu-toggle,
+				body.mobile-menu-open .nav-menu__links,
+				body.mobile-menu-open .mobile-nav-backdrop {
+					filter: none !important;
+				}
+
+				/* Ensure proper z-index layering */
+				body.mobile-menu-open .header {
+					z-index: 1002;
+				}
+
+				body.mobile-menu-open .mobile-menu-toggle {
+					z-index: 1003;
+				}
+
+				body.mobile-menu-open .nav-menu__links {
+					z-index: 1001;
+				}
+
+				.nav-menu__links .nav-link {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					padding: 16px 24px;
+					margin: 4px 16px;
+					border-radius: 12px;
+					background: rgba(255, 255, 255, 0.05);
+					border: 1px solid rgba(255, 255, 255, 0.1);
+					transition: all 0.3s ease;
+					text-decoration: none;
+					color: #fff;
+					font-weight: 600;
+					min-height: 56px;
+					width: calc(100% - 32px);
+					box-sizing: border-box;
+				}
+
+				.nav-menu__links .nav-link-text {
+					flex: 1;
+					text-align: left;
+					font-size: 16px;
+					line-height: 1.2;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+
+				.nav-menu__links .nav-link:hover {
+					background: rgba(255, 255, 255, 0.1);
+					border-color: rgba(255, 255, 255, 0.3);
+					transform: translateX(8px);
+				}
+
+				.nav-menu__links .nav-link::after,
+				.nav-menu__links .nav-link::before {
+					content: none !important;
+				}
+
+				/* Hide navigation arrows on mobile */
+				.nav-menu__links .nav-link-arrow {
+					display: none;
+				}
+
+				/* Mobile backdrop */
+				.mobile-nav-backdrop {
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					background: rgba(0, 0, 0, 0.5);
+					backdrop-filter: blur(4px);
+					opacity: 0;
+					visibility: hidden;
+					transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+					z-index: 999;
+				}
+
+				.mobile-nav-backdrop.is-open {
+					opacity: 1;
+					visibility: visible;
+				}
+
+				.mobile-nav-backdrop::before {
+					content: '';
+					position: absolute;
+					top: 50vh;
+					left: 25%;
+					transform: translate(-50%, -50%) scale(0.8);
+					width: 120px;
+					height: 120px;
+					background-image: url('./public/MAGNOVITEBW.png');
+					background-size: contain;
+					background-repeat: no-repeat;
+					background-position: center;
+					opacity: 0;
+					z-index: 1000;
+					transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+					transition-delay: 0.1s;
+				}
+
+				.mobile-nav-backdrop.is-open::before {
+					opacity: 0.9;
+					transform: translate(-50%, -50%) scale(1);
+					transition-delay: 0.1s;
+				}
+
+				/* Gallery responsive styles */
+				#professional-header {
+					margin-top: 80px;
+					min-height: 40vh;
+					padding: 3rem 1.5rem 1rem;
+				}
+
+				.marquee-row {
+					height: 220px;
+				}
+
+				.gallery-image {
+					height: 180px;
+				}
+
+				.footer-columns {
+					grid-template-columns: 1fr;
+					gap: 40px;
+				}
+			}
+
+			/* CSS for Marquee Gallery */
+			:root {
+				--bg-dark: #000000;
+				--accent-light: #c780ff;
+				--accent-line: #9e3fff;
+				--accent-focus: #ff00ff;
+			}
+
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			html,
+			body {
+				font-family: 'Poppins', sans-serif;
+				background: var(--bg-dark);
+				color: white;
+				overflow-x: hidden;
+				min-height: 100vh;
+			}
+
+			/* Professional Header - Glowing Hero Section */
+			#professional-header {
+				min-height: 46vh;
+				display: grid;
+				place-items: center;
+				text-align: center;
+				padding: 4rem 1.5rem 1.25rem;
+				position: relative;
+				overflow: hidden;
+				margin-top: 80px;
+				background:
+					radial-gradient(circle at 50% 30%, rgba(255,0,255,.12), transparent 45%),
+					radial-gradient(circle at 20% 0%, rgba(158,63,255,.12), transparent 40%),
+					linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.95));
+			}
+
+			#professional-header::before {
+				content: '';
+				position: absolute;
+				top: -50%;
+				left: -50%;
+				width: 200%;
+				height: 200%;
+				background: radial-gradient(
+					circle,
+					rgba(255, 0, 255, 0.08) 0%,
+					transparent 70%
+				);
+				animation: rotate 20s linear infinite;
+				pointer-events: none;
+				z-index: 0;
+			}
+
+			#professional-header::after {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: radial-gradient(
+					circle at 50% 50%,
+					rgba(158, 63, 255, 0.1) 0%,
+					transparent 50%
+				);
+				pointer-events: none;
+				z-index: 1;
+			}
+
+			@keyframes rotate {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+
+			@keyframes gradient-shift {
+				0%,
+				100% {
+					background-position: 0% 50%;
+				}
+				50% {
+					background-position: 100% 50%;
+				}
+			}
+
+			#professional-header h1 {
+				font-size: clamp(2.25rem, 6vw, 4.5rem);
+				font-weight: 800;
+				letter-spacing: .08em;
+				text-transform: uppercase;
+				line-height: .9;
+				margin: 0 0 .75rem;
+				position: relative;
+				z-index: 2;
+				/* Animated gradient text */
+				background: linear-gradient(45deg, #ffffff, #ff00ff, #9e3fff, #ffb0c4);
+				background-size: 200% 200%;
+				-webkit-background-clip: text;
+				background-clip: text;
+				-webkit-text-fill-color: transparent;
+				animation: gradient-shift 3s ease infinite;
+				/* Text shadow for depth */
+				filter: drop-shadow(0 0 20px rgba(158, 63, 255, 0.3));
+				/* Subtle glow effect */
+				text-shadow: 0 0 30px rgba(158, 63, 255, 0.2);
+			}
+
+			#professional-header p {
+				font-size: clamp(1rem, 2.6vw, 1.35rem);
+				color: rgba(255,255,255,.8);
+				margin-top: 10px;
+				position: relative;
+				z-index: 2;
+			}
+
+			/* Gallery Container */
+			.gallery-container {
+				padding: 50px 0;
+				background: var(--bg-dark);
+			}
+
+			.marquee-gallery {
+				display: flex;
+				flex-direction: column;
+				gap: 30px;
+			}
+
+			.marquee-row {
+				height: 300px;
+				overflow: hidden;
+				position: relative;
+				border-top: 1px solid rgba(199, 128, 255, 0.3);
+				border-bottom: 1px solid rgba(199, 128, 255, 0.3);
+			}
+
+			/* Scroll indicators */
+			.marquee-row::before {
+				content: '← Swipe or scroll to explore →';
+				position: absolute;
+				top: 10px;
+				right: 20px;
+				background: rgba(0, 0, 0, 0.8);
+				color: var(--accent-light);
+				padding: 8px 16px;
+				border-radius: 20px;
+				font-size: 0.8rem;
+				font-weight: 600;
+				z-index: 10;
+				opacity: 0;
+				transition: opacity 0.3s ease;
+				pointer-events: none;
+			}
+
+			.marquee-row:hover::before {
+				opacity: 1;
+			}
+
+			@media (max-width: 768px) {
+				.marquee-row::before {
+					content: '← Swipe to explore →';
+					font-size: 0.7rem;
+					padding: 6px 12px;
+					top: 8px;
+					right: 15px;
+				}
+			}
+
+			.marquee-content {
+				display: flex;
+				align-items: center;
+				height: 100%;
+				gap: 20px;
+				padding: 0 20px;
+				animation-timing-function: linear;
+				animation-iteration-count: infinite;
+			}
+
+			/* Right moving marquee */
+			.marquee-right .marquee-content {
+				animation-name: marquee-right;
+				animation-duration: 40s;
+			}
+
+			/* Left moving marquee */
+			.marquee-left .marquee-content {
+				animation-name: marquee-left;
+				animation-duration: 40s;
+			}
+
+			/* Pause animation on hover and during user interaction */
+			.marquee-row:hover .marquee-content,
+			.marquee-row.user-scrolling .marquee-content {
+				animation-play-state: paused;
+			}
+
+			/* Enable horizontal scrolling */
+			.marquee-row {
+				cursor: grab;
+				user-select: none;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+			}
+
+			.marquee-row:active {
+				cursor: grabbing;
+			}
+
+			.marquee-row.user-scrolling {
+				overflow-x: auto;
+				overflow-y: hidden;
+			}
+
+			.marquee-row.user-scrolling .marquee-content {
+				animation: none !important;
+				width: max-content;
+			}
+
+			/* Custom scrollbar for better UX */
+			.marquee-row::-webkit-scrollbar {
+				height: 8px;
+			}
+
+			.marquee-row::-webkit-scrollbar-track {
+				background: rgba(199, 128, 255, 0.1);
+				border-radius: 4px;
+			}
+
+			.marquee-row::-webkit-scrollbar-thumb {
+				background: var(--accent-focus);
+				border-radius: 4px;
+				transition: background 0.3s ease;
+			}
+
+			.marquee-row::-webkit-scrollbar-thumb:hover {
+				background: var(--accent-light);
+			}
+
+			.gallery-image {
+				height: 250px;
+				width: auto;
+				border-radius: 10px;
+				cursor: pointer;
+				transition: transform 0.3s ease, filter 0.3s ease;
+				border: 2px solid transparent;
+				flex-shrink: 0;
+				pointer-events: auto;
+			}
+
+			.gallery-image:hover {
+				transform: scale(1.05);
+				filter: brightness(1.2);
+				border-color: var(--accent-focus);
+			}
+
+			/* Keyframe animations for infinite scrolling */
+			@keyframes marquee-right {
+				0% {
+					transform: translateX(0%);
+				}
+				100% {
+					transform: translateX(-50%);
+				}
+			}
+
+			@keyframes marquee-left {
+				0% {
+					transform: translateX(-50%);
+				}
+				100% {
+					transform: translateX(0%);
+				}
+			}
+
+			/* Modal Styles */
+			.modal {
+				display: none;
+				position: fixed;
+				z-index: 1000;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.9);
+				backdrop-filter: blur(5px);
+			}
+
+			.modal-content {
+				display: block;
+				margin: auto;
+				max-width: 90%;
+				max-height: 90%;
+				border-radius: 10px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			.close-modal {
+				position: absolute;
+				top: 20px;
+				right: 35px;
+				color: white;
+				font-size: 40px;
+				font-weight: bold;
+				cursor: pointer;
+				z-index: 1001;
+			}
+
+			.close-modal:hover {
+				color: var(--accent-focus);
+			}
+
+			/* Footer Styles */
+			.site-footer {
+				z-index: 100;
+				width: 100%;
+				background: #121212;
+				border-top: 1px solid rgba(255, 255, 255, 0.08);
+				color: #d9d9d9;
+				padding: 2rem 1.5rem;
+			}
+
+			.footer-inner {
+				max-width: 1200px;
+				margin: 0 auto;
+			}
+
+			.footer-brand {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				margin-bottom: 1.25rem;
+				justify-content: flex-end;
+				flex-direction: row-reverse;
+			}
+
+			.footer-logo {
+				height: 56px;
+				width: auto;
+				filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+			}
+
+			.footer-logo--christ {
+				height: 68px;
+			}
+
+			.footer-divider {
+				display: none;
+			}
+
+			.footer-columns {
+				display: grid;
+				grid-template-columns: 1fr;
+				gap: 1.5rem;
+			}
+
+			.footer-col p {
+				color: #d9d9d9;
+				line-height: 1.6;
+				margin: 0;
+			}
+
+			.footer-social {
+				display: flex;
+				gap: 0.75rem;
+				margin-top: 0.75rem;
+			}
+
+			.social-link {
+				color: #ffffff;
+				transition: color 0.3s ease;
+			}
+
+			.social-link:hover {
+				color: #ffffff;
+			}
+
+			.instagram-link:hover {
+				color: #e4405f;
+			}
+
+			.linkedin-link:hover {
+				color: #0077b5;
+			}
+
+			@media (min-width: 900px) {
+				.footer-columns {
+					grid-template-columns: 2fr 2fr;
+					align-items: start;
+				}
+			}
+		</style>
+	</head>
+	<body class="page-gallery">
+		<!-- Navigation (copied exactly from index.html) -->
+		<header class="header">
+			<div class="nav-container">
+				<nav class="nav-row">
+					<div class="nav-inner">
+						<a
+							href="https://www.christuniversity.in/"
+							target="_blank"
+							class="nav-logo-row"
+						>
+							<img
+								src="./public/christwhite.png"
+								alt="Christ University"
+								class="nav-logo-img"
+							/>
+						</a>
+						<div class="nav-menu">
+							<!-- New Simple Mobile Menu Toggle Button -->
+							<button
+								class="simple-mobile-toggle"
+								id="simpleMobileToggle"
+								aria-label="Toggle mobile menu"
+							>
+								<span class="toggle-line"></span>
+								<span class="toggle-line"></span>
+								<span class="toggle-line"></span>
+							</button>
+
+							<!-- Mobile Navigation Backdrop -->
+							<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+
+							<div class="nav-menu__links" id="navMenuLinks">
+								<a href="index.html" class="link nav-link">
+									<span class="nav-link-text">Home</span>
+									<svg
+										class="nav-link-arrow"
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="none"
+									>
+										<path
+											d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+											fill="currentColor"
+										></path>
+									</svg>
+								</a>
+								<a href="events.html" class="link nav-link">
+									<span class="nav-link-text">Events</span>
+									<svg
+										class="nav-link-arrow"
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="none"
+									>
+										<path
+											d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+											fill="currentColor"
+										></path>
+									</svg>
+								</a>
+									<a
+										href="schedule.html"
+										class="link nav-link"
+									>
+										<span class="nav-link-text">Schedule</span>
+									<svg
+										class="nav-link-arrow"
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="none"
+									>
+										<path
+											d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+											fill="currentColor"
+										></path>
+									</svg>
+								</a>
+								<a href="about.html" class="link nav-link">
+									<span class="nav-link-text">About</span>
+									<svg
+										class="nav-link-arrow"
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="none"
+									>
+										<path
+											d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+											fill="currentColor"
+										></path>
+									</svg>
+								</a>
+								<a href="gallery.html" class="link nav-link">
+									<span class="nav-link-text">Gallery</span>
+									<svg
+										class="nav-link-arrow"
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="none"
+									>
+										<path
+											d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+											fill="currentColor"
+										></path>
+									</svg>
+								</a>
+							</div>
+
+							<!-- Magnovite Logo on Right -->
+							<a href="index.html" class="nav-right-logo">
+								<img
+									src="./public/magnovite.png"
+									alt="Magnovite"
+									class="nav-right-logo-img"
+								/>
+							</a>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</header>
+
+		<!-- Professional Header Section -->
+		<section id="professional-header">
+			<h1>Gallery</h1>
+			<p>Capturing moments from previous years</p>
+		</section>
+
+		<div class="gallery-container">
+			<div class="marquee-gallery">
+				<!-- Row 1 - Moving Right -->
+				<div class="marquee-row marquee-right">
+					<div class="marquee-content" id="marquee-1"></div>
+				</div>
+
+				<!-- Row 2 - Moving Left -->
+				<div class="marquee-row marquee-left">
+					<div class="marquee-content" id="marquee-2"></div>
+				</div>
+
+				<!-- Row 3 - Moving Right -->
+				<div class="marquee-row marquee-right">
+					<div class="marquee-content" id="marquee-3"></div>
+				</div>
+
+				<!-- Row 4 - Moving Left -->
+				<div class="marquee-row marquee-left">
+					<div class="marquee-content" id="marquee-4"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Image Modal -->
+		<div id="image-modal" class="modal">
+			<span class="close-modal">&times;</span>
+			<img class="modal-content" id="expanded-image" />
+		</div>
+
+		<!-- Footer -->
+		<footer class="site-footer">
+			<div class="footer-inner">
+				<div class="footer-brand">
+					<img
+						src="./public/magnovite.png"
+						alt="Magnovite"
+						class="footer-logo"
+					/>
+					<span class="footer-divider"></span>
+					<img
+						src="./public/christwhite.png"
+						alt="Christ University"
+						class="footer-logo footer-logo--christ"
+					/>
+				</div>
+				<div class="footer-columns">
+					<div class="footer-col footer-about">
+						<p>
+							Christ University, Kengeri Campus offers a blend of traditional
+							and world-class facilities, including department-specific
+							buildings, libraries, research facilities, and residences, amidst
+							the city's greenery.
+						</p>
+					</div>
+					<div class="footer-col footer-desc">
+						<p>
+							MAGNOVITE, the 15th edition of CHRIST University's flagship fest,
+							fosters creativity, collaboration, healthy competition, and
+							positive connections among participants.
+						</p>
+						<div class="footer-social">
+							<a
+								href="https://www.linkedin.com/company/christ-university-faculty-of-engineering/?originalSubdomain=in"
+								target="_blank"
+								class="social-link linkedin-link"
+								aria-label="LinkedIn"
+							>
+								<svg
+									class="social-icon"
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									fill="none"
+								>
+									<path
+										d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+										fill="currentColor"
+									/>
+								</svg>
+							</a>
+							<a
+								href="https://www.instagram.com/magnovite.kengeri/"
+								target="_blank"
+								class="social-link instagram-link"
+								aria-label="Instagram"
+							>
+								<svg
+									class="social-icon"
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									fill="none"
+								>
+									<path
+										d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+										fill="currentColor"
+									/>
+								</svg>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			// Gallery Images Array
+			const galleryImages = [
+				'./public/Gallery/1_400x400.jpg',
+				'./public/Gallery/2_400x400.jpg',
+				'./public/Gallery/3_400x400.jpg',
+				'./public/Gallery/4_400x400.jpg',
+				'./public/Gallery/5_400x400.jpg',
+				'./public/Gallery/6_400x400.jpg',
+				'./public/Gallery/7_400x400.jpg',
+				'./public/Gallery/8_400x400.jpg',
+				'./public/Gallery/9_400x400.jpg',
+				'./public/Gallery/10_400x400.jpg',
+				'./public/Gallery/11_400x400.jpg',
+				'./public/Gallery/12_400x400.jpg',
+				'./public/Gallery/13_400x400.jpg',
+				'./public/Gallery/14_400x400.jpg',
+				'./public/Gallery/15_400x400.jpg',
+				'./public/Gallery/16_400x400.jpg',
+				'./public/Gallery/17_400x400.jpg',
+				'./public/Gallery/18_400x400.jpg',
+				'./public/Gallery/19_400x400.jpg',
+				'./public/Gallery/20_400x400.jpg',
+				'./public/Gallery/21_400x400.jpg',
+				'./public/Gallery/22_400x400.jpg',
+				'./public/Gallery/23_400x400.jpg',
+				'./public/Gallery/24_400x400.jpg',
+				'./public/Gallery/25_400x400.jpg',
+				'./public/Gallery/26_400x400.jpg',
+				'./public/Gallery/27_400x400.jpg',
+				'./public/Gallery/28_400x400.jpg',
+				'./public/Gallery/29_400x400.jpg',
+				'./public/Gallery/30_400x400.jpg',
+				'./public/Gallery/31_400x400.jpg',
+				'./public/Gallery/32_400x400.jpg',
+				'./public/Gallery/33_400x400.jpg',
+				'./public/Gallery/34_400x400.jpg',
+				'./public/Gallery/35_400x400.jpg',
+				'./public/Gallery/36_400x400.jpg',
+				'./public/Gallery/37_400x400.jpg',
+				'./public/Gallery/38_400x400.jpg',
+				'./public/Gallery/39_400x400.jpg',
+				'./public/Gallery/40_400x400.jpg',
+				'./public/Gallery/41_400x400.jpg',
+			];
+
+			// Function to create image elements
+			function createImageElement(src, alt) {
+				const img = document.createElement('img');
+				img.src = src;
+				img.alt = alt || 'Gallery Image';
+				img.className = 'gallery-image';
+				img.addEventListener('click', () => openModal(src));
+				return img;
+			}
+
+			// Function to populate marquee rows
+			function populateMarqueeRows() {
+				const imagesPerRow = Math.ceil(galleryImages.length / 4);
+
+				for (let i = 1; i <= 4; i++) {
+					const marqueeContent = document.getElementById(`marquee-${i}`);
+					if (!marqueeContent) continue;
+
+					const startIndex = (i - 1) * imagesPerRow;
+					const endIndex = Math.min(
+						startIndex + imagesPerRow,
+						galleryImages.length
+					);
+
+					// Create images for this row
+					const rowImages = galleryImages.slice(startIndex, endIndex);
+
+					// Duplicate images multiple times to create seamless scrolling
+					const duplicatedImages = [
+						...rowImages,
+						...rowImages,
+						...rowImages,
+						...rowImages,
+					];
+
+					duplicatedImages.forEach((imageSrc, index) => {
+						const img = createImageElement(
+							imageSrc,
+							`Gallery Image ${startIndex + (index % rowImages.length) + 1}`
+						);
+						marqueeContent.appendChild(img);
+					});
+				}
+			}
+
+			// Modal functions
+			function openModal(imageSrc) {
+				const modal = document.getElementById('image-modal');
+				const modalImg = document.getElementById('expanded-image');
+				if (modal && modalImg) {
+					modal.style.display = 'block';
+					modalImg.src = imageSrc;
+				}
+			}
+
+			function closeModal() {
+				const modal = document.getElementById('image-modal');
+				if (modal) {
+					modal.style.display = 'none';
+				}
+			}
+
+			// Initialize gallery when DOM is loaded
+			document.addEventListener('DOMContentLoaded', () => {
+				// Populate marquee rows
+				populateMarqueeRows();
+
+				// Initialize scroll controls
+				initializeScrollControls();
+
+				// Modal close events
+				const modal = document.getElementById('image-modal');
+				const closeBtn = document.querySelector('.close-modal');
+
+				if (closeBtn) {
+					closeBtn.addEventListener('click', closeModal);
+				}
+
+				if (modal) {
+					modal.addEventListener('click', (e) => {
+						if (e.target === modal) {
+							closeModal();
+						}
+					});
+				}
+
+				// ESC key to close modal
+				document.addEventListener('keydown', (e) => {
+					if (e.key === 'Escape') {
+						closeModal();
+					}
+				});
+			});
+
+			// Function to initialize scroll controls for each marquee row
+			function initializeScrollControls() {
+				const marqueeRows = document.querySelectorAll('.marquee-row');
+
+				marqueeRows.forEach((row, index) => {
+					let isUserScrolling = false;
+					let scrollTimeout;
+					let startX = 0;
+					let startScrollLeft = 0;
+					let isDragging = false;
+
+					// Mouse events for desktop
+					row.addEventListener('mousedown', (e) => {
+						isDragging = true;
+						startX = e.pageX - row.offsetLeft;
+						startScrollLeft = row.scrollLeft;
+						enableUserScrolling(row);
+						e.preventDefault();
+					});
+
+					row.addEventListener('mousemove', (e) => {
+						if (!isDragging) return;
+						e.preventDefault();
+						const x = e.pageX - row.offsetLeft;
+						const walk = (x - startX) * 2; // Scroll speed multiplier
+						row.scrollLeft = startScrollLeft - walk;
+					});
+
+					row.addEventListener('mouseup', () => {
+						isDragging = false;
+						resetScrollTimeout(row);
+					});
+
+					row.addEventListener('mouseleave', () => {
+						isDragging = false;
+						resetScrollTimeout(row);
+					});
+
+					// Touch events for mobile
+					row.addEventListener('touchstart', (e) => {
+						startX = e.touches[0].pageX - row.offsetLeft;
+						startScrollLeft = row.scrollLeft;
+						enableUserScrolling(row);
+					});
+
+					row.addEventListener('touchmove', (e) => {
+						const x = e.touches[0].pageX - row.offsetLeft;
+						const walk = (x - startX) * 1.5; // Scroll speed multiplier for touch
+						row.scrollLeft = startScrollLeft - walk;
+						e.preventDefault();
+					});
+
+					row.addEventListener('touchend', () => {
+						resetScrollTimeout(row);
+					});
+
+					// Wheel event for horizontal scrolling
+					row.addEventListener('wheel', (e) => {
+						e.preventDefault();
+						enableUserScrolling(row);
+						row.scrollLeft += e.deltaY;
+						resetScrollTimeout(row);
+					});
+
+					// Manual scroll event
+					row.addEventListener('scroll', () => {
+						enableUserScrolling(row);
+						resetScrollTimeout(row);
+					});
+
+					function enableUserScrolling(element) {
+						element.classList.add('user-scrolling');
+						clearTimeout(scrollTimeout);
+					}
+
+					function resetScrollTimeout(element) {
+						clearTimeout(scrollTimeout);
+						scrollTimeout = setTimeout(() => {
+							element.classList.remove('user-scrolling');
+						}, 3000); // Resume animation after 3 seconds of inactivity
+					}
+				});
+			}
+		</script>
+		<script>
+			// Mobile Navigation JavaScript
+			document.addEventListener('DOMContentLoaded', function () {
+				const mobileMenuToggle = document.getElementById('simpleMobileToggle');
+				const navMenuLinks = document.getElementById('navMenuLinks');
+				const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
+				const navLinks = document.querySelectorAll(
+					'.nav-menu__links .nav-link'
+				);
+
+				// Toggle mobile menu
+				function toggleMobileMenu() {
+					const isOpen = navMenuLinks.classList.contains('is-open');
+
+					if (isOpen) {
+						closeMobileMenu();
+					} else {
+						openMobileMenu();
+					}
+				}
+
+				// Open mobile menu
+				function openMobileMenu() {
+					navMenuLinks.classList.add('is-open');
+					mobileNavBackdrop.classList.add('is-open');
+					mobileMenuToggle.classList.add('is-active');
+					document.body.classList.add('mobile-menu-open');
+					document.body.style.overflow = 'hidden';
+				}
+
+				// Close mobile menu
+				function closeMobileMenu() {
+					navMenuLinks.classList.remove('is-open');
+					mobileNavBackdrop.classList.remove('is-open');
+					mobileMenuToggle.classList.remove('is-active');
+					document.body.classList.remove('mobile-menu-open');
+					document.body.style.overflow = 'visible';
+					document.body.style.overflowX = 'hidden';
+
+					// Refresh ScrollTrigger to ensure proper scroll behavior
+					if (typeof window !== 'undefined' && window.ScrollTrigger) {
+						window.ScrollTrigger.refresh();
+					}
+				}
+
+				// Event listeners
+				if (mobileMenuToggle) {
+					mobileMenuToggle.addEventListener('click', function (e) {
+						e.stopPropagation();
+						toggleMobileMenu();
+					});
+				}
+
+				if (mobileNavBackdrop) {
+					mobileNavBackdrop.addEventListener('click', closeMobileMenu);
+				}
+
+				// Prevent menu from closing when clicking on the menu itself
+				if (navMenuLinks) {
+					navMenuLinks.addEventListener('click', function (e) {
+						e.stopPropagation();
+					});
+				}
+
+				// Close menu when clicking on nav links
+				navLinks.forEach((link) => {
+					link.addEventListener('click', closeMobileMenu);
+				});
+
+				// Close menu on escape key
+				document.addEventListener('keydown', function (e) {
+					if (
+						e.key === 'Escape' &&
+						navMenuLinks.classList.contains('is-open')
+					) {
+						closeMobileMenu();
+					}
+				});
+
+				// Close menu when clicking anywhere else on the screen
+				document.addEventListener('click', function (e) {
+					if (navMenuLinks.classList.contains('is-open')) {
+						// Check if click is outside the menu and hamburger button
+						if (
+							!navMenuLinks.contains(e.target) &&
+							!mobileMenuToggle.contains(e.target) &&
+							!mobileNavBackdrop.contains(e.target)
+						) {
+							closeMobileMenu();
+						}
+					}
+				});
+
+				// Close menu on window resize (if screen becomes larger)
+				window.addEventListener('resize', function () {
+					if (window.innerWidth > 768) {
+						closeMobileMenu();
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

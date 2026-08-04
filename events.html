@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events — Magnovite '26</title>
+    <meta name="description" content="Live events schedule for Magnovite '26 powered by Google Sheets." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body class="events-page-body">
+
+    <!-- Global Luxury Header -->
+    <header class="site-header">
+      <div class="header-container">
+        <!-- Left: CHRIST University Logo -->
+        <a href="https://www.christuniversity.in/" target="_blank" class="nav-logo-link">
+          <img src="/logos/christwhite.png" alt="CHRIST University" class="header-logo-christ" />
+        </a>
+
+        <!-- Right: MENU button + Magnovite Logo to the right -->
+        <div class="header-right-group">
+          <button id="menu-toggle" class="menu-toggle-btn" aria-label="Toggle Menu">
+            <span class="menu-text">MENU</span>
+            <span class="close-icon" style="display:none;"> ✕</span>
+          </button>
+
+          <a href="/index.html" class="nav-logo-link">
+            <img src="/logos/magnovite.png" alt="Magnovite '26" class="header-logo-magnovite" />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Full-Screen Editorial Mega Menu Overlay -->
+    <div id="mega-menu-overlay" class="mega-menu-overlay">
+      <div class="mega-menu-inner">
+        <!-- Left Column: Navigation Links -->
+        <nav class="mega-nav-links">
+          <a href="/index.html" class="mega-link">
+            <span class="mega-num">01</span>
+            <span class="mega-text">Home</span>
+            <span class="mega-arrow">↗</span>
+          </a>
+          <a href="/events.html" class="mega-link active">
+            <span class="mega-num">02</span>
+            <span class="mega-text">Events</span>
+            <span class="mega-arrow">↗</span>
+          </a>
+          <a href="/schedule.html" class="mega-link">
+            <span class="mega-num">03</span>
+            <span class="mega-text">Schedule</span>
+            <span class="mega-arrow">↗</span>
+          </a>
+          <a href="/about.html" class="mega-link">
+            <span class="mega-num">04</span>
+            <span class="mega-text">About</span>
+            <span class="mega-arrow">↗</span>
+          </a>
+          <a href="/gallery.html" class="mega-link">
+            <span class="mega-num">05</span>
+            <span class="mega-text">Gallery</span>
+            <span class="mega-arrow">↗</span>
+          </a>
+          <a href="/registration.html" class="mega-link">
+            <span class="mega-num">06</span>
+            <span class="mega-text">Registration</span>
+            <span class="mega-arrow">↗</span>
+          </a>
+        </nav>
+
+        <!-- Right Column: Spacious Showcase Hero & Classic Flip Countdown Card -->
+        <div class="mega-hero-card">
+          <div class="mega-hero-badge">
+            <span class="pulse-dot"></span>
+            MAGNOVITE '26 • SEP 15, 9:00 AM
+          </div>
+
+          <div class="mega-hero-content">
+            <h3 class="mega-hero-title">SEE YOU THERE.</h3>
+            <p class="mega-hero-subtext">Join 15,000+ creators, innovators, and performers at CHRIST University Kengeri Campus.</p>
+          </div>
+
+          <!-- Classic Falling Flip Countdown Clock -->
+          <div class="flip-clock-wrapper">
+            <div class="flip-unit">
+              <div class="flip-digits-pair">
+                <div class="flip-card" id="days-t" data-val="0"><span class="flip-val">0</span></div>
+                <div class="flip-card" id="days-u" data-val="0"><span class="flip-val">0</span></div>
+              </div>
+              <span class="flip-unit-label">DAYS</span>
+            </div>
+
+            <span class="flip-colon">:</span>
+
+            <div class="flip-unit">
+              <div class="flip-digits-pair">
+                <div class="flip-card" id="hours-t" data-val="0"><span class="flip-val">0</span></div>
+                <div class="flip-card" id="hours-u" data-val="0"><span class="flip-val">0</span></div>
+              </div>
+              <span class="flip-unit-label">HOURS</span>
+            </div>
+
+            <span class="flip-colon">:</span>
+
+            <div class="flip-unit">
+              <div class="flip-digits-pair">
+                <div class="flip-card" id="mins-t" data-val="0"><span class="flip-val">0</span></div>
+                <div class="flip-card" id="mins-u" data-val="0"><span class="flip-val">0</span></div>
+              </div>
+              <span class="flip-unit-label">MINUTES</span>
+            </div>
+
+            <span class="flip-colon">:</span>
+
+            <div class="flip-unit">
+              <div class="flip-digits-pair">
+                <div class="flip-card" id="secs-t" data-val="0"><span class="flip-val">0</span></div>
+                <div class="flip-card" id="secs-u" data-val="0"><span class="flip-val">0</span></div>
+              </div>
+              <span class="flip-unit-label">SECONDS</span>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mega-actions-group">
+            <a href="#" onclick="alert('Magnovite 2026 Official Brochure download starting...'); return false;" class="mega-btn-primary">
+              <span>Download Brochure</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </a>
+            <a href="/events.html" class="mega-btn-secondary">
+              <span>Explore Events</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENTS PAGE CONTENT -->
+    <main id="events-section" class="events-section">
+      <div class="events-container">
+        <header class="events-header">
+          <div class="badge">Magnovite '26 Schedule</div>
+          <h1 class="events-title">Upcoming Competitions & Events</h1>
+          <p class="events-description">Browse through live events powered directly by our realtime sheet database.</p>
+        </header>
+
+        <!-- Search & Filter Controls -->
+        <div class="controls-bar">
+          <div class="search-wrapper">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Search title, description, or category..." 
+              aria-label="Search events"
+            />
+          </div>
+
+          <div id="category-filters" class="category-filters">
+            <!-- Dynamic Category Tag Buttons will be rendered here -->
+          </div>
+        </div>
+
+        <!-- Dynamic Status Section (Loading / Error / Empty) -->
+        <div id="events-status" class="events-status"></div>
+
+        <!-- Events Grid -->
+        <div id="events-grid" class="events-grid">
+          <!-- Dynamic Event Cards will be rendered here -->
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="/src/events.ts"></script>
+  </body>
+</html>

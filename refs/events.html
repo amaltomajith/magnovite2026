@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Events - Magnovite'25</title>
+		<link
+			rel="icon"
+			type="image/png"
+			href="./public/magnovite.png"
+			sizes="32x32 64x64 128x128 192x192"
+		/>
+		<link
+			rel="apple-touch-icon"
+			href="./public/magnovite.png"
+			sizes="180x180"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="./src/style.css" />
+		<link rel="stylesheet" href="./css/events.css" />
+  	<style>
+  		/* Remove list styling from navigation elements */
+		.mobile-menu-toggle,
+		.mobile-menu-toggle li,
+		.nav-menu,
+		.nav-menu li,
+		.nav-menu__links,
+		.nav-menu__links li,
+		.nav-link,
+		.nav-link li,
+		.nav-link-text,
+		.nav-link-text li,
+		.link,
+		.link li {
+			list-style-type: none !important;
+			list-style: none !important;
+		}
+
+		/* Additional fix for navigation links specifically */
+		.nav-menu__links .nav-link::before,
+		.nav-menu__links .nav-link::after {
+			content: none !important;
+		}
+
+		/* New Simple Mobile Toggle Button */
+		.simple-mobile-toggle {
+			display: none;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			width: 32px;
+			height: 32px;
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			z-index: 1003;
+			position: relative;
+			padding: 0;
+			margin: 0;
+			margin-left: -20px;
+		}
+
+		.simple-mobile-toggle:hover {
+			opacity: 0.7;
+		}
+
+		.toggle-line {
+			width: 20px;
+			height: 2px;
+			background: #ffffff;
+			margin: 3px 0;
+			transition: all 0.3s ease;
+			transform-origin: center;
+		}
+
+		.simple-mobile-toggle.is-active .toggle-line:nth-child(1) {
+			transform: rotate(45deg) translate(5px, 5px);
+		}
+
+		.simple-mobile-toggle.is-active .toggle-line:nth-child(2) {
+			opacity: 0;
+		}
+
+		.simple-mobile-toggle.is-active .toggle-line:nth-child(3) {
+			transform: rotate(-45deg) translate(5px, -5px);
+		}
+
+		/* Ensure hamburger button stays visible when menu is open */
+		body.mobile-menu-open .simple-mobile-toggle {
+			z-index: 1003 !important;
+		}
+
+		/* Hide simple toggle on desktop */
+		@media (min-width: 769px) {
+			.simple-mobile-toggle {
+				display: none !important;
+				visibility: hidden !important;
+				opacity: 0 !important;
+				width: 0 !important;
+				height: 0 !important;
+				margin: 0 !important;
+				padding: 0 !important;
+				border: none !important;
+				background: transparent !important;
+				pointer-events: none !important;
+				position: absolute !important;
+				left: -9999px !important;
+				top: -9999px !important;
+				overflow: hidden !important;
+				clip: rect(0, 0, 0, 0) !important;
+			}
+			
+			.toggle-line {
+				display: none !important;
+				visibility: hidden !important;
+				opacity: 0 !important;
+				width: 0 !important;
+				height: 0 !important;
+			}
+		}
+
+		/* Show simple toggle on mobile */
+		@media (max-width: 768px) {
+			.simple-mobile-toggle {
+				display: flex;
+			}
+			
+			.toggle-line {
+				display: block;
+			}
+		}
+
+  		/* Mobile Navigation Styles */
+		@media (max-width: 768px) {
+				.nav-menu__links {
+					position: fixed;
+					top: 0;
+					right: -100%;
+					width: 50vw;
+					height: 100vh;
+					background: rgba(0, 0, 0, 0.95);
+					backdrop-filter: blur(20px);
+					border-left: 1px solid rgba(255, 255, 255, 0.1);
+					display: flex;
+					flex-direction: column;
+					padding: 80px 0 40px;
+					transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+					z-index: 1000;
+					box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+				}
+
+			.nav-menu__links.is-open {
+				right: 0;
+			}
+
+			/* Page blur when menu is open - only blur specific content sections */
+			body.mobile-menu-open .events-hero,
+			body.mobile-menu-open .events-container,
+			body.mobile-menu-open .events-grid,
+			body.mobile-menu-open .search-container,
+			body.mobile-menu-open .filter-container,
+			body.mobile-menu-open .site-footer {
+				filter: blur(8px);
+				transition: filter 0.3s ease;
+			}
+
+			/* Keep navigation and header completely sharp */
+			body.mobile-menu-open .header,
+			body.mobile-menu-open .nav-container,
+			body.mobile-menu-open .nav-row,
+			body.mobile-menu-open .nav-inner,
+			body.mobile-menu-open .nav-menu,
+			body.mobile-menu-open .mobile-menu-toggle,
+			body.mobile-menu-open .nav-menu__links,
+			body.mobile-menu-open .mobile-nav-backdrop {
+				filter: none !important;
+			}
+
+			/* Ensure proper z-index layering */
+			body.mobile-menu-open .header {
+				z-index: 1002;
+			}
+
+			body.mobile-menu-open .mobile-menu-toggle {
+				z-index: 1003;
+			}
+
+			body.mobile-menu-open .nav-menu__links {
+				z-index: 1001;
+			}
+
+			.nav-menu__links .nav-link {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 16px 24px;
+				margin: 4px 16px;
+				border-radius: 12px;
+				background: rgba(255, 255, 255, 0.05);
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				transition: all 0.3s ease;
+				text-decoration: none;
+				color: #fff;
+				font-weight: 600;
+				min-height: 56px;
+				width: calc(100% - 32px);
+				box-sizing: border-box;
+			}
+
+			.nav-menu__links .nav-link-text {
+				flex: 1;
+				text-align: left;
+				font-size: 16px;
+				line-height: 1.2;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+
+			.nav-menu__links .nav-link:hover {
+				background: rgba(255, 255, 255, 0.1);
+				border-color: rgba(255, 255, 255, 0.3);
+				transform: translateX(8px);
+			}
+
+			.nav-menu__links .nav-link::after,
+			.nav-menu__links .nav-link::before {
+				content: none !important;
+			}
+
+			/* Hide navigation arrows on mobile */
+			.nav-menu__links .nav-link-arrow {
+				display: none;
+			}
+
+			/* Mobile Navigation Backdrop */
+			.mobile-nav-backdrop {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.5);
+				backdrop-filter: blur(4px);
+				z-index: 999;
+				opacity: 0;
+				visibility: hidden;
+				transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.mobile-nav-backdrop.is-open {
+				opacity: 1;
+				visibility: visible;
+			}
+
+				.mobile-nav-backdrop::before {
+					content: '';
+					position: absolute;
+					top: 50vh;
+					left: 25%;
+					transform: translate(-50%, -50%) scale(0.8);
+					width: 100px;
+					height: 100px;
+					background-image: url('./public/MAGNOVITEBW.png');
+					background-size: contain;
+					background-repeat: no-repeat;
+					background-position: center;
+					opacity: 0;
+					z-index: 1000;
+					transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+					transition-delay: 0.1s;
+				}
+
+			.mobile-nav-backdrop.is-open::before {
+				opacity: 0.9;
+				transform: translate(-50%, -50%) scale(1);
+				transition-delay: 0.1s;
+			}
+
+
+		}
+  	</style>
+	</head>
+	<body id="events">
+		<!-- Navigation -->
+		<header class="header">
+			<div class="nav-container">
+				<nav class="nav-row">
+					<div class="nav-inner">
+						<a
+							href="https://www.christuniversity.in/"
+							target="_blank"
+							class="nav-logo-row"
+						>
+							<img
+								src="./public/christwhite.png"
+								alt="Christ University"
+								class="nav-logo-img"
+							/>
+						</a>
+						<div class="nav-menu">
+							<!-- New Simple Mobile Menu Toggle Button -->
+							<button class="simple-mobile-toggle" id="simpleMobileToggle" aria-label="Toggle mobile menu">
+								<span class="toggle-line"></span>
+								<span class="toggle-line"></span>
+								<span class="toggle-line"></span>
+							</button>
+							
+							<!-- Mobile Navigation Backdrop -->
+							<div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+							
+							<div class="nav-menu__links" id="navMenuLinks">
+								<a href="index.html" class="link nav-link">
+									<span class="nav-link-text">Home</span>
+									<svg
+										class="nav-link-arrow"
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="none"
+									>
+										<path
+											d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+											fill="currentColor"
+										></path>
+									</svg>
+								</a>
+								<a href="events.html" class="link nav-link">
+									<span class="nav-link-text">Events</span>
+									<svg
+										class="nav-link-arrow"
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="none"
+									>
+										<path
+											d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+											fill="currentColor"
+										></path>
+									</svg>
+								</a>
+								<a href="schedule.html" class="link nav-link">
+									<span class="nav-link-text">Schedule</span>
+									<svg
+										class="nav-link-arrow"
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="none"
+									>
+										<path
+											d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+											fill="currentColor"
+										></path>
+									</svg>
+								</a>
+								<a href="about.html" class="link nav-link">
+									<span class="nav-link-text">About</span>
+									<svg
+										class="nav-link-arrow"
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="none"
+									>
+										<path
+											d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+											fill="currentColor"
+										></path>
+									</svg>
+								</a>
+								<a href="gallery.html" class="link nav-link">
+									<span class="nav-link-text">Gallery</span>
+									<svg
+										class="nav-link-arrow"
+										width="12"
+										height="12"
+										viewBox="0 0 12 12"
+										fill="none"
+									>
+										<path
+											d="M0.230469 5.09969H8.95047L4.57047 0.679688H7.03047L11.7705 5.41969V6.57969L7.03047 11.3197H4.57047L8.95047 6.85969H0.230469V5.09969Z"
+											fill="currentColor"
+										></path>
+									</svg>
+								</a>
+							</div>
+							
+							<!-- Magnovite Logo on Right -->
+							<a href="index.html" class="nav-right-logo">
+								<img
+									src="./public/magnovite.png"
+									alt="Magnovite"
+									class="nav-right-logo-img"
+								/>
+							</a>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</header>
+
+  <div class="container">
+			<div class="events-hero">
+				<h1 class="events-title">Events</h1>
+				<p class="events-subtitle">Explore management, technical, cultural and more. Click a card to view details; use Register for sign-ups.</p>
+			</div>
+			<!-- Search and Filter Section -->
+			<div class="search-container">
+				<input
+					type="text"
+					class="search-input"
+					placeholder="Search events..."
+					id="searchInput"
+				/>
+				<div class="filter-tags" id="filterTags">
+					<div class="filter-tag active" data-tag="all">All</div>
+				</div>
+			</div>
+
+			<!-- Events Grid -->
+			<div class="events-grid" id="eventsGrid">
+				<!-- Fallback content while JavaScript loads -->
+				<div class="event-card">
+					<div class="event-category">Loading</div>
+					<h3 class="event-title">Loading Events...</h3>
+					<p class="event-description">Please wait while we load the events.</p>
+				</div>
+			</div>
+
+			<!-- Footer -->
+			<footer class="site-footer">
+				<div class="footer-inner">
+					<div class="footer-brand">
+						<img
+							src="./public/magnovite.png"
+							alt="Magnovite"
+							class="footer-logo"
+						/>
+						<span class="footer-divider"></span>
+						<img
+							src="./public/christwhite.png"
+							alt="Christ University"
+							class="footer-logo footer-logo--christ"
+						/>
+					</div>
+					<div class="footer-columns">
+						<div class="footer-col footer-about">
+							<p>
+								Christ University, Kengeri Campus offers a blend of traditional
+								and world-class facilities, including department-specific
+								buildings, libraries, research facilities, and residences,
+								amidst the city's greenery.
+							</p>
+						</div>
+						<div class="footer-col footer-desc">
+							<p>
+								MAGNOVITE, the 15th edition of CHRIST University's flagship
+								fest, fosters creativity, collaboration, healthy competition,
+								and positive connections among participants.
+							</p>
+							<div class="footer-social">
+								<a
+									href="https://www.linkedin.com/company/christ-university-faculty-of-engineering/?originalSubdomain=in"
+									target="_blank"
+									class="social-link linkedin-link"
+									aria-label="LinkedIn"
+								>
+									<svg
+										class="social-icon"
+										width="20"
+										height="20"
+										viewBox="0 0 24 24"
+										fill="none"
+									>
+										<path
+											d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+											fill="currentColor"
+										/>
+									</svg>
+								</a>
+								<a
+									href="https://www.instagram.com/magnovite.kengeri/"
+									target="_blank"
+									class="social-link instagram-link"
+									aria-label="Instagram"
+								>
+									<svg
+										class="social-icon"
+										width="20"
+										height="20"
+										viewBox="0 0 24 24"
+										fill="none"
+									>
+										<path
+											d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+											fill="currentColor"
+										/>
+									</svg>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+</body>
+</script>
+<script>
+		function slugify(text) {
+			return text
+				.toString()
+				.toLowerCase()
+				.replace(/\s+/g, '-')
+				.replace(/[^a-z0-9-]/g, '')
+				.replace(/-+/g, '-')
+				.replace(/^-|-$/g, '');
+		}
+
+		// Events data (updated lineup)
+		const events = [
+			// Technical Workshops (multi-domain)
+			{ title: 'Magnovite Technical Workshops', desc: 'Hands-on workshops across multiple engineering domains.', tags: ['engineering','architecture','eee','aiml-ds','cse','automobile','mech'], link: 'events/magnovite-technical-workshops.html', img: './public/events/technicalworkshop.jpg' },
+			// Civil Engineering
+			{ title: 'Archicraft 1.0', desc: 'Civil design and build challenge.', tags: ['civil'], link: 'events/archicraft-10.html', img: './public/events/archicraft.jpg' },
+			{ title: 'Eco-Forge', desc: 'Sustainable engineering problem-solving.', tags: ['civil'], link: 'events/eco-forge.html', img: './public/events/ecoforge.jpg' },
+
+			// Computer Science and Engineering
+			{ title: 'Enigma Redesigned', desc: 'Cryptography and code-breaking gauntlet.', tags: ['cse'], link: 'events/enigma-redesigned.html', img: './public/events/enigma.jpg' },
+			{ title: 'Spark Tank', desc: 'Pitch innovative tech ideas with business impact.', tags: ['cse'], link: 'events/spark-tank.html', img: './public/events/sparktank.jpg' },
+			{ title: 'Reverse Coding', desc: 'Transform abstract ideas into visual/auditory code.', tags: ['cse'], link: 'events/reverse-coding.html', img: './public/events/reversecoding.jpg' },
+
+			// Electronics & Communications Engineering
+			{ title: 'ASTEW 2.0', desc: 'Antenna Simulation, Training & Engineering Workshop.', tags: ['ece'], link: 'events/antenna-odyssey.html', img: './public/events/antenna.jpg' },
+			{ title: 'TECHSIM 2025', desc: 'Custom Compiler Simulation & Design Challenge.', tags: ['ece'], link: 'events/techism.html', img: './public/events/techism.jpg' },
+
+			// Electrical and Electronics Engineering
+			{ title: 'Grid Restoration Challenge', desc: 'Restore power grid scenarios under constraints.', tags: ['eee'], link: 'events/grid-restoration-challenge.html', img: './public/events/grid.jpg' },
+			{ title: 'Smart City Energy Command', desc: 'Optimize energy for smart-city infrastructures.', tags: ['eee'], link: 'events/smart-city-energy-command.html', img: './public/events/smartcity.jpg' },
+
+			// Mechanical Engineering
+			{ title: 'RoboSoccer', desc: 'Build and compete with soccer-playing robots.', tags: ['mech'], link: 'events/robosoccer.html', img: './public/events/robosoccer.jpg' },
+			{ title: 'CAD Hackathon', desc: 'Rapid CAD design sprint.', tags: ['mech'], link: 'events/cad-hackathon.html', img: './public/events/cad.jpg' },
+			{ title: 'Maze Runner', desc: 'Autonomous robot maze navigation.', tags: ['mech'], link: 'events/maze-runner.html', img: './public/events/chase.jpg' },
+
+			// Psychology
+			{ title: 'Frames Unboxed', desc: 'Two-day short film competition.', tags: ['psychology'], link: 'events/frames-unboxed.html', img: './public/events/framesunboxed.jpg' },
+			{ title: 'How I Met Your Killer ?', desc: 'Mystery-solving and profiling event.', tags: ['psychology'], link: 'events/how-i-met-your-killer.html', img: './public/events/howimeturkiller.jpg' },
+			{ title: 'Switch and Scene', desc: 'High-energy improv theatre showdown.', tags: ['psychology'], link: 'events/switch-and-scene.html', img: './public/events/switchandscene.jpg' },
+			{ title: 'The Nexus', desc: 'Negotiation-based strategy event.', tags: ['psychology'], link: 'events/the-nexus.html', img: './public/events/thenexus.jpg' },
+
+			// Automobile Engineering
+			{ title: 'RC Car Challenge', desc: 'Design, build, and race RC cars on an obstacle course.', tags: ['automobile'], link: 'events/rc-car-challenge.html', img: './public/events/rccarchallenge.jpg' },
+
+			// AIML & DS
+			{ title: 'Chamber of Secrets', desc: 'Only the sharpest minds escape.', tags: ['aiml-ds'], link: 'events/chamber-of-secrets.html', img: './public/events/chamberofsecrets.jpg' },
+			{ title: 'Algo Royale', desc: 'Think fast. Code smart. Win big.', tags: ['aiml-ds'], link: 'events/algo-royale.html', img: './public/events/argoroyale.png' },
+			{ title: 'Code Relay', desc: 'The chain reaction of logic.', tags: ['aiml-ds'], link: 'events/code-relay.html', img: './public/events/coderelay.jpg' },
+			{ title: 'Escape Room', desc: 'Enter the underworld of puzzles and deception.', tags: ['aiml-ds'], link: 'events/escape-room.html', img: './public/events/escaperoom.jpg' },
+
+
+			// Management
+			{ title: 'Best Manager', desc: 'High-stakes leadership and strategy challenge.', tags: ['management'], link: 'events/best-manager.html', img: './public/events/bestmanager.avif' },
+			{ title: 'Business Plan', desc: 'Transform ideas into actionable venture blueprints.', tags: ['management'], link: 'events/business-plan.html', img: './public/events/businessplan.jpg' },
+			{ title: 'Marketing and Public Relations', desc: 'Creativity meets crisis communication.', tags: ['management'], link: 'events/marketing-and-public-relations.html', img: './public/events/marketing.jpg' },
+			{ title: 'Finance', desc: 'Strategy, analysis, and financial problem-solving.', tags: ['management'], link: 'events/finance.html', img: './public/events/finance.jpg' },
+			{ title: 'Human Resources', desc: 'Hiring sprees, HR cases, and on-ground challenges.', tags: ['management'], link: 'events/human-resources.html', img: './public/events/humanresource.jpg' },
+
+			// Science and Humanities
+			{ title: 'Byte & Board', desc: 'Hybrid of tech and board strategy.', tags: ['science-humanities'], link: 'events/byte-and-board.html', img: './public/events/byteandboard.jpg' },
+			{ title: 'Severance Cup', desc: 'Inter-collegiate esports tournament featuring Rocket League and EA FC.', tags: ['science-humanities'], link: 'events/severance-cup.html', img: './public/events/SEVERANCE CUP.jpg' },
+
+			// School of Architecture
+			{ title: 'Pixel Perspectives', desc: 'Capturing the built and unbuilt environment.', tags: ['architecture'], link: 'events/pixel-perspectives.html', img: './public/events/pixelperspective.jpg' },
+			{ title: 'Pattern Play', desc: 'Unleash your imagination through chance and repetition.', tags: ['architecture'], link: 'events/pattern-play.html', img: './public/events/patternplay.jpg' },
+			{ title: 'Revival Outlook', desc: 'Fashion design competition blending architecture and couture.', tags: ['architecture'], link: 'events/revival-outlook.html', img: './public/events/reviwaloutlook.jpg' },
+
+			// IIIC
+			{ title: 'Casecraft: The Industry Edition', desc: 'Real-world case challenge by IIIC.', tags: ['iiic'], link: './events/casecraft-the-industry-edition.html', img: './public/events/casecraft.jpg' },
+
+			// Culturals
+			{ title: "Battle of Bands", desc: 'Where music meets mayhem - rock the stage!', tags: ['culturals'], link: 'events/battle-of-bands.html', img: './public/events/battleofbands.jpg' },
+			{ title: 'Acapella and Group Singing', desc: 'Music without borders, harmony without limits.', tags: ['culturals'], link: 'events/acapella-and-group-singing.html', img: './public/events/acapella.jpg' },
+			{ title: 'Theme Dance (Group)', desc: 'Where rhythm unites and tradition comes alive.', tags: ['culturals'], link: 'events/theme-dance-group.html', img: './public/events/themedance.jpg' },
+			{ title: 'Non Theme Dance (Group)', desc: 'Where energy meets rhythm — group grooves on point!', tags: ['culturals'], link: 'events/non-theme-dance-group.html', img: './public/events/nontheme.jpg' },
+            { title: 'Street Dance Battle', desc: 'Freestyle street battle.', tags: ['culturals'], link: 'events/street-dance-battle.html', img: './public/events/streetdancebattle.JPG' },
+			{ title: 'Street Play', desc: 'Powerful theater on the street.', tags: ['culturals'], link: 'events/street-play.html', img: './public/events/streetplay.jpg' },
+		];
+
+		let currentFilter = 'all';
+		let filteredEvents = events;
+
+			// Main categories only (updated)
+			// Added umbrella 'engineering' to include civil, cse, ece, eee, mech, automobile, aiml-ds
+			const mainCategories = [
+				'engineering',
+				'psychology',
+				'management',
+				'science-humanities',
+				'architecture',
+				'iiic',
+				'culturals',
+			];
+
+			// Tags considered part of the engineering umbrella
+			const engineeringTags = ['civil','cse','ece','eee','mech','automobile','aiml-ds'];
+
+		// Initialize the page
+		function initializePage() {
+			console.log('Initializing events page...');
+			console.log('Events data:', events.length, 'events loaded');
+			createFilterTags();
+			renderEvents(events);
+			setupEventListeners();
+			console.log('Events page initialized successfully');
+		}
+
+		// Create filter tags
+		function createFilterTags() {
+			const filterContainer = document.getElementById('filterTags');
+
+			mainCategories.forEach((tag) => {
+				const tagElement = document.createElement('div');
+				tagElement.className = 'filter-tag';
+				let label = tag.charAt(0).toUpperCase() + tag.slice(1);
+				if (tag === 'iiic') label = 'IIIC';
+				tagElement.textContent = label;
+				tagElement.setAttribute('data-tag', tag);
+				tagElement.addEventListener('click', () => filterByTag(tag));
+				filterContainer.appendChild(tagElement);
+			});
+		}
+
+		// Render events
+		function renderEvents(eventsList) {
+			console.log('Rendering events:', eventsList.length);
+			const container = document.getElementById('eventsGrid');
+			if (!container) {
+				console.error('Events grid container not found!');
+				return;
+			}
+			container.innerHTML = '';
+
+			eventsList.forEach((evt) => {
+				const eventCard = document.createElement('div');
+				eventCard.className = 'event-card';
+				const primaryTag = evt.tags[0];
+				const tagLabel = primaryTag.charAt(0).toUpperCase() + primaryTag.slice(1);
+                const detailUrl = evt.link;
+
+				eventCard.innerHTML = `
+					<a href="${detailUrl}" class="event-link" aria-label="Open ${evt.title}"></a>
+					<div class="event-media">
+						<img src="${evt.img}" alt="${evt.title}" class="event-image" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='./public/Gallery/1_400x400.jpg';" />
+						<span class="event-badge">${tagLabel}</span>
+					</div>
+					<div class="event-content">
+						<h3 class="event-title">${evt.title}</h3>
+						<p class="event-description">${evt.desc}</p>
+						<div class="event-actions">
+							<a href="${detailUrl}" class="register-btn">Show More</a>
+						</div>
+          </div>
+        `;
+
+				container.appendChild(eventCard);
+			});
+		}
+
+		// Filter by tag
+		function filterByTag(tag) {
+			currentFilter = tag;
+
+			// Update active tag
+			document.querySelectorAll('.filter-tag').forEach((tagEl) => {
+				tagEl.classList.remove('active');
+				if (
+					tagEl.getAttribute('data-tag') === tag ||
+					(tag === 'all' && tagEl.textContent === 'All')
+				) {
+					tagEl.classList.add('active');
+				}
+			});
+
+			// Filter events
+			if (tag === 'all') {
+				filteredEvents = events;
+			} else if (tag === 'engineering') {
+				filteredEvents = events.filter((event) => event.tags.some((t) => engineeringTags.includes(t)));
+			} else {
+				filteredEvents = events.filter((event) => event.tags.includes(tag));
+			}
+
+			// Apply search filter if there's a search query
+			const searchQuery = document
+				.getElementById('searchInput')
+				.value.toLowerCase();
+			if (searchQuery) {
+				filteredEvents = filteredEvents.filter(
+					(event) =>
+						event.title.toLowerCase().includes(searchQuery) ||
+						event.desc.toLowerCase().includes(searchQuery) ||
+						event.tags.some((tag) => tag.toLowerCase().includes(searchQuery))
+				);
+			}
+
+			renderEvents(filteredEvents);
+		}
+
+		// Search functionality
+		function searchEvents(query) {
+			const lowerQuery = query.toLowerCase();
+
+			let searchResults;
+			if (currentFilter === 'all') {
+				searchResults = events;
+			} else {
+				searchResults = events.filter((event) =>
+					event.tags.includes(currentFilter)
+				);
+			}
+
+			if (query) {
+				searchResults = searchResults.filter(
+					(event) =>
+						event.title.toLowerCase().includes(lowerQuery) ||
+						event.desc.toLowerCase().includes(lowerQuery) ||
+						event.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))
+				);
+			}
+
+			renderEvents(searchResults);
+		}
+
+		// Setup event listeners
+		function setupEventListeners() {
+			const searchInput = document.getElementById('searchInput');
+			searchInput.addEventListener('input', (e) => {
+				searchEvents(e.target.value);
+			});
+
+			// All filter
+			document
+				.querySelector('.filter-tag[data-tag="all"]')
+				.addEventListener('click', () => {
+					filterByTag('all');
+				});
+		}
+
+		// Initialize when DOM is loaded
+		document.addEventListener('DOMContentLoaded', initializePage);
+
+		// Also initialize immediately if DOM is already loaded
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initializePage);
+		} else {
+			initializePage();
+		}
+
+	</script>
+	<script>
+		// Mobile Navigation JavaScript
+		document.addEventListener('DOMContentLoaded', function() {
+			const mobileMenuToggle = document.getElementById('simpleMobileToggle');
+			const navMenuLinks = document.getElementById('navMenuLinks');
+			const mobileNavBackdrop = document.getElementById('mobileNavBackdrop');
+			const navLinks = document.querySelectorAll('.nav-menu__links .nav-link');
+
+			// Toggle mobile menu
+			function toggleMobileMenu() {
+				const isOpen = navMenuLinks.classList.contains('is-open');
+				
+				if (isOpen) {
+					closeMobileMenu();
+				} else {
+					openMobileMenu();
+				}
+			}
+
+			// Open mobile menu
+			function openMobileMenu() {
+				navMenuLinks.classList.add('is-open');
+				mobileNavBackdrop.classList.add('is-open');
+				mobileMenuToggle.classList.add('is-active');
+				document.body.classList.add('mobile-menu-open');
+				document.body.style.overflow = 'hidden';
+			}
+
+			// Close mobile menu
+			function closeMobileMenu() {
+				navMenuLinks.classList.remove('is-open');
+				mobileNavBackdrop.classList.remove('is-open');
+				mobileMenuToggle.classList.remove('is-active');
+				document.body.classList.remove('mobile-menu-open');
+				document.body.style.overflow = '';
+			}
+
+			// Event listeners
+			if (mobileMenuToggle) {
+				mobileMenuToggle.addEventListener('click', function(e) {
+					e.stopPropagation();
+					toggleMobileMenu();
+				});
+			}
+
+			if (mobileNavBackdrop) {
+				mobileNavBackdrop.addEventListener('click', closeMobileMenu);
+			}
+
+			// Prevent menu from closing when clicking on the menu itself
+			if (navMenuLinks) {
+				navMenuLinks.addEventListener('click', function(e) {
+					e.stopPropagation();
+				});
+			}
+
+			// Close menu when clicking on nav links
+			navLinks.forEach(link => {
+				link.addEventListener('click', closeMobileMenu);
+			});
+
+			// Close menu on escape key
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'Escape' && navMenuLinks.classList.contains('is-open')) {
+					closeMobileMenu();
+				}
+			});
+
+			// Close menu when clicking anywhere else on the screen
+			document.addEventListener('click', function(e) {
+				if (navMenuLinks.classList.contains('is-open')) {
+					// Check if click is outside the menu and hamburger button
+					if (!navMenuLinks.contains(e.target) && 
+						!mobileMenuToggle.contains(e.target) && 
+						!mobileNavBackdrop.contains(e.target)) {
+						closeMobileMenu();
+					}
+				}
+			});
+
+			// Close menu on window resize (if screen becomes larger)
+			window.addEventListener('resize', function() {
+				if (window.innerWidth > 768) {
+					closeMobileMenu();
+				}
+			});
+		});
+	</script>
+</html>
