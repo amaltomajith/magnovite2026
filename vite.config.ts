@@ -1,5 +1,18 @@
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
+import fs from 'fs';
+
+const eventEntries: Record<string, string> = {};
+const eventsDir = resolve(__dirname, 'events');
+
+if (fs.existsSync(eventsDir)) {
+  fs.readdirSync(eventsDir).forEach((file) => {
+    if (file.endsWith('.html')) {
+      const key = `event-${file.replace('.html', '')}`;
+      eventEntries[key] = resolve(eventsDir, file);
+    }
+  });
+}
 
 export default defineConfig({
   publicDir: 'public',
@@ -15,7 +28,7 @@ export default defineConfig({
         schedule: resolve(__dirname, 'schedule.html'),
         about: resolve(__dirname, 'about.html'),
         gallery: resolve(__dirname, 'gallery.html'),
-        registration: resolve(__dirname, 'registration.html')
+        ...eventEntries
       }
     }
   }

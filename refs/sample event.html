@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+        rel="icon"
+        type="image/png"
+        href="../public/magnovite.png"
+        sizes="32x32 64x64 128x128 192x192"
+    />
+    <link
+        rel="apple-touch-icon"
+        href="../public/magnovite.png"
+        sizes="180x180"
+    />
+    <title>Pixel Perspectives – Magnovite 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        /* General Reset and Base Styles */
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: 'Poppins', Arial, Helvetica, sans-serif; background:#000; color:#e5e5e5; }
+        .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 16px 80px; }
+
+        /* Component Styles */
+        .chip { display:inline-flex; align-items:center; padding:8px 12px; border-radius:999px; border:1px solid rgba(255,176,196,.45); background:rgba(0,0,0,.5); color:#fff; font-weight:600; font-size:14px; }
+        .title { font-size: clamp(28px, 4vw, 48px); font-weight:800; color:#fff; margin: 10px 0 6px; }
+        .tagline { color:#ffb0c4; font-weight:700; margin: 0 0 12px; }
+        .hero { border-radius:16px; overflow:hidden; border:1px solid rgba(255,176,196,.45); box-shadow: 0 18px 48px rgba(158,63,255,.28); }
+        .hero img { width:100%; height:100%; display:block; object-fit:cover; }
+        .card { padding:18px; border-radius:14px; background:#0b0b0b; border:1px solid rgba(255,176,196,.35); }
+        .subchips{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0; }
+
+        /* Flow Chart Structure */
+        .flowchart { display:grid; gap:18px; grid-template-columns: repeat(2, 1fr); }
+        @media (max-width:768px){ .flowchart{ grid-template-columns: 1fr; } }
+        .node { position:relative; padding:14px 16px; border-radius:12px; background:#000; border:1px solid rgba(255,176,196,.35); box-shadow:0 10px 26px rgba(158,63,255,.18); min-height: 150px; display:flex; flex-direction:column; justify-content:space-between; }
+        .node .title { font-size:18px; margin:0; font-weight: 700; }
+        .node .meta { color:#ffb0c4; font-size:12px; font-weight:700; margin-top:4px; }
+
+        /* Rules Layout */
+        .rules { display:grid; gap:10px; grid-template-columns: 1fr; }
+        @media (min-width: 720px){ .rules{ grid-template-columns: 1fr 1fr; } }
+        .rule { display:flex; gap:10px; padding:10px; border-radius:10px; background:#000; border:1px solid rgba(255,176,196,.28); }
+        .dot{ width:10px; height:10px; border-radius:50%; background:#ff00ff; margin-top:6px; flex: 0 0 auto; }
+
+        /* Button Style */
+        .btn { display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:999px; text-decoration:none; font-weight:800; color:#fff; background:linear-gradient(135deg,#9e3fff 0%, #ff00ff 100%); box-shadow:0 8px 22px rgba(158,63,255,.28); transition:.2s ease; border: none; cursor: pointer; }
+        .btn:hover{ transform: translateY(-2px); box-shadow:0 16px 36px rgba(158,63,255,.42); }
+
+        /* Contacts Layout */
+        footer { margin-top:40px; padding:24px 0; }
+        .contacts { display:grid; gap:12px; grid-template-columns: 1fr; }
+        @media (min-width:720px){ .contacts{ grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); } }
+        .contact-card{ background:#0b0b0b; border:1px solid rgba(255,176,196,.35); border-radius:12px; padding:12px; }
+        .contact-card a{ color:#ffb0c4; text-decoration:none; }
+        
+        /* Visual Enhancement Styles (Price Card and Info Grid) */
+        .price-card { 
+            background: linear-gradient(135deg, rgba(158,63,255,0.1) 0%, rgba(255,0,255,0.1) 100%);
+            border: 1px solid rgba(255,176,196,0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 16px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #9e3fff 0%, #ff00ff 100%);
+        }
+        .price-amount { 
+            font-size: 32px; 
+            font-weight: 800; 
+            color: #ffb0c4; 
+            margin: 8px 0;
+            text-shadow: 0 0 20px rgba(255,176,196,0.3);
+        }
+        .price-label { 
+            color: #cfcfcf; 
+            font-size: 14px; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .info-grid { 
+            display: grid; 
+            gap: 16px; 
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+            margin: 20px 0; 
+        }
+        .info-card { 
+            background: rgba(0,0,0,0.3); 
+            border: 1px solid rgba(255,176,196,0.2); 
+            border-radius: 12px; 
+            padding: 16px; 
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .info-card:hover { 
+            transform: translateY(-4px); 
+            border-color: rgba(255,176,196,0.4);
+            box-shadow: 0 8px 25px rgba(158,63,255,0.2);
+        }
+        .info-card-icon { 
+            font-size: 24px; 
+            margin-bottom: 8px; 
+            display: block;
+        }
+        .info-card-title { 
+            font-weight: 700; 
+            color: #fff; 
+            margin-bottom: 4px; 
+            font-size: 16px;
+        }
+        .info-card-value { 
+            color: #ffb0c4; 
+            font-size: 14px; 
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="subchips">
+            <span class="chip">Architecture</span>
+            <span class="chip">Photography</span>
+        </div>
+        <h1 class="title">PIXEL PERSPECTIVES 📸🏢</h1>
+        <p class="tagline">Capturing the built and unbuilt environment</p>
+        <p>Pixel Perspectives is a digital and photography contest inviting participants to explore narratives hidden within the built and unbuilt environment, capturing architecture beyond its functional role. The event encourages students and enthusiasts to frame architecture beyond its functional role, capturing overlooked spaces, fleeting moments, and striking interactions between form, light, and context. Both online and offline entries are welcomed, promoting creativity in visual storytelling.</p>
+
+        <div class="subchips">
+            <span class="chip">Team Size: 2 Members</span>
+            <span class="chip">Registration Fee: 300 INR</span>
+            <a class="btn" href="../events.html">← Back to Events</a>
+        </div>
+
+        <div style="margin-top:16px;">
+            <div class="hero">
+                <img src="../public/events/pixelperspective.jpg" alt="Pixel Perspectives" />
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:24px;">
+            <h2>Event Details & Structure</h2>
+            
+            <!-- Prize Money Card -->
+            <div class="price-card">
+                <div class="price-label">Total Prize Pool</div>
+                <div class="price-amount">₹22,000</div>
+                <div style="color: #cfcfcf; font-size: 14px; margin-top: 8px;">
+                    Exciting cash prizes for the winning entries.
+                </div>
+            </div>
+
+            <!-- Info Grid -->
+            <div class="info-grid">
+                <div class="info-card">
+                    <span class="info-card-icon">📅</span>
+                    <div class="info-card-title">Date</div>
+                    <div class="info-card-value">26-11-2025</div>
+                </div>
+                <div class="info-card">
+                    <span class="info-card-icon">💰</span>
+                    <div class="info-card-title">Registration Fee</div>
+                    <div class="info-card-value">₹300</div>
+                </div>
+                <div class="info-card">
+                    <span class="info-card-icon">🎯</span>
+                    <div class="info-card-title">Rounds</div>
+                    <div class="info-card-value">2 Rounds (Online + Offline)</div>
+                </div>
+                <div class="info-card">
+                    <span class="info-card-icon">📸</span>
+                    <div class="info-card-title">Equipment</div>
+                    <div class="info-card-value">Any Camera Type</div>
+                </div>
+            </div>
+            
+            <h3 style="margin-top:24px; color:#fff;">Round Structure</h3>
+            <div class="flowchart">
+                <div class="node">
+                    <p class="title">Exploration Shot – Online</p>
+                    <p class="meta">Round 1</p>
+                    <p style="margin:6px 0 0; font-size:13px; color:#cfcfcf;">Participants submit one photograph on either theme: "The Forgotten Corners" or "Framing the Sky". Each entry must be accompanied by a short caption/description (max 50 words).</p>
+                </div>
+                <div class="node">
+                    <p class="title">On-the-Spot Capture – Offline</p>
+                    <p class="meta">Round 2</p>
+                    <p style="margin:6px 0 0 0; font-size:13px; color:#cfcfcf;">Shortlisted participants will be given a surprise theme on campus. **Time limit: 2 hours** to capture and submit one photograph, which must be taken within campus during the event.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:24px;">
+            <h2>Rules & Regulations</h2>
+            <div class="rules">
+                <div class="rule"><span class="dot"></span><div>Eligibility: Open to all students; team size of 2 members permitted.</div></div>
+                <div class="rule"><span class="dot"></span><div>Equipment: Any type of camera (DSLR, mobile, or digital) is permitted.</div></div>
+                <div class="rule"><span class="dot"></span><div>Editing: Edited/manipulated images will be disqualified (minor corrections like brightness/contrast allowed).</div></div>
+                <div class="rule"><span class="dot"></span><div>Originality: Entries must be original and owned by the participant; plagiarism will lead to disqualification.</div></div>
+                <div class="rule"><span class="dot"></span><div>Judging Criteria: Creativity, composition, theme relevance, and narrative quality.</div></div>
+            </div>
+
+            <div style="margin-top:20px; padding:16px; background:rgba(255,176,196,0.1); border:1px solid rgba(255,176,196,0.3); border-radius:12px; color:#ffb0c4; font-weight:600;">
+                Each institution can have a maximum of two registrations as contingents for every event
+            </div>
+
+            <div style="display:flex; justify-content:flex-start; margin-top:16px;">
+                <button class="btn" type="button" onclick="window.open('https://docs.google.com/forms/d/1NYoJ1-ZfKZohaAE5eQok6cfbH-oHdfheD2e5SXJH-f0', '_blank')">Register Now</button>
+            </div>
+        </div>
+<div style="margin-top:24px; position: relative; background: linear-gradient(180deg, rgba(158,63,255,0.10), rgba(255,0,255,0.08)); border: 1px solid rgba(255,176,196,0.35); border-radius: 16px; padding: 20px; box-shadow: 0 20px 60px rgba(158,63,255,0.18); overflow: hidden;">
+  <div style="content: ''; position: absolute; inset: -2px; border-radius: 18px; background: radial-gradient(800px 200px at top left, rgba(255,0,255,0.15), transparent 40%), radial-gradient(600px 160px at bottom right, rgba(158,63,255,0.12), transparent 40%); pointer-events: none; z-index: 0;"></div>
+  <div style="position: relative; display: flex; align-items: center; gap: 12px; margin-bottom: 10px; z-index: 1;">
+    <div style="width:36px; height:36px; display:grid; place-items:center; border-radius:10px; color:#fff; background: linear-gradient(135deg,#9e3fff 0%, #ff00ff 100%); box-shadow: 0 10px 28px rgba(158,63,255,0.35); font-size:18px;">🏆</div>
+    <span style="font-weight:800; font-size:12px; color:#fff; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,176,196,0.35); background: rgba(0,0,0,0.35);">Complimentary Access</span>
+    <h3 style="margin:0; color:#fff; font-size:18px; font-weight:800;">Magnovite Special Workshops – Nov 28, 2025</h3>
+  </div>
+  <div style="position: relative; z-index:1; color:#cfcfcf;">
+    <p style="margin:0;">
+ELEVATE YOUR VICTORY: Winners of this Magnovite Departmental Event secure their complimentary access to the highly anticipated Magnovite Special Workshops, conducted by the respective departments on November 28, 2025. This achievement grants you a full-value registration waiver, providing admission to these premier technical sessions—an opportunity valued at ₹500 per participant—as recognition of your competitive excellence.    </p>
+    <div style="margin-top:14px; display:flex; gap:10px;">
+      <button type="button" onclick="window.location.href='../events/magnovite-technical-workshops.html'" style="display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; text-decoration:none; font-weight:800; color:#fff; background:linear-gradient(135deg,#9e3fff 0%, #ff00ff 100%); box-shadow:0 8px 22px rgba(158,63,255,.28); border:none; cursor:pointer;">View Workshops</button>
+    </div>
+  </div>
+</div>
+        <footer class="wrap" style="padding-left:0;padding-right:0;">
+            <h2 class="title" style="font-size:28px; margin:24px 0 12px;">Contact Us</h2>
+            <div class="contacts">
+                <div class="contact-card">
+                    <strong>Rasana Sherin (Student POC)</strong><br />
+                    <a href="tel:+919048851790">904 885 1790</a>
+                </div>
+                <div class="contact-card">
+                    <strong>R.P. Nithinkrishna (Student POC)</strong><br />
+                    <a href="tel:+919487863636">948 786 3636</a>
+                </div>
+                <div class="contact-card">
+                    <strong>Prof. Shynu Robert (Faculty Coordinator)</strong><br />
+                    <a href="tel:+919400077230">940 007 7230</a>
+                </div>
+                <div class="contact-card">
+                    <strong>Prof. Ashik Shajahan (Faculty Coordinator)</strong><br />
+                    <a href="tel:+919446562173">944 656 2173</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

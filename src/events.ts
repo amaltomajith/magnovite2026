@@ -1,32 +1,13 @@
-// Google Apps Script Web App deployment URL
-const API_URL = "https://script.google.com/macros/s/AKfycbyCavqYo1p9VXhflQYaMyQu4WiimRanMwI6FDo0vAHiikTOJNf4lWIPxYX2EDcALhX9cQ/exec";
-
 interface EventItem {
   title: string;
   desc: string;
   category: string;
-  tagline?: string;
-  prize?: string;
-  date?: string;
-  participants?: string;
-  fee?: string;
-  duration?: string;
-  rules?: string;
-  registrationUrl?: string;
-  contacts?: string;
-  [key: string]: any;
+  slug: string;
 }
 
-// In-Memory Data Cache (No localStorage/sessionStorage used)
-let cachedEvents: EventItem[] = [];
 let activeCategory = 'All';
 let searchQuery = '';
 
-/**
- * Client-Side Slugify Rule:
- * lowercase, trim, replace any run of non-alphanumeric characters with a single hyphen,
- * strip leading/trailing hyphens.
- */
 export function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -41,7 +22,6 @@ const EVENT_IMAGE_MAP: Record<string, string> = {
   'archicraft': '/images/events/archicraft.jpg',
   'argo-royale': '/images/events/argoroyale.png',
   'battle-of-the-bands': '/images/events/battleofbands.jpg',
-  'battleofbands': '/images/events/battleofbands.jpg',
   'best-manager': '/images/events/bestmanager.avif',
   'business-plan': '/images/events/businessplan.jpg',
   'byte-and-board': '/images/events/byteandboard.jpg',
@@ -79,78 +59,49 @@ const EVENT_IMAGE_MAP: Record<string, string> = {
   'the-nexus': '/images/events/thenexus.jpg'
 };
 
-async function fetchEvents() {
-  const statusContainer = document.getElementById('events-status');
-  const gridContainer = document.getElementById('events-grid');
-  
-  if (!statusContainer || !gridContainer) return;
-
-  statusContainer.innerHTML = `
-    <div class="status-loading">
-      <div class="spinner"></div>
-      <p>Fetching latest events schedule...</p>
-    </div>
-  `;
-  gridContainer.innerHTML = '';
-
-  if (!API_URL) {
-    statusContainer.innerHTML = `
-      <div class="status-empty" style="text-align: center; padding: 3rem 1.5rem;">
-        <p style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">No data record found.</p>
-        <p style="color: var(--text-secondary); font-size: 0.9rem;">API URL endpoint is not configured.</p>
-      </div>
-    `;
-    return;
-  }
-
-  try {
-    const response = await fetch(API_URL);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    if (!Array.isArray(data)) {
-      throw new Error("Invalid response format: Expected JSON array of events.");
-    }
-
-    if (data.length === 0) {
-      cachedEvents = [];
-      gridContainer.innerHTML = '';
-      statusContainer.innerHTML = `
-        <div class="status-empty" style="text-align: center; padding: 3rem 1.5rem;">
-          <p style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">No data record found.</p>
-          <p style="color: var(--text-secondary); font-size: 0.9rem;">There are currently no events listed in the connected Google Sheet.</p>
-        </div>
-      `;
-      return;
-    }
-
-    cachedEvents = data;
-    statusContainer.innerHTML = '';
-    renderCategories();
-    renderEvents();
-  } catch (error) {
-    console.error('[Events Fetch Error]', error);
-    cachedEvents = [];
-    gridContainer.innerHTML = '';
-    statusContainer.innerHTML = `
-      <div class="status-error" style="text-align: center; padding: 3rem 1.5rem;">
-        <p style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">No data record found.</p>
-        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.4rem;">
-          Unable to retrieve events from Google Sheets (${escapeHtml((error as Error).message)}).
-        </p>
-      </div>
-    `;
-  }
-}
+const STATIC_EVENTS: EventItem[] = [
+  { title: "Robo Soccer", slug: "robo-soccer", desc: "Build autonomous or remote-controlled bots to compete in a high-stakes soccer tournament.", category: "Robotics" },
+  { title: "Code Relay", slug: "code-relay", desc: "Speed coding relay challenge where teams write modular code under pressure.", category: "Coding" },
+  { title: "Reverse Coding", slug: "reverse-coding", desc: "Analyze compiled binary behaviors and reverse engineer the source algorithm.", category: "Coding" },
+  { title: "Battle of the Bands", slug: "battle-of-the-bands", desc: "Flagship live musical showdown featuring top college rock and fusion bands.", category: "Music" },
+  { title: "Acapella", slug: "acapella", desc: "Vocal harmony competition showcasing pure unassisted choral arrangements.", category: "Music" },
+  { title: "CAD Design", slug: "cad-design", desc: "3D parametric modeling challenge testing precision, speed, and structural integrity.", category: "Design" },
+  { title: "Spark Tank", slug: "spark-tank", desc: "Pitch startup innovations and prototype business models to top venture mentors.", category: "Entrepreneurship" },
+  { title: "Chamber of Secrets", slug: "chamber-of-secrets", desc: "Mystery puzzle solving and cryptographic riddle challenge across campus.", category: "Gaming" },
+  { title: "Escape Room", slug: "escape-room", desc: "Immersive escape room filled with logic puzzles, mechanical keys, and hidden clues.", category: "Gaming" },
+  { title: "Drone Obstacle", slug: "drone-obstacle", desc: "Navigate FPV drones through tight obstacle courses and precision air hoops.", category: "Robotics" },
+  { title: "Best Manager", slug: "best-manager", desc: "Comprehensive leadership test assessing crisis management, strategy, and stress handling.", category: "Management" },
+  { title: "Street Dance Battle", slug: "street-dance-battle", desc: "High-energy street dance battle featuring hip-hop, popping, and breaking duels.", category: "Dance" },
+  { title: "Theme Dance", slug: "theme-dance", desc: "Choreographed group dance competition centering around futuristic storytelling themes.", category: "Dance" },
+  { title: "Non Theme Dance", slug: "non-theme-dance", desc: "Freeform group dance showcasing versatile choreography and synchronized rhythms.", category: "Dance" },
+  { title: "Street Play", slug: "street-play", desc: "Social awareness street play (Nukkad Natak) bringing loud, dramatic street theater.", category: "Drama" },
+  { title: "Argo Royale", slug: "argo-royale", desc: "Tactical esports tournament featuring intense battle royale action and squad play.", category: "Gaming" },
+  { title: "RC Car Challenge", slug: "rc-car-challenge", desc: "Off-road remote control car racing through rugged terrain and steep inclines.", category: "Robotics" },
+  { title: "Byte and Board", slug: "byte-and-board", desc: "Hardware assembly and micro-controller circuit building hackathon.", category: "Electronics" },
+  { title: "Smart City", slug: "smart-city", desc: "Model sustainable urban infrastructure using IoT sensors, renewable grids, and AI.", category: "Innovation" },
+  { title: "Eco Forge", slug: "eco-forge", desc: "Sustainable green product engineering challenge using recycled materials.", category: "Innovation" },
+  { title: "Enigma", slug: "enigma", desc: "Cybersecurity capture-the-flag (CTF) testing vulnerability exploitation and forensics.", category: "Cybersecurity" },
+  { title: "Finance Pitch", slug: "finance-pitch", desc: "Corporate financial modeling, portfolio risk analysis, and stock valuation challenge.", category: "Management" },
+  { title: "Marketing Challenge", slug: "marketing-challenge", desc: "Brand positioning, guerilla ad campaigns, and social media viral marketing pitch.", category: "Management" },
+  { title: "Human Resource", slug: "human-resource", desc: "Corporate HR simulation resolving workplace disputes and organizational scaling.", category: "Management" },
+  { title: "Case Craft", slug: "case-craft", desc: "Real-world business case study analysis and consulting deck presentation.", category: "Management" },
+  { title: "How I Met Your Killer", slug: "how-i-met-your-killer", desc: "Murder mystery investigation analyzing crime scenes, forensic evidence, and alibis.", category: "Gaming" },
+  { title: "The Chase", slug: "the-chase", desc: "Campus-wide treasure hunt with real-time GPS clues and speed checkpoints.", category: "Gaming" },
+  { title: "Pixel Perspective", slug: "pixel-perspective", desc: "Digital photography challenge focusing on macro aesthetics, lighting, and composition.", category: "Media" },
+  { title: "Frames Unboxed", slug: "frames-unboxed", desc: "Short filmmaking contest highlighting cinematic storytelling and video editing.", category: "Media" },
+  { title: "Archicraft", slug: "archicraft", desc: "Architectural structure prototyping using minimalist building materials and geometry.", category: "Design" },
+  { title: "Pattern Play", slug: "pattern-play", desc: "UI/UX wireframing and design design-system creation sprint for web platforms.", category: "Design" },
+  { title: "Switch and Scene", slug: "switch-and-scene", desc: "Improv acting duel where performers switch characters dynamically mid-scene.", category: "Drama" },
+  { title: "The Nexus", slug: "the-nexus", desc: "Cross-disciplinary innovation summit integrating tech, art, and business.", category: "Innovation" },
+  { title: "Severance Cup", slug: "severance-cup", desc: "Inter-college debate championship on tech ethics, AI policy, and governance.", category: "Literary" }
+];
 
 function renderCategories() {
   const container = document.getElementById('category-filters');
   if (!container) return;
 
   const categories = Array.from(
-    new Set(cachedEvents.map((item) => item.category).filter(Boolean))
+    new Set(STATIC_EVENTS.map((item) => item.category).filter(Boolean))
   );
 
   const allCategories = ['All', ...categories];
@@ -187,7 +138,7 @@ function renderEvents() {
   if (!gridContainer || !statusContainer) return;
 
   const query = searchQuery.toLowerCase().trim();
-  const filteredEvents = cachedEvents.filter((item) => {
+  const filteredEvents = STATIC_EVENTS.filter((item) => {
     const matchesCategory = activeCategory === 'All' || item.category === activeCategory;
     const matchesSearch =
       !query ||
@@ -212,14 +163,14 @@ function renderEvents() {
   statusContainer.innerHTML = '';
 
   gridContainer.innerHTML = filteredEvents
-    .map((event, index) => {
-      const slug = slugify(event.title);
+    .map((event) => {
+      const slug = event.slug || slugify(event.title);
       const rawSlug = slug.replace(/-/g, '');
       const imageSrc = EVENT_IMAGE_MAP[slug] || EVENT_IMAGE_MAP[rawSlug] || `/images/events/${slug}.jpg`;
       const fallbackSrc = '/images/shaanrahman.jpg';
 
       return `
-        <article class="event-card" data-event-index="${index}" style="cursor: pointer;">
+        <a href="events/${slug}.html" class="event-card" style="text-decoration: none; color: inherit; display: flex; flex-direction: column;">
           <div class="card-image-wrapper">
             <img 
               class="card-image" 
@@ -234,206 +185,10 @@ function renderEvents() {
             <h3 class="card-title">${escapeHtml(event.title)}</h3>
             <p class="card-desc">${escapeHtml(event.desc)}</p>
           </div>
-        </article>
+        </a>
       `;
     })
     .join('');
-
-  // Attach click listeners to open rich detail view modal
-  gridContainer.querySelectorAll('.event-card').forEach((card) => {
-    card.addEventListener('click', (e) => {
-      const idxAttr = card.getAttribute('data-event-index');
-      if (idxAttr !== null) {
-        const idx = parseInt(idxAttr, 10);
-        if (filteredEvents[idx]) {
-          openEventModal(filteredEvents[idx]);
-        }
-      }
-    });
-  });
-}
-
-export function openEventModal(event: EventItem) {
-  const modalOverlay = document.getElementById('event-modal-overlay');
-  const modalContent = document.getElementById('event-modal-content');
-  if (!modalOverlay || !modalContent) return;
-
-  const tagline = (event.tagline || event.Tagline || '').trim();
-  const prize = (event.prize || event.Prize || '').trim();
-  const date = (event.date || event.Date || '').trim();
-  const participants = (event.participants || event.Participants || '').trim();
-  const fee = (event.fee || event.Fee || '').trim();
-  const duration = (event.duration || event.Duration || '').trim();
-  const rulesRaw = (event.rules || event.Rules || '').trim();
-  const regUrl = (event.registrationUrl || event.RegistrationUrl || '').trim();
-  const contactsRaw = (event.contacts || event.Contacts || '').trim();
-
-  // Info Grid Items (Only include non-empty values!)
-  const infoItems: { label: string; val: string }[] = [];
-  if (date) infoItems.push({ label: 'Date', val: date });
-  if (participants) infoItems.push({ label: 'Participants', val: participants });
-  if (fee) infoItems.push({ label: 'Registration Fee', val: fee });
-  if (duration) infoItems.push({ label: 'Duration', val: duration });
-
-  let infoGridHtml = '';
-  if (infoItems.length > 0) {
-    infoGridHtml = `
-      <div class="modal-info-grid">
-        ${infoItems
-          .map(
-            (item) => `
-          <div class="info-grid-item">
-            <span class="info-item-label">${escapeHtml(item.label)}</span>
-            <span class="info-item-val">${escapeHtml(item.val)}</span>
-          </div>
-        `
-          )
-          .join('')}
-      </div>
-    `;
-  }
-
-  // Prize Card HTML (Highlight stat)
-  let prizeCardHtml = '';
-  if (prize) {
-    prizeCardHtml = `
-      <div class="modal-prize-card">
-        <span class="modal-prize-label">PRIZE POOL</span>
-        <div class="modal-prize-amount">🏆 ${escapeHtml(prize)}</div>
-      </div>
-    `;
-  }
-
-  // Rules List HTML (Split on " | ")
-  let rulesHtml = '';
-  if (rulesRaw) {
-    const rulesList = rulesRaw
-      .split(' | ')
-      .map((r) => r.trim())
-      .filter(Boolean);
-
-    if (rulesList.length > 0) {
-      rulesHtml = `
-        <div class="modal-rules-section">
-          <h4 class="modal-rules-title">Rules & Guidelines</h4>
-          <ul class="modal-rules-list">
-            ${rulesList.map((r) => `<li>${escapeHtml(r)}</li>`).join('')}
-          </ul>
-        </div>
-      `;
-    }
-  }
-
-  // Contacts Section HTML (Split on " ;; " and internal " | ")
-  let contactsHtml = '';
-  if (contactsRaw) {
-    const contactEntries = contactsRaw
-      .split(';;')
-      .map((c) => c.trim())
-      .filter(Boolean);
-
-    if (contactEntries.length > 0) {
-      const cardsHtml = contactEntries
-        .map((contactStr) => {
-          const parts = contactStr.split('|').map((p) => p.trim());
-          const name = parts[0] || '';
-          const phone = parts[1] || '';
-          const email = parts[2] || '';
-
-          const cleanPhone = phone.replace(/[^0-9+]/g, '');
-
-          return `
-            <div class="contact-card">
-              <div class="contact-name">${escapeHtml(name)}</div>
-              ${phone ? `<a href="tel:${escapeHtml(cleanPhone)}" class="contact-link contact-phone">📞 ${escapeHtml(phone)}</a>` : ''}
-              ${email ? `<a href="mailto:${escapeHtml(email)}" class="contact-link contact-email">✉️ ${escapeHtml(email)}</a>` : ''}
-            </div>
-          `;
-        })
-        .join('');
-
-      contactsHtml = `
-        <div class="modal-contacts-section">
-          <h4 class="modal-contacts-title">Event Organizers & Contacts</h4>
-          <div class="modal-contacts-grid">
-            ${cardsHtml}
-          </div>
-        </div>
-      `;
-    }
-  }
-
-  // Register Button HTML (EXACTLY TWO STATES: Active Link or Disabled "Registration opens soon")
-  let registerBtnHtml = '';
-  if (regUrl) {
-    const targetUrl = `/registration.html?api=${encodeURIComponent(regUrl)}`;
-    registerBtnHtml = `
-      <a href="${escapeHtml(targetUrl)}" class="btn-primary modal-register-btn">
-        <span>Register Now</span> ↗
-      </a>
-    `;
-  } else {
-    registerBtnHtml = `
-      <button disabled class="btn-primary modal-register-btn disabled" aria-disabled="true">
-        <span>Registration opens soon</span>
-      </button>
-    `;
-  }
-
-  modalContent.innerHTML = `
-    <div class="modal-header-group">
-      <span class="card-badge">${escapeHtml(event.category || 'General')}</span>
-      <h2 class="modal-event-title">${escapeHtml(event.title)}</h2>
-      ${tagline ? `<p class="modal-event-tagline">${escapeHtml(tagline)}</p>` : ''}
-    </div>
-
-    <p class="modal-event-desc">${escapeHtml(event.desc)}</p>
-
-    ${prizeCardHtml}
-    ${infoGridHtml}
-    ${rulesHtml}
-    ${contactsHtml}
-    ${registerBtnHtml}
-  `;
-
-  modalOverlay.style.display = 'flex';
-  void modalOverlay.offsetWidth; // Force reflow
-  modalOverlay.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeEventModal() {
-  const modalOverlay = document.getElementById('event-modal-overlay');
-  if (modalOverlay) {
-    modalOverlay.classList.remove('active');
-    setTimeout(() => {
-      modalOverlay.style.display = 'none';
-      document.body.style.overflow = '';
-    }, 300);
-  }
-}
-
-function initModalListeners() {
-  const modalOverlay = document.getElementById('event-modal-overlay');
-  const closeBtn = document.getElementById('event-modal-close');
-
-  if (!modalOverlay) return;
-
-  closeBtn?.addEventListener('click', () => {
-    closeEventModal();
-  });
-
-  modalOverlay.addEventListener('click', (e) => {
-    if (e.target === modalOverlay) {
-      closeEventModal();
-    }
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-      closeEventModal();
-    }
-  });
 }
 
 function initSearchListener() {
@@ -459,7 +214,7 @@ import { initNavigation } from './navigation';
 
 document.addEventListener('DOMContentLoaded', () => {
   initSearchListener();
-  initModalListeners();
-  fetchEvents();
+  renderCategories();
+  renderEvents();
   initNavigation();
 });
