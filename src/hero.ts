@@ -120,14 +120,54 @@ function initHero3D() {
     }
   ];
 
+  // Card step elements — queried once
+  const cardSteps = Array.from(document.querySelectorAll<HTMLElement>('.hero-card-step'));
+  const sectionDots = Array.from(document.querySelectorAll<HTMLElement>('.section-dots .dot'));
+  const scrollBar = document.getElementById('scroll-bar');
+
   const currentCamPos    = sections[0].camPos.clone();
   const currentCamTarget = sections[0].camTarget.clone();
   let   currentModelRotY = 0;
 
-  let lastSectionIndex = -1;
+  // -----------------------------------------------------------------------
+  // PAUSE ZONE CONFIG
+  // Each step window [0,1]: camera arrives at 'from' keyframe, pauses
+  // during [PAUSE_START, PAUSE_END], then glides toward next.
+  // Cards are fully visible only during the pause plateau.
+  // -----------------------------------------------------------------------
+  const PAUSE_START = 0.20;
+  const PAUSE_END   = 0.75;
+  const FADE_WIDTH  = 0.18; // fraction of step window used for card fade-in/out
 
   function easeInOut(t: number): number {
     return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+  }
+
+  // Card visibility [0,1] based on how deep into the pause zone
+  function cardVisibility(stepFrac: number): number {
+    if (stepFrac < PAUSE_START) {
+      // approaching pause: fade in
+      const progress = Math.max(stepFrac - (PAUSE_START - FADE_WIDTH), 0) / FADE_WIDTH;
+      return easeInOut(Math.min(progress, 1));
+    } else if (stepFrac > PAUSE_END) {
+      // leaving pause: fade out
+      const progress = (stepFrac - PAUSE_END) / FADE_WIDTH;
+      return easeInOut(Math.max(1 - progress, 0));
+    }
+    return 1; // fully visible during plateau
+  }
+
+  // Camera interpolation t: arrives at 'from' during pause, glides to 'to' after
+  function cameraT(stepFrac: number): number {
+    if (stepFrac <= PAUSE_START) {
+      // glide in: t goes from 1→0 as stepFrac goes 0→PAUSE_START
+      return easeInOut(1 - stepFrac / PAUSE_START);
+    } else if (stepFrac <= PAUSE_END) {
+      return 0; // frozen at 'from' keyframe
+    } else {
+      // glide out toward 'to'
+      return easeInOut((stepFrac - PAUSE_END) / (1 - PAUSE_END));
+    }
   }
 
   function updateFromScroll() {
@@ -139,64 +179,56 @@ function initHero3D() {
     const toIdx         = Math.min(fromIdx + 1, totalSections);
     const stepFrac      = rawIndex - fromIdx;
 
-    // SECTION PAUSE LOGIC:
-    // Holds position for the first 65% of the section window, then glides smoothly in the remaining 35%
-    let t = 0;
-    if (stepFrac > 0.65) {
-      t = easeInOut((stepFrac - 0.65) / 0.35);
-    } else {
-      t = 0; // Paused at section!
-    }
-
     const from = sections[fromIdx];
     const to   = sections[toIdx];
 
+    // Update camera target
+    const t = cameraT(stepFrac);
     currentCamPos.lerpVectors(from.camPos, to.camPos, t);
     currentCamTarget.lerpVectors(from.camTarget, to.camTarget, t);
     currentModelRotY = from.modelRotY + (to.modelRotY - from.modelRotY) * t;
 
+    // Star field fade
     if (activePointsMat) {
       const closeProximity = Math.max((scrollFrac - 0.5) / 0.5, 0);
       const sizeScale = 1.0 - closeProximity * 0.45;
       const opacityScale = 1.0 - closeProximity * 0.35;
-
       activePointsMat.size = baseStarSize * sizeScale;
       activePointsMat.opacity = opacityScale;
-
       if (activeAmbientGlowMat) {
         activeAmbientGlowMat.size = baseStarSize * 3.5 * sizeScale;
         activeAmbientGlowMat.opacity = 0.12 * opacityScale;
       }
     }
 
-    const activeIndex = Math.round(rawIndex);
-    if (activeIndex !== lastSectionIndex) {
-      lastSectionIndex = activeIndex;
+    // Drive each card via inline style — scroll-synced opacity + blur + slide
+    cardSteps.forEach((el, idx) => {
+      let vis = 0;
+      if (idx === fromIdx) {
+        vis = cardVisibility(stepFrac);
+      }
+      // Don't show 'toIdx' card until its own pause window begins in next step
 
-      document.querySelectorAll('.hero-card-step').forEach((el, idx) => {
-        if (idx === activeIndex) {
-          el.classList.add('active');
-        } else {
-          el.classList.remove('active');
-        }
-      });
+      const blurPx = (1 - vis) * 14;
+      const slideY = (1 - vis) * 30;
+      el.style.opacity     = vis.toFixed(3);
+      el.style.filter      = vis < 0.995 ? `blur(${blurPx.toFixed(1)}px)` : '';
+      el.style.visibility  = vis < 0.01 ? 'hidden' : 'visible';
+      el.style.transform   = `translateY(${slideY.toFixed(1)}px) scale(${(0.94 + vis * 0.06).toFixed(3)})`;
+      el.style.transition  = 'none'; // driven by scroll, no CSS transition
+      el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
+    });
 
-      document.querySelectorAll('.section-dots .dot').forEach((dot, idx) => {
-        if (idx === activeIndex) {
-          dot.classList.add('active');
-        } else {
-          dot.classList.remove('active');
-        }
-      });
-    }
+    // Section dots
+    sectionDots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === fromIdx);
+    });
 
-    const scrollBar = document.getElementById('scroll-bar');
-    if (scrollBar) {
-      scrollBar.style.height = `${scrollFrac * 100}%`;
-    }
+    if (scrollBar) scrollBar.style.height = `${scrollFrac * 100}%`;
   }
 
   window.addEventListener('scroll', updateFromScroll, { passive: true });
+
 
   const loadingManager = new THREE.LoadingManager();
   loadingManager.onProgress = (_url, loaded, total) => {
