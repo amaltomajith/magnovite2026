@@ -9,9 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <script type="module" crossorigin src="/assets/main-D5sjnJnv.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/navigation-BEEYkznS.js">
-    <link rel="stylesheet" crossorigin href="/assets/navigation-SRerse9c.css">
+    <script type="module" crossorigin src="/assets/main-C8vJqdRo.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/navigation-yvjhgdI7.js">
+    <link rel="stylesheet" crossorigin href="/assets/navigation-CY2x4sMD.css">
   </head>
   <body class="hero-page-body">
 
@@ -156,39 +156,45 @@
           <p class="hero-teaser-text">Hold tight. We're about to drop the biggest one yet.</p>
         </div>
 
-        <!-- STEP 1: Magnovite Logo + Title — stays longer (handled in JS via SHOW_RADIUS_1) -->
+        <!-- STEP 1: Introducing... -->
         <div class="hero-card-step step-1">
-          <div class="logo-reveal-wrapper">
-            <img src="/logos/magnovite.png" alt="Magnovite" class="hero-logo-emblem" />
-          </div>
-          <h1 class="hero-main-title">MAGNOVITE 2026</h1>
-          <p class="hero-main-subtext">The 16th Edition &nbsp;·&nbsp; CHRIST University, Kengeri Campus</p>
+          <p class="hero-introducing-label">INTRODUCING</p>
+          <p class="hero-introducing-sub">The 16th edition of CHRIST University's flagship fest</p>
         </div>
 
-        <!-- STEP 2: Premium Credit-Card Glass — About -->
+        <!-- STEP 2: Magnovite Logo + Title — wider radius = lingers longer -->
         <div class="hero-card-step step-2">
+          <div class="logo-reveal-wrapper">
+            <img src="/logos/magnovie26white.png" alt="Magnovite 2026" class="hero-logo-emblem" />
+          </div>
+          <p class="hero-main-subtext">CHRIST University, Kengeri Campus &nbsp;·&nbsp; September 2026</p>
+        </div>
+
+        <!-- STEP 3: About Glass Card -->
+        <div class="hero-card-step step-3">
           <div class="premium-glass-card">
             <div class="pgc-shimmer"></div>
             <div class="pgc-corner-mark">✦</div>
             <p class="pgc-eyebrow">ABOUT THE FEST</p>
             <p class="pgc-body">
-              MAGNOVITE is the annual flagship fest of CHRIST (Deemed To Be University), Kengeri Campus — an enigmatic nexus of creativity and collaboration, bringing healthy competition and positive connections. This is its 16th edition, and its unfading charm returns.
+              MAGNOVITE is the annual flagship fest of CHRIST (Deemed To Be University), Kengeri Campus — an enigmatic nexus of creativity and collaboration, bringing healthy competition and positive connections. Sixteen editions in, its unfading charm returns.
             </p>
             <div class="pgc-footer">
               <span class="pgc-tag">16th Edition</span>
               <span class="pgc-tag">Kengeri Campus</span>
+              <span class="pgc-tag">34+ Events</span>
             </div>
           </div>
         </div>
 
-        <!-- STEP 3: Premium Card — Competitions -->
-        <div class="hero-card-step step-3">
+        <!-- STEP 4: Competitions Glass Card -->
+        <div class="hero-card-step step-4">
           <div class="premium-glass-card">
             <div class="pgc-shimmer"></div>
             <div class="pgc-corner-mark">✦</div>
-            <p class="pgc-eyebrow">ENGINEERING &amp; INNOVATION</p>
+            <p class="pgc-eyebrow">COMPETITIONS</p>
             <h3 class="pgc-headline">34+ National<br>Competitions</h3>
-            <p class="pgc-body">Robo Soccer, 24-hr Hackathons, Cybersecurity CTFs, AI challenges, CAD sprints — and much more.</p>
+            <p class="pgc-body">Robo Soccer, 24-hr Hackathons, Cybersecurity CTFs, AI challenges, CAD design sprints — Technical, Cultural &amp; Management.</p>
             <div class="pgc-footer">
               <span class="pgc-tag">Technical</span>
               <span class="pgc-tag">Cultural</span>
@@ -197,14 +203,46 @@
           </div>
         </div>
 
-        <!-- STEP 4: Farewell / Hype -->
-        <div class="hero-card-step step-4">
-          <p class="hero-excited-text">We're excited to see you there.</p>
-          <p class="hero-excited-sub">September 15, 2026 &nbsp;·&nbsp; CHRIST University, Kengeri</p>
+        <!-- STEP 5: Concert Glass Card — DJ Rubz (Sep 15) + Shaan Rahman (Sep 16) -->
+        <div class="hero-card-step step-5">
+          <div class="premium-glass-card premium-glass-card--wide">
+            <div class="pgc-shimmer"></div>
+            <div class="pgc-corner-mark">✦</div>
+            <p class="pgc-eyebrow">LIVE IN CONCERT</p>
+            <div class="pgc-concert-grid">
+              <div class="pgc-concert-card">
+                <div class="pgc-concert-img-wrap">
+                  <img src="/images/djrubz.png" alt="DJ Rubz" class="pgc-concert-img" />
+                  <div class="pgc-concert-img-overlay"></div>
+                </div>
+                <div class="pgc-concert-info">
+                  <span class="pgc-concert-date">SEP 15</span>
+                  <p class="pgc-concert-name">DJ Rubz</p>
+                </div>
+              </div>
+              <div class="pgc-concert-divider"></div>
+              <div class="pgc-concert-card">
+                <div class="pgc-concert-img-wrap">
+                  <img src="/images/shaanrahman.jpg" alt="Shaan Rahman" class="pgc-concert-img" />
+                  <div class="pgc-concert-img-overlay"></div>
+                </div>
+                <div class="pgc-concert-info">
+                  <span class="pgc-concert-date">SEP 16</span>
+                  <p class="pgc-concert-name">Shaan Rahman</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- STEP 5: Standalone Countdown — no glass card, raw elegance -->
-        <div class="hero-card-step step-5">
+        <!-- STEP 6: Excited Farewell -->
+        <div class="hero-card-step step-6">
+          <p class="hero-excited-text">We're excited to see you there.</p>
+          <p class="hero-excited-sub">September 15 &amp; 16, 2026 &nbsp;·&nbsp; CHRIST University, Kengeri</p>
+        </div>
+
+        <!-- STEP 7: Standalone Countdown -->
+        <div class="hero-card-step step-7">
           <p class="hero-countdown-label">COUNTDOWN TO MAGNOVITE</p>
           <div class="hero-flip-clock-grid">
             <div class="hero-flip-unit">
@@ -245,9 +283,6 @@
         </div>
 
       </div>
-
-
-      </div>
     </section>
 
     <!-- Scroll Progress Indicator (Right Side) -->
@@ -255,7 +290,7 @@
       <div id="scroll-bar" class="scroll-progress-bar"></div>
     </div>
 
-    <!-- Section Dots Navigation (6 Steps: 0 to 5) -->
+    <!-- Section Dots Navigation (8 Steps: 0 to 7) -->
     <div id="section-dots" class="section-dots">
       <span class="dot active" data-index="0"></span>
       <span class="dot" data-index="1"></span>
@@ -263,6 +298,8 @@
       <span class="dot" data-index="3"></span>
       <span class="dot" data-index="4"></span>
       <span class="dot" data-index="5"></span>
+      <span class="dot" data-index="6"></span>
+      <span class="dot" data-index="7"></span>
     </div>
 
     <!-- Loading Indicator -->
