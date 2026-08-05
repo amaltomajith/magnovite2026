@@ -1,9 +1,25 @@
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import { InstagramFeed } from './InstagramFeed';
+
+const sampleNavPostUrls = [
+  'https://www.instagram.com/p/DFhQ9N-vJ9Y/',
+  'https://www.instagram.com/reel/C32sXyvP4_Z/'
+];
+
 // Navigation & Full Overlay Mega Menu Script
 export function initNavigation() {
   const toggleBtn = document.getElementById('menu-toggle');
   const overlay = document.getElementById('mega-menu-overlay');
 
   if (!toggleBtn || !overlay) return;
+
+  // Mount Instagram Feed in nav overlay if container exists
+  const navRoot = document.getElementById('nav-instagram-feed-root');
+  if (navRoot && !navRoot.hasChildNodes()) {
+    const root = createRoot(navRoot);
+    root.render(React.createElement(InstagramFeed, { postUrls: sampleNavPostUrls }));
+  }
 
   toggleBtn.addEventListener('click', () => {
     const isOpen = overlay.classList.contains('active');
@@ -15,6 +31,13 @@ export function initNavigation() {
       overlay.classList.add('active');
       toggleBtn.classList.add('is-active');
       document.body.style.overflow = 'hidden';
+
+      // Process Instagram embeds when overlay opens
+      setTimeout(() => {
+        if (window.instgrm?.Embeds) {
+          window.instgrm.Embeds.process();
+        }
+      }, 50);
     }
   });
 
