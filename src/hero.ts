@@ -185,22 +185,19 @@ function initHero3D() {
       }
     }
 
-    // Drive each card via inline style — keep parent step container free of transform/filter so backdrop-filter can sample canvas
+    // Drive each card via inline style without transform or filter on container/card to ensure WebGL canvas blur
     cardSteps.forEach((el, idx) => {
       const vis = cardVis(rawIndex, idx);
       const rel = rawIndex - idx;
       
       let slideY = 0;
-      let scaleVal = 1.0;
       
       if (rel > 0) {
-        // Exiting card (scrolling forward) — floats UP and scales forward into viewer ("fades into")
+        // Exiting card (scrolling forward) — floats UP
         slideY = -35 * (1 - vis);
-        scaleVal = 1.0 + (1 - vis) * 0.06;
       } else {
         // Entering card — rises UP into view from depth below
         slideY = 35 * (1 - vis);
-        scaleVal = 0.94 + vis * 0.06;
       }
 
       // Step container gets opacity, visibility, and pointerEvents only (NO transform/filter isolation barrier)
@@ -211,10 +208,11 @@ function initHero3D() {
       el.style.transition    = 'none';
       el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
 
-      // Motion transform is applied to inner card element so backdrop-filter on card can sample the WebGL canvas
+      // Vertical motion offset is applied via marginTop so neither container nor card has CSS transform layer isolation
       const innerContent = el.firstElementChild as HTMLElement | null;
       if (innerContent) {
-        innerContent.style.transform  = `translateY(${slideY.toFixed(1)}px) scale(${scaleVal.toFixed(3)})`;
+        innerContent.style.transform  = '';
+        innerContent.style.marginTop  = `${slideY.toFixed(1)}px`;
         innerContent.style.transition = 'none';
       }
     });
