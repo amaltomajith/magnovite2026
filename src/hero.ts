@@ -185,15 +185,29 @@ function initHero3D() {
       }
     }
 
-    // Drive each card via inline style — scroll-synced proximity-based visibility
+    // Drive each card via inline style — scroll-synced proximity-based visibility with directional depth
     cardSteps.forEach((el, idx) => {
-      const vis    = cardVis(rawIndex, idx);
+      const vis = cardVis(rawIndex, idx);
+      const rel = rawIndex - idx;
+      
+      let slideY = 0;
+      let scaleVal = 1.0;
+      
+      if (rel > 0) {
+        // Exiting card (scrolling forward) — floats UP and scales forward into viewer ("fades into")
+        slideY = -35 * (1 - vis);
+        scaleVal = 1.0 + (1 - vis) * 0.06;
+      } else {
+        // Entering card — rises UP into view from depth below
+        slideY = 35 * (1 - vis);
+        scaleVal = 0.94 + vis * 0.06;
+      }
+
       const blurPx = (1 - vis) * 12;
-      const slideY = (1 - vis) * 28;
       el.style.opacity       = vis.toFixed(3);
       el.style.filter        = vis < 0.995 ? `blur(${blurPx.toFixed(1)}px)` : '';
       el.style.visibility    = vis < 0.01 ? 'hidden' : 'visible';
-      el.style.transform     = `translateY(${slideY.toFixed(1)}px) scale(${(0.94 + vis * 0.06).toFixed(3)})`;
+      el.style.transform     = `translateY(${slideY.toFixed(1)}px) scale(${scaleVal.toFixed(3)})`;
       el.style.transition    = 'none';
       el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
     });
