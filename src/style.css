@@ -1456,6 +1456,7 @@ select.form-control option {
   will-change: opacity, transform, filter;
 }
 
+.hero-card-step.step-3,
 .hero-card-step.step-5 {
   max-width: 960px;
 }
@@ -1565,6 +1566,98 @@ select.form-control option {
   border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 0.35rem 0.9rem;
   border-radius: 9999px;
+}
+
+/* ============================================================
+   ABOUT GRID WITH PROMO VIDEO PREVIEW
+   ============================================================ */
+.pgc-about-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 2rem;
+  align-items: center;
+}
+
+.pgc-video-preview {
+  width: 100%;
+}
+
+.pgc-video-link {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  text-decoration: none;
+}
+
+.pgc-video-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.pgc-video-link:hover .pgc-video-thumb {
+  transform: scale(1.06);
+}
+
+.pgc-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.3s ease;
+}
+
+.pgc-video-link:hover .pgc-video-overlay {
+  background: rgba(10, 10, 10, 0.2);
+}
+
+.pgc-play-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding-left: 3px;
+}
+
+.pgc-video-link:hover .pgc-play-btn {
+  transform: scale(1.12);
+  box-shadow: 0 0 32px rgba(255, 255, 255, 0.85);
+}
+
+.pgc-video-badge {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .pgc-about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
 }
 
 /* ============================================================
