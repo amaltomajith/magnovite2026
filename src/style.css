@@ -1631,14 +1631,14 @@ select.form-control option {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 32px rgba(255, 255, 255, 0.75);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   padding-left: 4px;
 }
 
 .pgc-video-link:hover .pgc-play-btn {
-  transform: scale(1.14);
-  box-shadow: 0 0 42px rgba(255, 255, 255, 0.95);
+  transform: scale(1.1);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
 }
 
 .pgc-video-badge {
