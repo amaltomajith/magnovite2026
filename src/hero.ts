@@ -204,7 +204,7 @@ function initHero3D() {
       const isGlassCard = innerContent && innerContent.classList.contains('premium-glass-card');
 
       if (isGlassCard) {
-        // CRITICAL BACKDROP-FILTER FIX: Keep ancestor opacity at '1' so Chromium does NOT create an isolating Backdrop Root
+        // Ancestor container (.hero-card-step) stays fully opaque ('1') so Chromium does NOT create an isolating Backdrop Root
         el.style.opacity       = '1';
         el.style.filter        = '';
         el.style.visibility    = vis < 0.01 ? 'hidden' : 'visible';
@@ -212,25 +212,11 @@ function initHero3D() {
         el.style.transition    = 'none';
         el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
 
-        // Vertical motion offset applied via marginTop
+        // Apply opacity directly to the card element so background, border, shadow, and text fade as one synchronized unit
+        innerContent.style.opacity    = vis.toFixed(3);
         innerContent.style.transform  = '';
         innerContent.style.marginTop  = `${slideY.toFixed(1)}px`;
         innerContent.style.transition = 'none';
-
-        // Fade glass plate background and borders using RGBA alpha scaled by vis
-        const bgAlpha        = (0.65 * vis).toFixed(3);
-        const borderAlpha    = (0.14 * vis).toFixed(3);
-        const borderTopAlpha = (0.32 * vis).toFixed(3);
-        innerContent.style.backgroundColor = `rgba(12, 12, 12, ${bgAlpha})`;
-        innerContent.style.borderColor     = `rgba(255, 255, 255, ${borderAlpha})`;
-        innerContent.style.borderTopColor  = `rgba(255, 255, 255, ${borderTopAlpha})`;
-
-        // Fade inner text & card elements inside .pgc-fade-inner wrapper
-        const fadeInner = innerContent.querySelector('.pgc-fade-inner') as HTMLElement | null;
-        if (fadeInner) {
-          fadeInner.style.opacity    = vis.toFixed(3);
-          fadeInner.style.transition = 'none';
-        }
       } else {
         // Standard non-glass steps
         el.style.opacity       = vis.toFixed(3);
@@ -241,6 +227,7 @@ function initHero3D() {
         el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
 
         if (innerContent) {
+          innerContent.style.opacity    = '1';
           innerContent.style.transform  = '';
           innerContent.style.marginTop  = `${slideY.toFixed(1)}px`;
           innerContent.style.transition = 'none';
