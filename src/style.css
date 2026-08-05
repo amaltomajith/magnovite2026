@@ -2185,9 +2185,8 @@ select.form-control option {
 }
 
 .pgc-stat-pill--accent {
-  background: rgba(249, 115, 22, 0.12);
-  border: 1px solid rgba(249, 115, 22, 0.35);
-  box-shadow: 0 0 20px rgba(249, 115, 22, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .pgc-stat-num {
@@ -2199,7 +2198,7 @@ select.form-control option {
 }
 
 .pgc-stat-pill--accent .pgc-stat-num {
-  color: var(--accent-badge-text);
+  color: #ffffff;
 }
 
 .pgc-stat-lbl {
@@ -2209,10 +2208,6 @@ select.form-control option {
   letter-spacing: 0.14em;
   color: rgba(255, 255, 255, 0.5);
   margin-top: 2px;
-}
-
-.pgc-stat-pill--accent .pgc-stat-lbl {
-  color: rgba(255, 157, 92, 0.85);
 }
 
 /* Category 6-Pillar Matrix Grid */
@@ -2236,15 +2231,29 @@ select.form-control option {
 
 .pgc-cat-card:hover {
   background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(249, 115, 22, 0.4);
+  border-color: rgba(255, 255, 255, 0.22);
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(249, 115, 22, 0.12);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
 }
 
 .pgc-cat-icon {
-  font-size: 1.35rem;
-  margin-bottom: 0.45rem;
-  line-height: 1;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0.65rem;
+  transition: all 0.28s ease;
+}
+
+.pgc-cat-card:hover .pgc-cat-icon {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #ffffff;
 }
 
 .pgc-cat-title {
@@ -2259,7 +2268,7 @@ select.form-control option {
 .pgc-cat-list {
   font-family: var(--font-main);
   font-size: 0.78rem;
-  color: rgba(220, 220, 220, 0.75);
+  color: rgba(220, 220, 220, 0.72);
   line-height: 1.45;
   margin: 0;
 }
@@ -2287,25 +2296,26 @@ select.form-control option {
 .pgc-explore-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.9) 0%, rgba(234, 88, 12, 1) 100%);
-  color: #ffffff;
+  gap: 0.65rem;
+  background: #ffffff;
+  color: #080a0f;
   font-family: var(--font-heading);
   font-size: 0.82rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 0.75rem 1.4rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 9999px;
-  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   transition: all 0.28s ease;
 }
 
 .pgc-explore-btn:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 12px 32px rgba(249, 115, 22, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  color: #ffffff;
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  color: #080a0f;
 }
 
 .pgc-btn-arrow {
