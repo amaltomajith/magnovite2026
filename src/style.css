@@ -176,9 +176,9 @@ body {
   width: 100%;
 }
 
-/* Active / Open state (Morphs to X) */
+/* Active / Open state (Morphs to X) — stays transparent unless hovered */
 .menu-toggle-btn.is-active {
-  background: rgba(255, 255, 255, 0.14);
+  background: transparent;
 }
 
 .menu-toggle-btn.is-active .hamburger-line.top {
@@ -299,8 +299,8 @@ body {
 
 .mega-link.active {
   color: #ffffff;
-  background: transparent;
-  border: 1px solid transparent;
+  background: rgba(249, 115, 22, 0.08);
+  border: 1px solid rgba(249, 115, 22, 0.22);
 }
 
 .mega-link.active .mega-text {
