@@ -1441,10 +1441,8 @@ select.form-control option {
   text-align: center;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(28px) scale(0.94);
-  /* No CSS transition — scroll JS drives opacity/transform directly */
+  /* No transform or will-change on step container so backdrop-filter can sample canvas */
   pointer-events: none;
-  will-change: opacity, transform, filter;
 }
 
 .hero-card-step.step-3,

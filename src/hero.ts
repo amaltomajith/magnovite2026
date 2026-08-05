@@ -185,7 +185,7 @@ function initHero3D() {
       }
     }
 
-    // Drive each card via inline style — scroll-synced proximity-based visibility with directional depth
+    // Drive each card via inline style — keep parent step container free of transform/filter so backdrop-filter can sample canvas
     cardSteps.forEach((el, idx) => {
       const vis = cardVis(rawIndex, idx);
       const rel = rawIndex - idx;
@@ -203,13 +203,20 @@ function initHero3D() {
         scaleVal = 0.94 + vis * 0.06;
       }
 
-      const blurPx = (1 - vis) * 12;
+      // Step container gets opacity, visibility, and pointerEvents only (NO transform/filter isolation barrier)
       el.style.opacity       = vis.toFixed(3);
-      el.style.filter        = vis < 0.995 ? `blur(${blurPx.toFixed(1)}px)` : '';
+      el.style.filter        = '';
       el.style.visibility    = vis < 0.01 ? 'hidden' : 'visible';
-      el.style.transform     = `translateY(${slideY.toFixed(1)}px) scale(${scaleVal.toFixed(3)})`;
+      el.style.transform     = '';
       el.style.transition    = 'none';
       el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
+
+      // Motion transform is applied to inner card element so backdrop-filter on card can sample the WebGL canvas
+      const innerContent = el.firstElementChild as HTMLElement | null;
+      if (innerContent) {
+        innerContent.style.transform  = `translateY(${slideY.toFixed(1)}px) scale(${scaleVal.toFixed(3)})`;
+        innerContent.style.transition = 'none';
+      }
     });
 
     // Section dots — highlight nearest keyframe
