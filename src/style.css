@@ -802,45 +802,10 @@ body {
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ---- Scroll Progress Bar (right edge) ---- */
-.scroll-progress-track {
-  position: absolute;
-  right: 1.8rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2px;
-  height: 120px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 2px;
-  z-index: 10;
-}
-
-.scroll-progress-bar {
-  width: 100%;
-  height: 0%;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.3));
-  border-radius: 2px;
-  transition: height 0.1s linear;
-}
-
-/* ---- Section Dots (right side, below progress) ---- */
+/* ---- Scroll Progress Bar & Section Dots (Hidden) ---- */
+.scroll-progress-track,
 .section-dots {
-  position: absolute;
-  right: 1.55rem;
-  top: calc(50% + 80px);
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  z-index: 10;
-}
-
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  cursor: default;
-  transition: background 0.3s ease, transform 0.3s ease;
+  display: none !important;
 }
 
 .dot.active {
