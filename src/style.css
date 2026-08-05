@@ -1446,6 +1446,7 @@ select.form-control option {
 }
 
 .hero-card-step.step-3,
+.hero-card-step.step-4,
 .hero-card-step.step-5 {
   max-width: 960px;
 }
@@ -2151,6 +2152,186 @@ select.form-control option {
   background: rgba(255, 255, 255, 0.16);
   border-color: rgba(255, 255, 255, 0.35);
   transform: translateY(-2px);
+}
+
+/* ============================================================
+   STEP 4 COMPETITIONS GRID CARD STYLING
+   ============================================================ */
+.pgc-comp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+}
+
+.pgc-stat-group {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.pgc-stat-pill {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 0.5rem 1.1rem;
+  min-width: 95px;
+}
+
+.pgc-stat-pill--accent {
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.15);
+}
+
+.pgc-stat-num {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.pgc-stat-pill--accent .pgc-stat-num {
+  color: var(--accent-badge-text);
+}
+
+.pgc-stat-lbl {
+  font-family: var(--font-heading);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 2px;
+}
+
+.pgc-stat-pill--accent .pgc-stat-lbl {
+  color: rgba(255, 157, 92, 0.85);
+}
+
+/* Category 6-Pillar Matrix Grid */
+.pgc-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.6rem;
+}
+
+.pgc-cat-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.1rem 1.2rem;
+  transition: all 0.28s ease;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+.pgc-cat-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(249, 115, 22, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(249, 115, 22, 0.12);
+}
+
+.pgc-cat-icon {
+  font-size: 1.35rem;
+  margin-bottom: 0.45rem;
+  line-height: 1;
+}
+
+.pgc-cat-title {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.35rem;
+}
+
+.pgc-cat-list {
+  font-family: var(--font-main);
+  font-size: 0.78rem;
+  color: rgba(220, 220, 220, 0.75);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Footer Section & CTA */
+.pgc-comp-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+}
+
+.pgc-comp-subtext {
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  color: rgba(200, 200, 200, 0.65);
+  margin: 0;
+  max-width: 520px;
+  text-align: left;
+}
+
+.pgc-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.9) 0%, rgba(234, 88, 12, 1) 100%);
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.75rem 1.4rem;
+  border-radius: 9999px;
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.28s ease;
+}
+
+.pgc-explore-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(249, 115, 22, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+.pgc-btn-arrow {
+  font-size: 0.95rem;
+  transition: transform 0.2s ease;
+}
+
+.pgc-explore-btn:hover .pgc-btn-arrow {
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 900px) {
+  .pgc-cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .pgc-cat-grid {
+    grid-template-columns: 1fr;
+  }
+  .pgc-comp-header,
+  .pgc-comp-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 /* Reduced Motion */
