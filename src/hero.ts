@@ -154,11 +154,18 @@ function initHero3D() {
   }
 
 
-  function updateFromScroll() {
-    const maxScroll     = Math.max(document.body.scrollHeight - window.innerHeight, 1);
-    const scrollFrac    = Math.min(window.scrollY / maxScroll, 1);
+  let targetRawIndex = 0;
+  let currentSmoothRawIndex = 0;
+
+  function updateRawIndexFromScroll() {
+    const maxScroll  = Math.max(document.body.scrollHeight - window.innerHeight, 1);
+    const scrollFrac = Math.min(window.scrollY / maxScroll, 1);
+    targetRawIndex   = scrollFrac * (sections.length - 1);
+  }
+
+  function updateFromScroll(rawIndex: number) {
     const totalSections = sections.length - 1;
-    const rawIndex      = scrollFrac * totalSections;
+    const scrollFrac    = Math.min(rawIndex / totalSections, 1);
     const fromIdx       = Math.min(Math.floor(rawIndex), totalSections - 1);
     const toIdx         = Math.min(fromIdx + 1, totalSections);
     const stepFrac      = rawIndex - fromIdx;
@@ -244,7 +251,7 @@ function initHero3D() {
     if (scrollBar) scrollBar.style.height = `${scrollFrac * 100}%`;
   }
 
-  window.addEventListener('scroll', updateFromScroll, { passive: true });
+  window.addEventListener('scroll', updateRawIndexFromScroll, { passive: true });
 
 
 
@@ -387,13 +394,21 @@ function initHero3D() {
   const smoothCamTarget = currentCamTarget.clone();
   let   smoothModelRotY = 0;
 
-  updateFromScroll();
+  updateRawIndexFromScroll();
+  currentSmoothRawIndex = targetRawIndex;
+  updateFromScroll(currentSmoothRawIndex);
 
   function animate() {
     requestAnimationFrame(animate);
 
-    // Keep DOM card states, opacity, and scroll-linked positions perfectly synced on every rAF frame
-    updateFromScroll();
+    updateRawIndexFromScroll();
+
+    // Heavy, luxurious physics lerp (0.055 for weighted inertia smooth scrolling)
+    const lerpSpeed = isReducedMotion ? 1.0 : 0.055;
+    currentSmoothRawIndex += (targetRawIndex - currentSmoothRawIndex) * lerpSpeed;
+
+    // Synchronize 3D camera, star field, cards, and text to smooth lerped timeline index
+    updateFromScroll(currentSmoothRawIndex);
 
     const speed = isReducedMotion ? 1.0 : 0.065;
 
