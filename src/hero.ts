@@ -185,7 +185,7 @@ function initHero3D() {
       }
     }
 
-    // Drive each card via inline style without transform or filter on container/card to ensure WebGL canvas blur
+    // Drive each card via inline style — keep ancestor opacity at 1 for glass cards so backdrop-filter is never isolated by fractional opacity
     cardSteps.forEach((el, idx) => {
       const vis = cardVis(rawIndex, idx);
       const rel = rawIndex - idx;
@@ -200,20 +200,51 @@ function initHero3D() {
         slideY = 35 * (1 - vis);
       }
 
-      // Step container gets opacity, visibility, and pointerEvents only (NO transform/filter isolation barrier)
-      el.style.opacity       = vis.toFixed(3);
-      el.style.filter        = '';
-      el.style.visibility    = vis < 0.01 ? 'hidden' : 'visible';
-      el.style.transform     = '';
-      el.style.transition    = 'none';
-      el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
-
-      // Vertical motion offset is applied via marginTop so neither container nor card has CSS transform layer isolation
       const innerContent = el.firstElementChild as HTMLElement | null;
-      if (innerContent) {
+      const isGlassCard = innerContent && innerContent.classList.contains('premium-glass-card');
+
+      if (isGlassCard) {
+        // CRITICAL BACKDROP-FILTER FIX: Keep ancestor opacity at '1' so Chromium does NOT create an isolating Backdrop Root
+        el.style.opacity       = '1';
+        el.style.filter        = '';
+        el.style.visibility    = vis < 0.01 ? 'hidden' : 'visible';
+        el.style.transform     = '';
+        el.style.transition    = 'none';
+        el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
+
+        // Vertical motion offset applied via marginTop
         innerContent.style.transform  = '';
         innerContent.style.marginTop  = `${slideY.toFixed(1)}px`;
         innerContent.style.transition = 'none';
+
+        // Fade glass plate background and borders using RGBA alpha scaled by vis
+        const bgAlpha        = (0.65 * vis).toFixed(3);
+        const borderAlpha    = (0.14 * vis).toFixed(3);
+        const borderTopAlpha = (0.32 * vis).toFixed(3);
+        innerContent.style.backgroundColor = `rgba(12, 12, 12, ${bgAlpha})`;
+        innerContent.style.borderColor     = `rgba(255, 255, 255, ${borderAlpha})`;
+        innerContent.style.borderTopColor  = `rgba(255, 255, 255, ${borderTopAlpha})`;
+
+        // Fade inner text & card elements inside .pgc-fade-inner wrapper
+        const fadeInner = innerContent.querySelector('.pgc-fade-inner') as HTMLElement | null;
+        if (fadeInner) {
+          fadeInner.style.opacity    = vis.toFixed(3);
+          fadeInner.style.transition = 'none';
+        }
+      } else {
+        // Standard non-glass steps
+        el.style.opacity       = vis.toFixed(3);
+        el.style.filter        = '';
+        el.style.visibility    = vis < 0.01 ? 'hidden' : 'visible';
+        el.style.transform     = '';
+        el.style.transition    = 'none';
+        el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
+
+        if (innerContent) {
+          innerContent.style.transform  = '';
+          innerContent.style.marginTop  = `${slideY.toFixed(1)}px`;
+          innerContent.style.transition = 'none';
+        }
       }
     });
 

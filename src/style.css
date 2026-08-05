@@ -1477,6 +1477,12 @@ select.form-control option {
   padding: 2.2rem 2.5rem;
 }
 
+.pgc-fade-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
 /* Diagonal shimmer sweep */
 .pgc-shimmer {
   position: absolute;
