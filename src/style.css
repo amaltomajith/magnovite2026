@@ -1673,11 +1673,11 @@ select.form-control option {
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  transition: transform 0.5s ease;
 }
 
 .pgc-artist-img-wrap:hover .pgc-artist-img {
   transform: scale(1.05);
+  transition: transform 0.5s ease;
 }
 
 .pgc-artist-img-badge {

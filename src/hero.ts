@@ -374,6 +374,9 @@ function initHero3D() {
   function animate() {
     requestAnimationFrame(animate);
 
+    // Keep DOM card states, opacity, and scroll-linked positions perfectly synced on every rAF frame
+    updateFromScroll();
+
     const speed = isReducedMotion ? 1.0 : 0.065;
 
     smoothCamPos.lerp(currentCamPos, speed);
