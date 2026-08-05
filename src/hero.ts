@@ -85,7 +85,7 @@ function initHero3D() {
   let mainStarPointsObj: THREE.Points | null = null;
 
   // -----------------------------------------------------------------------
-  // SCROLL-DRIVEN CAMERA KEYFRAMES (7 entries, 6 gaps = rawIndex 0..6)
+  // SCROLL-DRIVEN CAMERA KEYFRAMES (8 entries, 7 gaps = rawIndex 0..7)
   //
   // KEY TRICK: keyframes[1] === keyframes[2] (identical positions)
   // This means as rawIndex moves 1→2, the camera doesn't move at all —
@@ -102,7 +102,8 @@ function initHero3D() {
     { camPos: new THREE.Vector3(-0.1, 0.12, 2.0),  camTarget: new THREE.Vector3(0, 0, 0),      modelRotY: 0.06 },
     { camPos: new THREE.Vector3(0.06, 0.06, 1.1),  camTarget: new THREE.Vector3(0, 0, 0),      modelRotY: -0.04 },
     { camPos: new THREE.Vector3(0.0, 0.02, 0.45),  camTarget: new THREE.Vector3(0, 0, -0.01),  modelRotY: 0.02 },
-    { camPos: new THREE.Vector3(0.0, 0.0, 0.08),   camTarget: new THREE.Vector3(0, 0, -0.02),  modelRotY: 0.04 }
+    { camPos: new THREE.Vector3(0.0, 0.0, 0.08),   camTarget: new THREE.Vector3(0, 0, -0.02),  modelRotY: 0.04 },
+    { camPos: new THREE.Vector3(0.0, -0.02, -0.6), camTarget: new THREE.Vector3(0, 0, -1.5),   modelRotY: 0.06 }
   ];
 
   // Card step elements — queried once
@@ -456,28 +457,11 @@ function initPromoInlinePlayer() {
   }
 }
 
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { InstagramFeed } from './InstagramFeed';
 import { initNavigation } from './navigation';
-
-const samplePostUrls = [
-  'https://www.instagram.com/p/DFhQ9N-vJ9Y/',
-  'https://www.instagram.com/reel/C32sXyvP4_Z/'
-];
-
-function initInstagramFeedComponent() {
-  const container = document.getElementById('instagram-feed-root');
-  if (container) {
-    const root = createRoot(container);
-    root.render(React.createElement(InstagramFeed, { postUrls: samplePostUrls }));
-  }
-}
 
 document.addEventListener('DOMContentLoaded', () => {
   initHero3D();
   initNavigation();
   initHeroCountdown();
   initPromoInlinePlayer();
-  initInstagramFeedComponent();
 });
