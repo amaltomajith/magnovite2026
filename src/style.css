@@ -32,6 +32,7 @@ body {
   line-height: 1.5;
   overflow-x: hidden;
   min-height: 100vh;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ============================================================
@@ -1654,21 +1655,23 @@ select.form-control option {
 
 .pgc-artist-img-badge {
   position: absolute;
-  bottom: 14px;
+  top: 14px;
   left: 14px;
-  right: 14px;
+  bottom: auto;
+  right: auto;
   font-family: var(--font-heading);
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   color: #ffffff;
-  background: rgba(12, 12, 12, 0.82);
+  background: rgba(12, 12, 12, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  padding: 0.5rem 0.85rem;
+  padding: 0.45rem 0.85rem;
   border-radius: 9999px;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 5;
 }
 
 .pgc-artist-content-col {
@@ -2318,4 +2321,535 @@ select.form-control option {
   }
   .hero-title { transition: none; }
   .event-card:hover { transform: none; }
+}
+
+/* ============================================================
+   MOBILE RESPONSIVE — Full rework for ≤ 768px
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* ---- Header ---- */
+  .site-header {
+    padding: 0.85rem 1.1rem;
+  }
+
+  .header-logo-christ {
+    height: 28px;
+  }
+
+  .header-logo-magnovite {
+    height: 18px;
+  }
+
+  .header-right-group {
+    gap: 0.85rem;
+  }
+
+  /* ---- Mega Menu ---- */
+  .mega-menu-overlay {
+    padding: 5rem 1.5rem 3rem;
+    align-items: flex-start;
+  }
+
+  .mega-menu-inner {
+    max-width: 100%;
+  }
+
+  .mega-link {
+    font-size: clamp(1.9rem, 9vw, 2.6rem);
+    padding: 0.55rem 0.85rem;
+    gap: 1rem;
+  }
+
+  /* ---- Hero Page Body ---- */
+  .hero-page-body {
+    /* Keep 800vh — scroll length stays the same for the 3D journey */
+    min-height: 800vh;
+  }
+
+  /* ---- Hero Overlay Container ---- */
+  .hero-overlay-container {
+    /* Push cards down clear of the fixed header (≈60px) + comfortable breathing room */
+    padding: 70px 1rem 1rem;
+    align-items: center;
+    /* Let the container itself be vertically scrollable if a card exceeds viewport */
+    overflow: visible;
+  }
+
+  /* ---- All Hero Card Steps ---- */
+  .hero-card-step {
+    max-width: 100%;
+    width: calc(100vw - 2rem);
+  }
+
+  .hero-card-step.step-3,
+  .hero-card-step.step-4,
+  .hero-card-step.step-5 {
+    max-width: calc(100vw - 2rem);
+    width: calc(100vw - 2rem);
+  }
+
+  /* ---- Premium Glass Card (all steps) ---- */
+  .premium-glass-card {
+    padding: 1.5rem 1.3rem 1.3rem;
+    border-radius: 18px;
+  }
+
+  .premium-glass-card--wide {
+    padding: 1.2rem 1.1rem;
+    /* Cap at viewport minus header (60px) minus some breathing room (24px each side) */
+    max-height: calc(100vh - 84px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .premium-glass-card--wide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ---- Step 0: Teaser ---- */
+  .hero-teaser-text {
+    font-size: clamp(1rem, 4.5vw, 1.4rem);
+    padding: 0 0.5rem;
+  }
+
+  /* ---- Step 1: Introducing ---- */
+  .hero-introducing-label {
+    font-size: clamp(1.2rem, 7vw, 2rem);
+    letter-spacing: 0.25em;
+  }
+
+  /* ---- Step 2: Logo reveal ---- */
+  .hero-logo-emblem {
+    height: clamp(130px, 38vw, 220px);
+  }
+
+  .hero-main-subtext {
+    font-size: clamp(0.8rem, 3.2vw, 1rem);
+    margin-top: 0.6rem;
+  }
+
+  /* ---- Step 3: About glass card ---- */
+  .pgc-about-stack {
+    gap: 1rem;
+  }
+
+  .pgc-body {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .pgc-video-link {
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+  }
+
+  .pgc-footer {
+    gap: 0.5rem;
+  }
+
+  .pgc-tag {
+    font-size: 0.62rem;
+    padding: 0.3rem 0.7rem;
+  }
+
+  /* ---- Step 4: Competitions card ---- */
+  .pgc-comp-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .pgc-headline {
+    font-size: clamp(1.3rem, 5vw, 1.9rem);
+    margin-bottom: 0;
+  }
+
+  .pgc-stat-group {
+    gap: 0.55rem;
+  }
+
+  .pgc-stat-pill {
+    padding: 0.45rem 0.85rem;
+    min-width: 76px;
+    border-radius: 10px;
+  }
+
+  .pgc-stat-num {
+    font-size: 1rem;
+  }
+
+  .pgc-cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.7rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .pgc-cat-card {
+    padding: 0.85rem 0.9rem;
+    border-radius: 12px;
+  }
+
+  .pgc-cat-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+
+  .pgc-cat-title {
+    font-size: 0.85rem;
+  }
+
+  .pgc-cat-list {
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
+
+  .pgc-comp-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.9rem;
+    padding-top: 0.9rem;
+  }
+
+  .pgc-comp-subtext {
+    font-size: 0.82rem;
+  }
+
+  .pgc-explore-btn {
+    font-size: 0.78rem;
+    padding: 0.65rem 1.2rem;
+    align-self: stretch;
+    justify-content: center;
+  }
+
+  /* ---- Step 5: Artist showcase ---- */
+  .pgc-artist-layout {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    align-items: start;
+  }
+
+  .pgc-artist-img-wrap {
+    /* Slightly taller landscape aspect ratio so face and shoulders show */
+    aspect-ratio: 16 / 10;
+    max-height: 230px;
+    width: 100%;
+    min-height: auto;
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .pgc-artist-img {
+    /* 28% down focuses on eyes and face center, showing hair, face, and chest */
+    object-position: center 28%;
+  }
+
+  /* Badge stays top-left over dark background window */
+  .pgc-artist-img-badge {
+    top: 10px;
+    left: 10px;
+    bottom: auto;
+    right: auto;
+    width: auto;
+    font-size: 0.6rem;
+    padding: 0.35rem 0.75rem;
+    letter-spacing: 0.12em;
+  }
+
+  .pgc-headline--artist {
+    font-size: clamp(1rem, 4.2vw, 1.35rem);
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+  }
+
+  /* Limit artist body to 2 paragraphs visible + scroll */
+  .pgc-artist-body {
+    gap: 0.55rem;
+    margin-bottom: 0.3rem;
+    max-height: 120px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Fade out bottom to hint at scrollability */
+    -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+  }
+
+  .pgc-artist-body::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pgc-artist-text {
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .pgc-eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.55rem;
+  }
+
+  /* ---- Step 6: Excited farewell ---- */
+  .hero-excited-text {
+    font-size: clamp(1.6rem, 7vw, 2.8rem);
+    margin-bottom: 0.8rem;
+  }
+
+  .hero-excited-sub {
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* ---- Step 7: Countdown ---- */
+  .hero-countdown-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    margin-bottom: 1.4rem;
+  }
+
+  .hero-flip-clock-grid {
+    gap: 0.55rem;
+    flex-wrap: nowrap;
+  }
+
+  .hero-flip-card {
+    width: 38px;
+    height: 52px;
+    border-radius: 8px;
+  }
+
+  .hero-flip-card .flip-val {
+    font-size: 1.8rem;
+  }
+
+  .hero-flip-digits-pair {
+    gap: 0.25rem;
+  }
+
+  .hero-flip-colon {
+    font-size: 1.4rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .hero-flip-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+  }
+
+  .hero-flip-unit {
+    gap: 0.5rem;
+  }
+
+  /* ---- Inner Page Containers ---- */
+  .page-container {
+    padding: 6rem 1rem 3rem;
+  }
+
+  .page-title {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+  }
+
+  .page-description {
+    font-size: 0.95rem;
+  }
+
+  /* ---- Stats grid ---- */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  /* ---- Events Page ---- */
+  .events-section {
+    padding: 5rem 1rem 2.5rem;
+  }
+
+  .events-title {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .search-wrapper {
+    max-width: 100%;
+  }
+
+  /* ---- Event Modal ---- */
+  .event-modal-overlay {
+    padding: 0.75rem;
+    align-items: flex-end;
+  }
+
+  .event-modal-container {
+    max-height: 92vh;
+    border-radius: 20px 20px 0 0;
+    padding: 1.75rem 1.5rem 2rem;
+    max-width: 100%;
+  }
+
+  .modal-event-title {
+    font-size: clamp(1.4rem, 5.5vw, 2rem);
+  }
+
+  .modal-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .modal-contacts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   MOBILE — Narrow phones ≤ 480px
+   ============================================================ */
+@media (max-width: 480px) {
+
+  /* Header even tighter */
+  .site-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .header-logo-christ {
+    height: 24px;
+  }
+
+  /* Cat grid: 1 column on very small */
+  .pgc-cat-grid {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  .pgc-cat-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 0.85rem;
+  }
+
+  .pgc-cat-icon {
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .pgc-cat-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Even smaller flip clock on tiny screens */
+  .hero-flip-card {
+    width: 32px;
+    height: 44px;
+    border-radius: 6px;
+  }
+
+  .hero-flip-card .flip-val {
+    font-size: 1.5rem;
+  }
+
+  .hero-flip-colon {
+    font-size: 1.1rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .hero-flip-clock-grid {
+    gap: 0.4rem;
+  }
+
+  .hero-flip-digits-pair {
+    gap: 0.18rem;
+  }
+
+  .hero-flip-label {
+    font-size: 0.5rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* Stats: single column */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  /* Mega link smaller */
+  .mega-link {
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+    padding: 0.45rem 0.7rem;
+  }
+
+  /* Glass card tighter */
+  .premium-glass-card {
+    padding: 1.1rem 1rem 1rem;
+  }
+
+  .premium-glass-card--wide {
+    padding: 1.1rem 1rem;
+  }
+
+  .pgc-body {
+    font-size: 0.88rem;
+  }
+
+  .pgc-artist-text {
+    font-size: 0.82rem;
+  }
+
+  /* Promo video CTA button full-width */
+  .apple-btn-white {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Events page on tiny screens */
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-image-wrapper {
+    height: 170px;
+  }
+}
+
+/* ============================================================
+   LANDSCAPE MOBILE — devices rotated ≤ 768px height
+   ============================================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-logo-emblem {
+    height: clamp(90px, 20vh, 150px);
+  }
+
+  .premium-glass-card {
+    padding: 1rem;
+  }
+
+  .hero-flip-card {
+    width: 30px;
+    height: 40px;
+  }
+
+  .hero-flip-card .flip-val {
+    font-size: 1.4rem;
+  }
+
+  .hero-excited-text {
+    font-size: clamp(1.3rem, 4vh, 2rem);
+  }
 }

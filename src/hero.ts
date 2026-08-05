@@ -403,14 +403,14 @@ function initHero3D() {
 
     updateRawIndexFromScroll();
 
-    // Heavy, luxurious physics lerp (0.055 for weighted inertia smooth scrolling)
-    const lerpSpeed = isReducedMotion ? 1.0 : 0.055;
+    // Heavy, luxurious physics lerp (0.038 for maximum inertial weight — cinematic glide)
+    const lerpSpeed = isReducedMotion ? 1.0 : 0.038;
     currentSmoothRawIndex += (targetRawIndex - currentSmoothRawIndex) * lerpSpeed;
 
     // Synchronize 3D camera, star field, cards, and text to smooth lerped timeline index
     updateFromScroll(currentSmoothRawIndex);
 
-    const speed = isReducedMotion ? 1.0 : 0.065;
+    const speed = isReducedMotion ? 1.0 : 0.05;
 
     smoothCamPos.lerp(currentCamPos, speed);
     smoothCamTarget.lerp(currentCamTarget, speed);
