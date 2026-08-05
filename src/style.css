@@ -299,8 +299,8 @@ body {
 
 .mega-link.active {
   color: #ffffff;
-  background: rgba(249, 115, 22, 0.08);
-  border: 1px solid rgba(249, 115, 22, 0.22);
+  background: transparent;
+  border: 1px solid transparent;
 }
 
 .mega-link.active .mega-text {
@@ -1495,12 +1495,7 @@ select.form-control option {
 
 /* Corner decorative mark */
 .pgc-corner-mark {
-  position: absolute;
-  top: 1.6rem;
-  right: 1.8rem;
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 0;
+  display: none;
 }
 
 /* Eyebrow label */
