@@ -136,8 +136,9 @@ body {
   box-shadow: none;
 }
 
-.menu-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+.menu-toggle-btn:hover,
+.menu-toggle-btn.is-active:hover {
+  background: rgba(255, 255, 255, 0.12);
   transform: scale(1.08);
 }
 
@@ -176,10 +177,7 @@ body {
   width: 100%;
 }
 
-/* Active / Open state (Morphs to X) — stays transparent unless hovered */
-.menu-toggle-btn.is-active {
-  background: transparent;
-}
+/* Active / Open state (Morphs to X) */
 
 .menu-toggle-btn.is-active .hamburger-line.top {
   transform: translateY(6px) rotate(45deg);
