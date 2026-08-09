@@ -1448,10 +1448,6 @@ select.form-control option {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  will-change: opacity, transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
 }
 
 .hero-card-step.step-3,
@@ -1467,9 +1463,9 @@ select.form-control option {
 .premium-glass-card {
   position: relative;
   overflow: hidden;
-  background: rgba(12, 12, 12, 0.65);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(14, 14, 16, 0.58);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-top: 1px solid rgba(255, 255, 255, 0.32);
   border-radius: 24px;
@@ -2466,9 +2462,9 @@ select.form-control option {
   .premium-glass-card {
     padding: 1.1rem 1rem 1rem !important;
     border-radius: 18px !important;
-    backdrop-filter: blur(18px) !important;
-    -webkit-backdrop-filter: blur(18px) !important;
-    background: rgba(12, 12, 12, 0.65) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+    background: rgba(14, 14, 16, 0.58) !important;
   }
 
   /* ---- Remove Inner Scroll Trap on Mobile ---- */
