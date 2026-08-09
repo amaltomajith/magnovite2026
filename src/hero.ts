@@ -112,6 +112,7 @@ function initHero3D() {
     innerContent: HTMLElement | null;
     officialLogoYear: HTMLElement | null;
     isGlassCard: boolean;
+    glassCard: HTMLElement | null;        // direct .premium-glass-card child for opacity
     lastVisStr: string;
     lastSlideYStr: string;
     lastTransformStr: string;
@@ -122,12 +123,14 @@ function initHero3D() {
   ).map((el) => {
     const innerContent = el.firstElementChild as HTMLElement | null;
     const isGlassCard = !!(innerContent && innerContent.classList.contains('premium-glass-card'));
+    const glassCard = isGlassCard ? (innerContent as HTMLElement) : null;
     const officialLogoYear = el.querySelector('.official-logo-year') as HTMLElement | null;
     return {
       el,
       innerContent,
       officialLogoYear,
       isGlassCard,
+      glassCard,
       lastVisStr: '',
       lastSlideYStr: '',
       lastTransformStr: ''
@@ -210,11 +213,9 @@ function initHero3D() {
       let scale = 1.0;
 
       if (idx === 1) {
-        // INTRODUCING: smooth scale & dissolve in-place
         slideY = 0;
         scale = rel <= 0 ? (0.88 + 0.12 * vis) : (1.0 + 0.12 * (1 - vis));
       } else if (idx === 2) {
-        // MAGNOVITE LOGO: expands smoothly in-place over INTRODUCING
         slideY = 0;
         scale = rel <= 0 ? (0.88 + 0.12 * vis) : (1.0 - 0.08 * (1 - vis));
       } else {
@@ -225,7 +226,7 @@ function initHero3D() {
       const slideYStr = slideY.toFixed(1);
       const scaleStr = scale.toFixed(3);
 
-      const { el, innerContent, officialLogoYear } = item;
+      const { el, innerContent, glassCard, officialLogoYear } = item;
 
       // Skip DOM mutation if state has not changed
       const mouseKey = idx === 2 && !isMobileDevice ? `${(mouseX*10).toFixed(0)}_${(mouseY*10).toFixed(0)}` : '0_0';
@@ -236,8 +237,13 @@ function initHero3D() {
       item.lastVisStr = cacheKey;
 
       const isVisible = vis > 0.001;
+
+      // *** CRITICAL: The wrapper (.hero-card-step) MUST stay at opacity:1 ***
+      // Setting opacity < 1 on the wrapper creates a CSS stacking context that
+      // prevents backdrop-filter on child glass cards from sampling the WebGL canvas.
+      // Instead we always keep wrapper at opacity:1 and only set visibility/transform.
+      el.style.opacity = '1';
       el.style.visibility = isVisible ? 'visible' : 'hidden';
-      el.style.opacity = visStr;
       el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
 
       // Pure GPU hardware-accelerated 3D transform (zero CPU layout reflow)
@@ -254,8 +260,12 @@ function initHero3D() {
 
       el.style.transform = transformStr;
 
-      if (innerContent) {
-        innerContent.style.marginTop = '0px';
+      // Fade the glass card itself (not the wrapper) to preserve backdrop-filter context
+      if (glassCard) {
+        glassCard.style.opacity = visStr;
+      } else if (innerContent) {
+        // Non-glass cards (text-only steps 0, 1, 2): fade the inner element
+        innerContent.style.opacity = visStr;
       }
 
       if (idx === 2 && officialLogoYear) {

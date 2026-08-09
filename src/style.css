@@ -1445,7 +1445,7 @@ select.form-control option {
   max-width: 700px;
   width: 100%;
   text-align: center;
-  opacity: 0;
+  opacity: 1;             /* MUST be 1 — opacity<1 creates stacking context breaking backdrop-filter */
   visibility: hidden;
   pointer-events: none;
 }
@@ -1463,6 +1463,7 @@ select.form-control option {
 .premium-glass-card {
   position: relative;
   overflow: hidden;
+  opacity: 0;             /* JS will animate this — not the wrapper, to preserve backdrop-filter */
   background: rgba(14, 14, 16, 0.58);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
