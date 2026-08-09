@@ -212,79 +212,56 @@ function initHero3D() {
       if (idx === 1) {
         // INTRODUCING: smooth scale & dissolve in-place
         slideY = 0;
-        if (rel <= 0) {
-          scale = 0.88 + 0.12 * vis;
-        } else {
-          scale = 1.0 + 0.12 * (1 - vis);
-        }
+        scale = rel <= 0 ? (0.88 + 0.12 * vis) : (1.0 + 0.12 * (1 - vis));
       } else if (idx === 2) {
         // MAGNOVITE LOGO: expands smoothly in-place over INTRODUCING
         slideY = 0;
-        if (rel <= 0) {
-          scale = 0.88 + 0.12 * vis;
-        } else {
-          scale = 1.0 - 0.08 * (1 - vis);
-        }
+        scale = rel <= 0 ? (0.88 + 0.12 * vis) : (1.0 - 0.08 * (1 - vis));
       } else {
-        if (rel > 0) {
-          slideY = -35 * (1 - vis);
-        } else {
-          slideY = 35 * (1 - vis);
-        }
+        slideY = rel > 0 ? -30 * (1 - vis) : 30 * (1 - vis);
       }
 
       const visStr = vis.toFixed(3);
-      const slideYStr = `${slideY.toFixed(1)}px`;
-      const transformStr = scale !== 1.0 ? `scale(${scale.toFixed(3)})` : '';
+      const slideYStr = slideY.toFixed(1);
+      const scaleStr = scale.toFixed(3);
 
-      // Skip DOM mutation if state has not changed significantly
-      if (visStr === item.lastVisStr && slideYStr === item.lastSlideYStr && transformStr === item.lastTransformStr) {
+      const { el, innerContent, officialLogoYear } = item;
+
+      // Skip DOM mutation if state has not changed
+      const mouseKey = idx === 2 && !isMobileDevice ? `${(mouseX*10).toFixed(0)}_${(mouseY*10).toFixed(0)}` : '0_0';
+      const cacheKey = `${visStr}_${slideYStr}_${scaleStr}_${mouseKey}`;
+      if (cacheKey === item.lastVisStr) {
         return;
       }
-      item.lastVisStr = visStr;
-      item.lastSlideYStr = slideYStr;
-      item.lastTransformStr = transformStr;
+      item.lastVisStr = cacheKey;
 
-      const { el, innerContent, isGlassCard, officialLogoYear } = item;
+      const isVisible = vis > 0.001;
+      el.style.visibility = isVisible ? 'visible' : 'hidden';
+      el.style.opacity = visStr;
+      el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
 
-      if (isGlassCard) {
-        el.style.opacity       = '1';
-        el.style.filter        = '';
-        el.style.visibility    = vis < 0.01 ? 'hidden' : 'visible';
-        el.style.transform     = transformStr;
-        el.style.transition    = 'none';
-        el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
+      // Pure GPU hardware-accelerated 3D transform (zero CPU layout reflow)
+      let transformStr = `translate3d(0, ${slideYStr}px, 0)`;
+      if (scale !== 1.0) {
+        transformStr += ` scale(${scaleStr})`;
+      }
 
-        if (innerContent) {
-          innerContent.style.opacity    = visStr;
-          innerContent.style.transform  = '';
-          innerContent.style.marginTop  = slideYStr;
-          innerContent.style.transition = 'none';
-        }
-      } else {
-        const tiltX = idx === 2 ? -mouseY * 2.2 * vis : 0;
-        const tiltY = idx === 2 ? mouseX * 2.2 * vis : 0;
-        const tiltStr = idx === 2 && vis > 0.05 ? ` perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)` : '';
+      if (idx === 2 && !isMobileDevice && isVisible) {
+        const tiltX = -mouseY * 2.2 * vis;
+        const tiltY = mouseX * 2.2 * vis;
+        transformStr += ` perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)`;
+      }
 
-        el.style.opacity       = visStr;
-        el.style.filter        = '';
-        el.style.visibility    = vis < 0.01 ? 'hidden' : 'visible';
-        el.style.transform     = `${transformStr}${tiltStr}`;
-        el.style.transition    = 'none';
-        el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
+      el.style.transform = transformStr;
 
-        if (innerContent) {
-          innerContent.style.opacity    = '1';
-          innerContent.style.transform  = '';
-          innerContent.style.marginTop  = slideYStr;
-          innerContent.style.transition = 'none';
-        }
+      if (innerContent) {
+        innerContent.style.marginTop = '0px';
+      }
 
-        if (idx === 2 && officialLogoYear) {
-          const yearVis = Math.max(0, (vis - 0.25) / 0.75);
-          officialLogoYear.style.opacity = yearVis.toFixed(3);
-          officialLogoYear.style.transform = `translateY(${(10 * (1 - yearVis)).toFixed(1)}px)`;
-        }
+      if (idx === 2 && officialLogoYear) {
+        const yearVis = Math.max(0, (vis - 0.25) / 0.75);
+        officialLogoYear.style.opacity = yearVis.toFixed(3);
+        officialLogoYear.style.transform = `translate3d(0, ${(10 * (1 - yearVis)).toFixed(1)}px, 0)`;
       }
     });
 

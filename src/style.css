@@ -1447,8 +1447,11 @@ select.form-control option {
   text-align: center;
   opacity: 0;
   visibility: hidden;
-  /* No transform or will-change on step container so backdrop-filter can sample canvas */
   pointer-events: none;
+  will-change: opacity, transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .hero-card-step.step-3,
