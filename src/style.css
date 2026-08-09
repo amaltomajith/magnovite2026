@@ -3636,8 +3636,8 @@ select.form-control option {
   background: #0a0a0c;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   color: #d9d9d9;
-  padding: 3rem 1.5rem 2.5rem;
-  margin-top: 0;
+  padding: 4rem 1.5rem 3rem;
+  margin-top: 6rem;
   position: relative;
   overflow: hidden;
   text-align: left;
