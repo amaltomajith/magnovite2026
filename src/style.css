@@ -254,69 +254,71 @@ body {
 
 .mega-menu-inner {
   width: 100%;
-  max-width: 1060px;
+  max-width: 960px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 3.5rem;
-  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: stretch;
 }
 
 @media (max-width: 868px) {
   .mega-menu-inner {
     grid-template-columns: 1fr;
     gap: 2rem;
+    align-items: center;
   }
   .mega-showcase-panel {
     display: none;
   }
 }
 
-/* Right Column: Impressive Venue & Date Map Panel inside Opened Menu */
+/* Right Column: Sleek Proportioned Venue & Date Panel inside Opened Menu */
 .mega-showcase-panel {
   background: rgba(18, 18, 22, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 24px;
-  padding: 1.6rem;
+  border-radius: 20px;
+  padding: 1.35rem 1.4rem;
   backdrop-filter: blur(28px);
   -webkit-backdrop-filter: blur(28px);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.18);
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  justify-content: space-between;
+  gap: 0.95rem;
 }
 
 .mega-event-info-card {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.75rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 1.1rem 1.2rem;
+  border-radius: 14px;
+  padding: 0.95rem 1.05rem;
 }
 
 .mega-date-block {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.12rem;
 }
 
 .mega-date-sub {
   font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.16em;
-  color: #ffb703;
+  color: #f97316; /* Primary Website Orange */
 }
 
 .mega-date-title {
   font-family: var(--font-heading);
-  font-size: 1.55rem;
+  font-size: 1.45rem;
   font-weight: 900;
   letter-spacing: -0.01em;
   color: #ffffff;
   margin: 0;
-  background: linear-gradient(135deg, #ffffff 40%, rgba(255, 255, 255, 0.8));
+  background: linear-gradient(135deg, #ffffff 40%, rgba(255, 255, 255, 0.85));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -324,13 +326,13 @@ body {
 .mega-venue-block {
   display: flex;
   flex-direction: column;
-  gap: 0.18rem;
-  padding-top: 0.65rem;
+  gap: 0.15rem;
+  padding-top: 0.6rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .mega-venue-label {
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   color: var(--text-secondary);
@@ -338,13 +340,13 @@ body {
 
 .mega-venue-name {
   font-weight: 800;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: #ffffff;
   margin: 0;
 }
 
 .mega-venue-sub {
-  font-size: 0.74rem;
+  font-size: 0.72rem;
   color: var(--text-secondary);
   line-height: 1.35;
 }
@@ -353,10 +355,10 @@ body {
 .mega-map-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 8.5;
-  border-radius: 14px;
+  aspect-ratio: 16 / 8.2;
+  border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
 }
 
@@ -377,24 +379,24 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  padding: 0.75rem 1.2rem;
+  gap: 0.55rem;
+  padding: 0.7rem 1.1rem;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.06);
   color: #ffffff;
   font-weight: 700;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0.16);
   transition: var(--transition);
 }
 
 .mega-brochure-btn:hover {
-  background: rgba(255, 183, 3, 0.15);
-  border-color: rgba(255, 183, 3, 0.4);
-  color: #ffb703;
+  background: rgba(249, 115, 22, 0.14);
+  border-color: rgba(249, 115, 22, 0.45);
+  color: #ff9d5c;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255, 183, 3, 0.15);
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.2);
 }
 
 /* Modern Centered Navigation Links */
