@@ -2466,9 +2466,9 @@ select.form-control option {
   .premium-glass-card {
     padding: 1.1rem 1rem 1rem !important;
     border-radius: 18px !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    background: rgba(12, 12, 12, 0.94) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    background: rgba(12, 12, 12, 0.65) !important;
   }
 
   /* ---- Remove Inner Scroll Trap on Mobile ---- */
