@@ -2449,35 +2449,34 @@ select.form-control option {
     overflow: visible;
   }
 
-  /* ---- All Hero Card Steps ---- */
+  /* ---- Hero Card Steps: Generous Touch Margins for Uninterrupted Page Scrolling ---- */
   .hero-card-step {
-    max-width: 100%;
-    width: calc(100vw - 2rem);
+    max-width: calc(100vw - 2.6rem) !important;
+    width: calc(100vw - 2.6rem) !important;
   }
 
   .hero-card-step.step-3,
   .hero-card-step.step-4,
   .hero-card-step.step-5 {
-    max-width: calc(100vw - 2rem);
-    width: calc(100vw - 2rem);
+    max-width: calc(100vw - 2.6rem) !important;
+    width: calc(100vw - 2.6rem) !important;
   }
 
   /* ---- Premium Glass Card (all steps) ---- */
   .premium-glass-card {
-    padding: 1.5rem 1.3rem 1.3rem;
-    border-radius: 18px;
+    padding: 1.1rem 1rem 1rem !important;
+    border-radius: 18px !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
-    background: rgba(10, 12, 18, 0.92) !important;
+    background: rgba(10, 12, 18, 0.94) !important;
   }
 
+  /* ---- Remove Inner Scroll Trap on Mobile ---- */
   .premium-glass-card--wide {
-    padding: 1.2rem 1.1rem;
-    /* Cap at viewport minus header (60px) minus some breathing room (24px each side) */
-    max-height: calc(100vh - 84px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    padding: 0.95rem 0.9rem !important;
+    max-height: none !important;
+    overflow: visible !important;
+    touch-action: pan-y !important;
   }
 
   .premium-glass-card--wide::-webkit-scrollbar {
@@ -2498,7 +2497,7 @@ select.form-control option {
 
   /* ---- Step 2: Logo reveal ---- */
   .hero-logo-emblem {
-    height: clamp(130px, 38vw, 220px);
+    height: clamp(100px, 30vw, 160px);
   }
 
   .hero-main-subtext {
@@ -2508,99 +2507,112 @@ select.form-control option {
 
   /* ---- Step 3: About glass card ---- */
   .pgc-about-stack {
-    gap: 1rem;
+    gap: 0.75rem !important;
   }
 
   .pgc-body {
-    font-size: 0.92rem;
-    line-height: 1.65;
-    margin-bottom: 1rem;
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0.6rem !important;
   }
 
   .pgc-video-link {
     aspect-ratio: 16 / 9;
+    max-height: 160px;
     border-radius: 12px;
   }
 
   .pgc-footer {
-    gap: 0.5rem;
+    gap: 0.4rem !important;
   }
 
   .pgc-tag {
-    font-size: 0.62rem;
-    padding: 0.3rem 0.7rem;
+    font-size: 0.6rem !important;
+    padding: 0.25rem 0.6rem !important;
   }
 
   /* ---- Step 4: Competitions card ---- */
   .pgc-comp-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.85rem;
-    margin-bottom: 1.1rem;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.5rem !important;
+    margin-bottom: 0.6rem !important;
   }
 
   .pgc-headline {
-    font-size: clamp(1.3rem, 5vw, 1.9rem);
-    margin-bottom: 0;
+    font-size: clamp(1rem, 4.2vw, 1.35rem) !important;
+    margin-bottom: 0 !important;
   }
 
   .pgc-stat-group {
-    gap: 0.55rem;
+    gap: 0.35rem !important;
   }
 
   .pgc-stat-pill {
-    padding: 0.45rem 0.85rem;
-    min-width: 76px;
-    border-radius: 10px;
+    padding: 0.25rem 0.55rem !important;
+    min-width: 52px !important;
+    border-radius: 8px !important;
   }
 
   .pgc-stat-num {
-    font-size: 1rem;
+    font-size: 0.85rem !important;
+  }
+
+  .pgc-stat-lbl {
+    font-size: 0.55rem !important;
   }
 
   .pgc-cat-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.7rem;
-    margin-bottom: 1.1rem;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.4rem !important;
+    margin-bottom: 0.6rem !important;
   }
 
   .pgc-cat-card {
-    padding: 0.85rem 0.9rem;
-    border-radius: 12px;
+    padding: 0.5rem 0.6rem !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
 
   .pgc-cat-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
+    width: 22px !important;
+    height: 22px !important;
+    border-radius: 6px !important;
+    margin-bottom: 0.25rem !important;
   }
 
   .pgc-cat-title {
-    font-size: 0.85rem;
+    font-size: 0.78rem !important;
+    margin-bottom: 0.15rem !important;
   }
 
   .pgc-cat-list {
-    font-size: 0.72rem;
-    line-height: 1.4;
+    font-size: 0.64rem !important;
+    line-height: 1.25 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
   }
 
   .pgc-comp-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.9rem;
-    padding-top: 0.9rem;
+    flex-direction: column !important;
+    gap: 0.4rem !important;
+    padding-top: 0.4rem !important;
   }
 
   .pgc-comp-subtext {
-    font-size: 0.82rem;
+    display: none !important; /* Hide long subtext on mobile to save vertical height */
   }
 
   .pgc-explore-btn {
-    font-size: 0.78rem;
-    padding: 0.65rem 1.2rem;
-    align-self: stretch;
-    justify-content: center;
+    font-size: 0.76rem !important;
+    padding: 0.55rem 1rem !important;
+    align-self: stretch !important;
+    justify-content: center !important;
   }
 
   /* ---- Step 5: Artist showcase ---- */
