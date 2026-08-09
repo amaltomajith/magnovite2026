@@ -914,16 +914,14 @@ body {
 }
 
 .about-card {
-  background: rgba(14, 18, 26, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(12, 12, 14, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 20px;
   padding: 2rem 2.25rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   transition: var(--transition);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
 }
 
 .about-card:hover {
@@ -968,12 +966,10 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 2.5rem;
   align-items: center;
-  background: rgba(14, 18, 26, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 10, 12, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 24px;
   padding: 2.5rem;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
 }
 
 @media (max-width: 768px) {
@@ -1020,17 +1016,25 @@ body {
 
 .about-video-thumb-wrap {
   position: relative;
-}
-
-.about-play-btn {
-  position: relative;
-  display: block;
   width: 100%;
   aspect-ratio: 16/9;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  background: #000;
+}
+
+.about-play-btn {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  border: none;
+  box-shadow: none;
   background: none;
   padding: 0;
   cursor: pointer;
@@ -1039,14 +1043,14 @@ body {
 }
 
 .about-play-btn:hover {
-  transform: scale(1.02);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  opacity: 0.95;
 }
 
 .about-thumb-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -3557,6 +3561,182 @@ select.form-control option {
 
 .pgc-explore-btn:hover .pgc-btn-arrow {
   transform: translate(2px, -2px);
+}
+
+/* ============================================================
+   INSTAGRAM EMBED SECTION
+   ============================================================ */
+.about-instagram-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  width: 100%;
+  margin-top: 4rem;
+}
+
+.instagram-embed-wrapper {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.instagram-embed-wrapper:hover {
+  border-color: rgba(249, 115, 22, 0.35);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 24px rgba(249, 115, 22, 0.12);
+  background: rgba(255, 255, 255, 0.038);
+}
+
+.instagram-embed-inner {
+  width: 100%;
+  aspect-ratio: 9/16;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+}
+
+.instagram-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  padding: 0.85rem 2rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 16px rgba(220, 39, 67, 0.4);
+  transition: all 0.3s ease;
+}
+
+.instagram-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(220, 39, 67, 0.6);
+  color: #fff;
+}
+
+/* ============================================================
+   GLOBAL FOOTER
+   ============================================================ */
+.site-footer {
+  z-index: 100;
+  width: 100%;
+  background: rgba(7, 7, 9, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #d9d9d9;
+  padding: 4rem 1.5rem;
+  margin-top: 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.5), transparent);
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  justify-content: flex-start;
+}
+
+.footer-logo {
+  height: 60px;
+  width: auto;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.footer-logo:hover {
+  transform: scale(1.05);
+}
+
+.footer-logo--christ {
+  height: 72px;
+}
+
+.footer-divider {
+  width: 1px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-col p {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.footer-social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: rgba(249, 115, 22, 0.15);
+  border-color: rgba(249, 115, 22, 0.4);
+  transform: translateY(-3px);
+  color: #ff9d5c;
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
 }
 
 @media (max-width: 900px) {
