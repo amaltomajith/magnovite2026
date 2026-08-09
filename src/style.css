@@ -263,22 +263,29 @@ body {
 }
 
 @media (max-width: 1024px) {
-  .mega-menu-inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+  .mega-menu-overlay {
+    align-items: flex-start;
+    padding: 6rem 2rem 4rem;
   }
-  .mega-identity-card {
-    display: none;
-  }
-}
-
-@media (max-width: 700px) {
   .mega-menu-inner {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  .mega-showcase-panel {
-    display: none;
+  .mega-nav-links, .mega-identity-card, .mega-showcase-panel {
+    height: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .mega-menu-overlay {
+    padding: 5rem 1.2rem 3rem;
+  }
+  .mega-menu-inner {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .mega-nav-links, .mega-identity-card, .mega-showcase-panel {
+    height: auto;
   }
 }
 
