@@ -25,7 +25,6 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         events: resolve(__dirname, 'events.html'),
-        schedule: resolve(__dirname, 'schedule.html'),
         about: resolve(__dirname, 'about.html'),
         gallery: resolve(__dirname, 'gallery.html'),
         ...eventEntries
