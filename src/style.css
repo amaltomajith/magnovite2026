@@ -3607,24 +3607,28 @@ select.form-control option {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
   font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-weight: 800;
+  font-size: 0.85rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-decoration: none;
-  padding: 0.85rem 2rem;
-  border-radius: 9999px;
-  box-shadow: 0 4px 16px rgba(220, 39, 67, 0.4);
-  transition: all 0.3s ease;
+  padding: 0.8rem 1.8rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(12px);
 }
 
 .instagram-cta-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(220, 39, 67, 0.6);
-  color: #fff;
+  background: rgba(249, 115, 22, 0.1);
+  border-color: rgba(249, 115, 22, 0.4);
+  color: #ff9d5c;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(249, 115, 22, 0.15);
 }
 
 /* ============================================================
