@@ -2463,6 +2463,9 @@ select.form-control option {
   .premium-glass-card {
     padding: 1.5rem 1.3rem 1.3rem;
     border-radius: 18px;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    background: rgba(10, 12, 18, 0.92) !important;
   }
 
   .premium-glass-card--wide {

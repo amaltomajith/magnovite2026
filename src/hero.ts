@@ -47,13 +47,17 @@ function initHero3D() {
     5000
   );
 
+  const checkMobile = () => window.innerWidth <= 768 || ('ontouchstart' in window && window.innerWidth <= 1024);
+  let isMobileDevice = checkMobile();
+
   const renderer = new THREE.WebGLRenderer({
     canvas,
-    antialias: true,
-    alpha: false
+    antialias: !isMobileDevice,
+    alpha: false,
+    powerPreference: 'high-performance'
   });
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(isMobileDevice ? 1.0 : Math.min(window.devicePixelRatio, 2));
 
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -69,7 +73,9 @@ function initHero3D() {
     0.35, // radius
     0.85  // threshold
   );
-  composer.addPass(bloomPass);
+  if (!isMobileDevice) {
+    composer.addPass(bloomPass);
+  }
 
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.22);
   scene.add(ambientLight);
@@ -461,11 +467,12 @@ function initHero3D() {
     .catch(() => { finishLoadingAndWarmup(); });
 
   function onWindowResize() {
+    isMobileDevice = checkMobile();
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     composer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(isMobileDevice ? 1.0 : Math.min(window.devicePixelRatio, 2));
   }
   window.addEventListener('resize', onWindowResize);
 
@@ -474,10 +481,12 @@ function initHero3D() {
   let targetMouseX = 0;
   let targetMouseY = 0;
 
-  window.addEventListener('mousemove', (e) => {
-    targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-    targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-  }, { passive: true });
+  if (!isMobileDevice) {
+    window.addEventListener('mousemove', (e) => {
+      targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    }, { passive: true });
+  }
 
   const smoothCamPos    = currentCamPos.clone();
   const smoothCamTarget = currentCamTarget.clone();
@@ -492,8 +501,10 @@ function initHero3D() {
 
     updateRawIndexFromScroll();
 
-    mouseX += (targetMouseX - mouseX) * 0.018;
-    mouseY += (targetMouseY - mouseY) * 0.018;
+    if (!isMobileDevice) {
+      mouseX += (targetMouseX - mouseX) * 0.018;
+      mouseY += (targetMouseY - mouseY) * 0.018;
+    }
 
     const lerpSpeed = isReducedMotion ? 1.0 : 0.038;
     currentSmoothRawIndex += (targetRawIndex - currentSmoothRawIndex) * lerpSpeed;
@@ -507,15 +518,21 @@ function initHero3D() {
     smoothModelRotY += (currentModelRotY - smoothModelRotY) * speed;
 
     const interactiveCamPos = smoothCamPos.clone();
-    interactiveCamPos.x += mouseX * 0.006;
-    interactiveCamPos.y += -mouseY * 0.006;
+    if (!isMobileDevice) {
+      interactiveCamPos.x += mouseX * 0.006;
+      interactiveCamPos.y += -mouseY * 0.006;
+    }
 
     camera.position.copy(interactiveCamPos);
     camera.lookAt(smoothCamTarget);
 
     if (heroModel) heroModel.rotation.y = smoothModelRotY;
 
-    composer.render();
+    if (isMobileDevice) {
+      renderer.render(scene, camera);
+    } else {
+      composer.render();
+    }
   }
 
   animate();
