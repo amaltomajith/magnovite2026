@@ -167,7 +167,7 @@ function renderEvents() {
       const slug = event.slug || slugify(event.title);
       const rawSlug = slug.replace(/-/g, '');
       const imageSrc = EVENT_IMAGE_MAP[slug] || EVENT_IMAGE_MAP[rawSlug] || `/images/events/${slug}.jpg`;
-      const fallbackSrc = '/images/shaanrahman.jpg';
+      const fallbackSrc = '/images/events/robosoccer.jpg';
 
       return `
         <a href="events/${slug}.html" class="event-card" style="text-decoration: none; color: inherit; display: flex; flex-direction: column;">

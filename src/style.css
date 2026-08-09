@@ -2,14 +2,14 @@
    DESIGN SYSTEM & RESET
    ============================================================ */
 :root {
-  --bg-dark: #080a0f;
-  --bg-card: rgba(18, 20, 28, 0.75);
-  --bg-card-hover: rgba(26, 29, 40, 0.85);
+  --bg-dark: #070709;
+  --bg-card: rgba(18, 18, 22, 0.78);
+  --bg-card-hover: rgba(26, 26, 32, 0.88);
   --border-color: rgba(255, 255, 255, 0.08);
   --border-focus: rgba(249, 115, 22, 0.4);
   --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --accent-orange: #ea580c;
+  --text-secondary: #a1a1aa;
+  --accent-orange: #f97316;
   --accent-glow: #f97316;
   --accent-amber: #f59e0b;
   --accent-badge-bg: rgba(249, 115, 22, 0.15);
@@ -1059,39 +1059,125 @@ body {
 /* ============================================================
    EVENTS PAGE
    ============================================================ */
-.events-section {
-  padding: 6rem 1.5rem 3rem;
-  background: var(--bg-dark);
-  min-height: 100vh;
+/* ============================================================
+   EVENTS PAGE HERO & COMPONENT STYLING
+   ============================================================ */
+.events-hero-section {
+  position: relative;
+  padding: 8.5rem 1.5rem 3.5rem;
+  background: #070709;
+  text-align: center;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.events-container { max-width: 1200px; margin: 0 auto; }
-
-.events-header { margin-bottom: 3rem; }
-
-.badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent-badge-text);
-  background: var(--accent-badge-bg);
-  padding: 0.35rem 0.8rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(249, 115, 22, 0.35);
-  margin-bottom: 0.8rem;
+.events-hero-glow {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 650px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.18) 0%, rgba(7, 7, 9, 0) 70%);
+  pointer-events: none;
 }
 
-.events-title {
-  font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 3rem);
+.events-hero-container {
+  max-width: 860px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.events-hero-badge {
+  font-size: 0.7rem;
   font-weight: 800;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.16em;
+  color: #ff9d5c;
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.28);
+  padding: 0.38rem 1rem;
+  border-radius: 9999px;
 }
 
-.events-description { color: var(--text-secondary); font-size: 1.05rem; }
+.events-hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0;
+  background: linear-gradient(135deg, #ffffff 40%, rgba(255, 255, 255, 0.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.events-hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 640px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.events-stats-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 0.8rem;
+  padding: 0.6rem 1.4rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  backdrop-filter: blur(16px);
+}
+
+.events-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.events-stat-pill .stat-num {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+.events-stat-pill .stat-txt {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+@media (max-width: 640px) {
+  .events-stats-strip {
+    flex-wrap: wrap;
+    justify-content: center;
+    border-radius: 16px;
+    gap: 0.8rem;
+  }
+  .stat-divider {
+    display: none;
+  }
+}
+
+.events-section {
+  padding: 3rem 1.5rem 4rem;
+  background: var(--bg-dark);
+  min-height: 80vh;
+}
 
 /* Controls */
 .controls-bar {
