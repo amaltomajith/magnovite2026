@@ -852,33 +852,39 @@ body {
   font-size: 0.55rem;
 }
 
-/* Smooth Download Brochure Action Button */
+/* Download Brochure Button — exact match to .mega-comp-btn */
 .mega-brochure-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.65rem;
-  padding: 0.85rem 1.4rem;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 0.84rem;
-  letter-spacing: 0.02em;
+  gap: 0.5rem;
+  background: #ffffff;
+  color: #080a0f;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
   text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0.65rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.25s ease;
+  width: 100%;
 }
 
 .mega-brochure-btn:hover {
-  background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
-  border-color: rgba(249, 115, 22, 0.8);
+  background: var(--accent-orange);
   color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(249, 115, 22, 0.4);
+  box-shadow: 0 6px 24px rgba(249, 115, 22, 0.45);
+}
+
+.mega-brochure-btn .mega-comp-btn-arrow {
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+
+.mega-brochure-btn:hover .mega-comp-btn-arrow {
+  transform: translate(2px, -2px);
 }
 
 
