@@ -816,37 +816,77 @@ body {
 
 /* ---- Loader ---- */
 .hero-loader {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 20;
-  background: var(--bg-dark);
+  z-index: 999;
+  background: #000000;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
 }
 
-.hero-loader.hidden { opacity: 0; visibility: hidden; }
-
-.spinner {
-  width: 36px;
-  height: 36px;
-  border: 2px solid rgba(255,255,255,0.1);
-  border-top-color: rgba(255,255,255,0.8);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
+.hero-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
-.loader-text {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 320px;
+  width: 90%;
+  text-align: center;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+.loader-logo {
+  height: 38px;
+  width: auto;
+  opacity: 0.92;
+  filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.15));
+}
+
+.loader-bar-wrap {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loader-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.4), #ffffff, rgba(255,255,255,0.4));
+  border-radius: 999px;
+  transition: width 0.25s ease-out;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+}
+
+.loader-status {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+}
+
+.loader-subtext {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+}
+
+.loader-progress {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 700;
+}
 
 /* ============================================================
    EVENTS PAGE
@@ -1425,9 +1465,8 @@ select.form-control option {
   position: relative;
   overflow: hidden;
   background: rgba(12, 12, 12, 0.65);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  will-change: backdrop-filter;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-top: 1px solid rgba(255, 255, 255, 0.32);
   border-radius: 24px;
@@ -1899,33 +1938,64 @@ select.form-control option {
 }
 
 .hero-logo-emblem {
-  height: clamp(180px, 30vw, 380px);
+  height: clamp(90px, 15vw, 170px);
   width: auto;
   object-fit: contain;
-  /* Render any logo as pure white on the dark starfield */
-  filter: brightness(0) invert(1) drop-shadow(0 0 40px rgba(255, 255, 255, 0.6));
-  /* No idle float animation — stays still during pause plateau */
+  filter: brightness(0) invert(1) drop-shadow(0 4px 20px rgba(0, 0, 0, 0.8));
+  margin-bottom: 0.8rem;
 }
 
-.hero-main-title {
-  font-family: var(--font-heading);
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
+/* Official Magnovite 2026 Logo Component (Step 2) */
+.official-logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  user-select: none;
+}
+
+.official-logo-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: clamp(2rem, 5.5vw, 4.4rem);
   font-weight: 900;
+  letter-spacing: -0.01em;
   color: #ffffff;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  text-shadow: 0 8px 32px rgba(0, 0, 0, 0.9);
-  background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  line-height: 1.0;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
 }
 
-.hero-main-subtext {
-  font-size: clamp(1.05rem, 2vw, 1.35rem);
-  color: #cbd5e1;
-  font-weight: 500;
-  margin-top: 0.85rem;
-  letter-spacing: 0.02em;
+.logo-star-o {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.85em;
+  height: 0.85em;
+  margin: 0 0.03em;
+}
+
+.logo-star-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 16px rgba(249, 115, 22, 0.45));
+}
+
+.official-logo-year {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: clamp(0.9rem, 2.4vw, 1.8rem);
+  font-weight: 800;
+  letter-spacing: 0.52em;
+  color: #ffffff;
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+  text-indent: 0.52em;
+  margin-top: 0.5rem;
+  opacity: 0.95;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
 }
 
 /* Apple Pro Glass Live Floating Tab Card */

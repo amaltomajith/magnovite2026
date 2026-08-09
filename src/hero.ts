@@ -29,15 +29,16 @@ function initHero3D() {
   const canvas = document.getElementById('hero-canvas') as HTMLCanvasElement;
   const loaderElement = document.getElementById('hero-loader');
   const progressElement = document.getElementById('loader-progress');
+  const progressBarElement = document.getElementById('loader-bar');
 
   if (!canvas) return;
 
   const scene = new THREE.Scene();
   
-  // Luxury Deep Space Background & Fog
-  const spaceBgColor = 0x080a12;
+  // Luxury Deep Space Background & Fog (Tuned to be rich and deep without glare)
+  const spaceBgColor = 0x05070e;
   scene.background = new THREE.Color(spaceBgColor);
-  scene.fog = new THREE.FogExp2(0x101422, 0.007);
+  scene.fog = new THREE.FogExp2(0x080a14, 0.0075);
 
   const camera = new THREE.PerspectiveCamera(
     55,
@@ -56,7 +57,7 @@ function initHero3D() {
 
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.95;
+  renderer.toneMappingExposure = 0.86;
 
   const composer = new EffectComposer(renderer);
   const renderPass = new RenderPass(scene, camera);
@@ -64,13 +65,13 @@ function initHero3D() {
 
   const bloomPass = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
-    0.4, // strength
+    0.22, // strength tuned for subtle luxury cosmic glow without over-exposure
     0.35, // radius
-    0.80  // threshold
+    0.85  // threshold
   );
   composer.addPass(bloomPass);
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.35);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.22);
   scene.add(ambientLight);
 
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -86,13 +87,6 @@ function initHero3D() {
 
   // -----------------------------------------------------------------------
   // SCROLL-DRIVEN CAMERA KEYFRAMES (8 entries, 7 gaps = rawIndex 0..7)
-  //
-  // KEY TRICK: keyframes[1] === keyframes[2] (identical positions)
-  // This means as rawIndex moves 1→2, the camera doesn't move at all —
-  // the ONLY thing that changes is card visibility:
-  //   rawIndex≈1: "Introducing" is visible, Magnovite is not
-  //   rawIndex≈2: Magnovite is visible, Introducing is not
-  // Pure in-place crossfade with zero camera movement.
   // -----------------------------------------------------------------------
   const kfIntroducing = { camPos: new THREE.Vector3(0.12, 0.2, 3.2), camTarget: new THREE.Vector3(0, 0, 0), modelRotY: -0.08 };
   const sections = [
@@ -106,8 +100,34 @@ function initHero3D() {
     { camPos: new THREE.Vector3(0.0, -0.02, -0.6), camTarget: new THREE.Vector3(0, 0, -1.5),   modelRotY: 0.06 }
   ];
 
-  // Card step elements — queried once
-  const cardSteps = Array.from(document.querySelectorAll<HTMLElement>('.hero-card-step'));
+  // Pre-cached step card elements to avoid DOM tree querying during high-FPS scroll loop
+  interface StepCardItem {
+    el: HTMLElement;
+    innerContent: HTMLElement | null;
+    officialLogoYear: HTMLElement | null;
+    isGlassCard: boolean;
+    lastVisStr: string;
+    lastSlideYStr: string;
+    lastTransformStr: string;
+  }
+
+  const stepCardItems: StepCardItem[] = Array.from(
+    document.querySelectorAll<HTMLElement>('.hero-card-step')
+  ).map((el) => {
+    const innerContent = el.firstElementChild as HTMLElement | null;
+    const isGlassCard = !!(innerContent && innerContent.classList.contains('premium-glass-card'));
+    const officialLogoYear = el.querySelector('.official-logo-year') as HTMLElement | null;
+    return {
+      el,
+      innerContent,
+      officialLogoYear,
+      isGlassCard,
+      lastVisStr: '',
+      lastSlideYStr: '',
+      lastTransformStr: ''
+    };
+  });
+
   const sectionDots = Array.from(document.querySelectorAll<HTMLElement>('.section-dots .dot'));
   const scrollBar = document.getElementById('scroll-bar');
 
@@ -115,30 +135,18 @@ function initHero3D() {
   const currentCamTarget = sections[0].camTarget.clone();
   let   currentModelRotY = 0;
 
-  // -----------------------------------------------------------------------
-  // SCROLL ENGINE — Smootherstep (Ken Perlin)
-  // f(t) = 6t⁵ - 15t⁴ + 10t³  →  f'(0) = f'(1) = 0 (organic pause)
-  // -----------------------------------------------------------------------
-
   function smootherStep(t: number): number {
     t = Math.max(0, Math.min(1, t));
     return t * t * t * (t * (t * 6 - 15) + 10);
   }
 
-  /**
-   * Card visibility by index.
-   * Step 1 (Introducing) directly crossfades into Step 2 (Magnovite Logo)
-   * with zero gap/dip to empty space in between.
-   */
   function cardVis(rawIndex: number, cardIdx: number): number {
-    // Step 1: Introducing
     if (cardIdx === 1) {
       if (rawIndex < 0.45) return 0;
       if (rawIndex <= 1.0) return smootherStep((rawIndex - 0.45) / 0.55);
       if (rawIndex <= 2.0) return 1 - smootherStep(rawIndex - 1.0);
       return 0;
     }
-    // Step 2: Magnovite Logo (crossfades directly from Step 1, lingers past 2.0)
     if (cardIdx === 2) {
       if (rawIndex < 1.0) return 0;
       if (rawIndex <= 2.0) return smootherStep(rawIndex - 1.0);
@@ -146,13 +154,11 @@ function initHero3D() {
       return 0;
     }
 
-    // Default proximity curve for all other step cards
     const dist = Math.abs(rawIndex - cardIdx);
     const radius = 0.55;
     if (dist >= radius) return 0;
     return smootherStep(1 - dist / radius);
   }
-
 
   let targetRawIndex = 0;
   let currentSmoothRawIndex = 0;
@@ -173,76 +179,109 @@ function initHero3D() {
     const from = sections[fromIdx];
     const to   = sections[toIdx];
 
-    // Camera glides with zero velocity at keyframe boundaries — no abrupt stops
     const t = smootherStep(stepFrac);
     currentCamPos.lerpVectors(from.camPos, to.camPos, t);
     currentCamTarget.lerpVectors(from.camTarget, to.camTarget, t);
     currentModelRotY = from.modelRotY + (to.modelRotY - from.modelRotY) * t;
 
-    // Star field fade at close proximity
     if (activePointsMat) {
       const cp = Math.max((scrollFrac - 0.5) / 0.5, 0);
       const sz = 1.0 - cp * 0.45;
       const op = 1.0 - cp * 0.35;
       activePointsMat.size    = baseStarSize * sz;
-      activePointsMat.opacity = op;
+      activePointsMat.opacity = 0.85 * op;
       if (activeAmbientGlowMat) {
         activeAmbientGlowMat.size    = baseStarSize * 3.5 * sz;
-        activeAmbientGlowMat.opacity = 0.12 * op;
+        activeAmbientGlowMat.opacity = 0.05 * op;
       }
     }
 
-    // Drive each card via inline style — keep ancestor opacity at 1 for glass cards so backdrop-filter is never isolated by fractional opacity
-    cardSteps.forEach((el, idx) => {
+    stepCardItems.forEach((item, idx) => {
       const vis = cardVis(rawIndex, idx);
       const rel = rawIndex - idx;
       
       let slideY = 0;
-      
-      if (rel > 0) {
-        // Exiting card (scrolling forward) — floats UP
-        slideY = -35 * (1 - vis);
+      let scale = 1.0;
+
+      if (idx === 1) {
+        // INTRODUCING: smooth scale & dissolve in-place
+        slideY = 0;
+        if (rel <= 0) {
+          scale = 0.88 + 0.12 * vis;
+        } else {
+          scale = 1.0 + 0.12 * (1 - vis);
+        }
+      } else if (idx === 2) {
+        // MAGNOVITE LOGO: expands smoothly in-place over INTRODUCING
+        slideY = 0;
+        if (rel <= 0) {
+          scale = 0.88 + 0.12 * vis;
+        } else {
+          scale = 1.0 - 0.08 * (1 - vis);
+        }
       } else {
-        // Entering card — rises UP into view from depth below
-        slideY = 35 * (1 - vis);
+        if (rel > 0) {
+          slideY = -35 * (1 - vis);
+        } else {
+          slideY = 35 * (1 - vis);
+        }
       }
 
-      const innerContent = el.firstElementChild as HTMLElement | null;
-      const isGlassCard = innerContent && innerContent.classList.contains('premium-glass-card');
+      const visStr = vis.toFixed(3);
+      const slideYStr = `${slideY.toFixed(1)}px`;
+      const transformStr = scale !== 1.0 ? `scale(${scale.toFixed(3)})` : '';
+
+      // Skip DOM mutation if state has not changed significantly
+      if (visStr === item.lastVisStr && slideYStr === item.lastSlideYStr && transformStr === item.lastTransformStr) {
+        return;
+      }
+      item.lastVisStr = visStr;
+      item.lastSlideYStr = slideYStr;
+      item.lastTransformStr = transformStr;
+
+      const { el, innerContent, isGlassCard, officialLogoYear } = item;
 
       if (isGlassCard) {
-        // Ancestor container (.hero-card-step) stays fully opaque ('1') so Chromium does NOT create an isolating Backdrop Root
         el.style.opacity       = '1';
         el.style.filter        = '';
         el.style.visibility    = vis < 0.01 ? 'hidden' : 'visible';
-        el.style.transform     = '';
+        el.style.transform     = transformStr;
         el.style.transition    = 'none';
         el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
 
-        // Apply opacity directly to the card element so background, border, shadow, and text fade as one synchronized unit
-        innerContent.style.opacity    = vis.toFixed(3);
-        innerContent.style.transform  = '';
-        innerContent.style.marginTop  = `${slideY.toFixed(1)}px`;
-        innerContent.style.transition = 'none';
+        if (innerContent) {
+          innerContent.style.opacity    = visStr;
+          innerContent.style.transform  = '';
+          innerContent.style.marginTop  = slideYStr;
+          innerContent.style.transition = 'none';
+        }
       } else {
-        // Standard non-glass steps
-        el.style.opacity       = vis.toFixed(3);
+        const tiltX = idx === 2 ? -mouseY * 2.2 * vis : 0;
+        const tiltY = idx === 2 ? mouseX * 2.2 * vis : 0;
+        const tiltStr = idx === 2 && vis > 0.05 ? ` perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)` : '';
+
+        el.style.opacity       = visStr;
         el.style.filter        = '';
         el.style.visibility    = vis < 0.01 ? 'hidden' : 'visible';
-        el.style.transform     = '';
+        el.style.transform     = `${transformStr}${tiltStr}`;
         el.style.transition    = 'none';
         el.style.pointerEvents = vis > 0.5 ? 'auto' : 'none';
 
         if (innerContent) {
           innerContent.style.opacity    = '1';
           innerContent.style.transform  = '';
-          innerContent.style.marginTop  = `${slideY.toFixed(1)}px`;
+          innerContent.style.marginTop  = slideYStr;
           innerContent.style.transition = 'none';
+        }
+
+        if (idx === 2 && officialLogoYear) {
+          const yearVis = Math.max(0, (vis - 0.25) / 0.75);
+          officialLogoYear.style.opacity = yearVis.toFixed(3);
+          officialLogoYear.style.transform = `translateY(${(10 * (1 - yearVis)).toFixed(1)}px)`;
         }
       }
     });
 
-    // Section dots — highlight nearest keyframe
     const nearestIdx = Math.round(rawIndex);
     sectionDots.forEach((dot, idx) => {
       dot.classList.toggle('active', idx === nearestIdx);
@@ -253,18 +292,58 @@ function initHero3D() {
 
   window.addEventListener('scroll', updateRawIndexFromScroll, { passive: true });
 
+  // Progress update helper
+  function updateProgressUI(pct: number) {
+    const rounded = Math.min(Math.max(Math.round(pct), 0), 100);
+    if (progressElement) progressElement.textContent = `${rounded}%`;
+    if (progressBarElement) progressBarElement.style.width = `${rounded}%`;
+  }
 
+  // Preload key hero image assets so scroll card reveals do not trigger image decoding jank
+  const heroImages = [
+    '/logos/magnovie26white.png',
+    '/logos/christwhite.png',
+    '/logos/magnovite.png',
+    '/images/thumbnail.jpg',
+    '/images/shaanrahman.jpg'
+  ];
+
+  let preloadedImagesCount = 0;
+  heroImages.forEach((src) => {
+    const img = new Image();
+    img.onload = img.onerror = () => {
+      preloadedImagesCount++;
+    };
+    img.src = src;
+  });
+
+  // Finish loading & pre-warm WebGL GPU pipeline
+  function finishLoadingAndWarmup() {
+    updateProgressUI(95);
+    // Warm up WebGL shader compilation & framebuffer creation before hiding loader screen
+    renderer.compile(scene, camera);
+    for (let i = 0; i < 3; i++) {
+      composer.render();
+    }
+    setTimeout(() => {
+      updateProgressUI(100);
+      setTimeout(() => {
+        if (loaderElement) loaderElement.classList.add('hidden');
+      }, 200);
+    }, 150);
+  }
 
   const loadingManager = new THREE.LoadingManager();
   loadingManager.onProgress = (_url, loaded, total) => {
-    if (progressElement) progressElement.textContent = `${Math.round((loaded / total) * 100)}%`;
+    const pct = total > 0 ? (loaded / total) * 90 : 45;
+    updateProgressUI(pct);
   };
   loadingManager.onLoad = () => {
-    if (loaderElement) loaderElement.classList.add('hidden');
+    finishLoadingAndWarmup();
   };
   loadingManager.onError = (url) => {
-    console.warn(`[Hero] Failed to load: ${url}`);
-    if (loaderElement) loaderElement.classList.add('hidden');
+    console.warn(`[Hero] Failed to load resource: ${url}`);
+    finishLoadingAndWarmup();
   };
 
   const gltfLoader = new GLTFLoader(loadingManager);
@@ -308,7 +387,7 @@ function initHero3D() {
 
                     tempColor.setRGB(colorAttr.getX(i), colorAttr.getY(i), colorAttr.getZ(i));
                     tempColor.getHSL(hsl);
-                    hsl.s = Math.min(hsl.s * 1.6, 1.0);
+                    hsl.s = Math.min(hsl.s * 1.1, 1.0);
                     tempColor.setHSL(hsl.h, hsl.s, hsl.l);
 
                     if (dist > 12) {
@@ -334,7 +413,7 @@ function initHero3D() {
                 mat.transparent     = true;
                 mat.depthWrite      = false;
                 mat.blending        = THREE.AdditiveBlending;
-                mat.opacity         = 1.0;
+                mat.opacity         = 0.85;
                 mat.needsUpdate     = true;
 
                 const ambientGlowMat = new THREE.PointsMaterial({
@@ -346,7 +425,7 @@ function initHero3D() {
                   transparent:     true,
                   depthWrite:      false,
                   blending:        THREE.AdditiveBlending,
-                  opacity:         0.12,
+                  opacity:         0.05,
                 });
                 activeAmbientGlowMat = ambientGlowMat;
 
@@ -371,15 +450,15 @@ function initHero3D() {
           undefined,
           (err) => {
             console.warn('[Hero] Failed to parse hero.glb:', err);
-            if (loaderElement) loaderElement.classList.add('hidden');
+            finishLoadingAndWarmup();
           }
         );
       } else {
         console.info('[Hero] hero.glb not found.');
-        if (loaderElement) loaderElement.classList.add('hidden');
+        finishLoadingAndWarmup();
       }
     })
-    .catch(() => { if (loaderElement) loaderElement.classList.add('hidden'); });
+    .catch(() => { finishLoadingAndWarmup(); });
 
   function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -389,6 +468,16 @@ function initHero3D() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   }
   window.addEventListener('resize', onWindowResize);
+
+  let mouseX = 0;
+  let mouseY = 0;
+  let targetMouseX = 0;
+  let targetMouseY = 0;
+
+  window.addEventListener('mousemove', (e) => {
+    targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  }, { passive: true });
 
   const smoothCamPos    = currentCamPos.clone();
   const smoothCamTarget = currentCamTarget.clone();
@@ -403,11 +492,12 @@ function initHero3D() {
 
     updateRawIndexFromScroll();
 
-    // Heavy, luxurious physics lerp (0.038 for maximum inertial weight — cinematic glide)
+    mouseX += (targetMouseX - mouseX) * 0.018;
+    mouseY += (targetMouseY - mouseY) * 0.018;
+
     const lerpSpeed = isReducedMotion ? 1.0 : 0.038;
     currentSmoothRawIndex += (targetRawIndex - currentSmoothRawIndex) * lerpSpeed;
 
-    // Synchronize 3D camera, star field, cards, and text to smooth lerped timeline index
     updateFromScroll(currentSmoothRawIndex);
 
     const speed = isReducedMotion ? 1.0 : 0.05;
@@ -416,7 +506,11 @@ function initHero3D() {
     smoothCamTarget.lerp(currentCamTarget, speed);
     smoothModelRotY += (currentModelRotY - smoothModelRotY) * speed;
 
-    camera.position.copy(smoothCamPos);
+    const interactiveCamPos = smoothCamPos.clone();
+    interactiveCamPos.x += mouseX * 0.006;
+    interactiveCamPos.y += -mouseY * 0.006;
+
+    camera.position.copy(interactiveCamPos);
     camera.lookAt(smoothCamTarget);
 
     if (heroModel) heroModel.rotation.y = smoothModelRotY;
