@@ -340,22 +340,105 @@
         </div>
 
         <div style="width: 100%; max-width: 850px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
-          <!-- Instagram Embed Card with sleek dark container -->
-          <div style="width: 100%; background: #0c0c0e; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; overflow: hidden; padding: 1rem; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
-            <div style="width: 100%; border-radius: 14px; overflow: hidden; background: #0c0c0e;">
-              <iframe
-                src="https://www.instagram.com/magnovite.kengeri/embed/"
-                width="100%"
-                height="560"
-                frameborder="0"
-                scrolling="yes"
-                allowtransparency="true"
-                style="display: block; background: #ffffff; border-radius: 14px; min-height: 560px;"
-                title="Magnovite Instagram Feed"
-              ></iframe>
+          <!-- Premium Custom Dark Instagram Feed Widget -->
+          <div class="ig-dark-card" style="width: 100%; background: #070709; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; overflow: hidden; padding: 1.5rem; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);">
+            
+            <!-- Dark Profile Header -->
+            <div style="display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.25rem; padding: 0.25rem 0.5rem;">
+              <div style="display: flex; align-items: center; gap: 1.25rem;">
+                <!-- Stock Profile Avatar -->
+                <a href="https://www.instagram.com/magnovite.kengeri/" target="_blank" style="position: relative; display: block; width: 72px; height: 72px; border-radius: 50%; padding: 3px; background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); text-decoration: none;">
+                  <img src="/logos/magnovite.png" alt="MAGNOVITE Instagram Avatar" style="width: 100%; height: 100%; object-fit: contain; background: #000; border-radius: 50%; padding: 8px;" />
+                </a>
+                
+                <!-- Stock White Text Info -->
+                <div style="display: flex; flex-direction: column; gap: 0.15rem;">
+                  <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <a href="https://www.instagram.com/magnovite.kengeri/" target="_blank" style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #ffffff; text-decoration: none;">magnovite.kengeri</a>
+                  </div>
+                  <span style="font-size: 0.95rem; font-weight: 600; color: #e2e8f0;">MAGNOVITE</span>
+                  <div style="display: flex; gap: 0.75rem; margin-top: 0.2rem; font-size: 0.85rem; color: #94a3b8;">
+                    <span><strong style="color: #ffffff; font-weight: 600;">2,691</strong> followers</span>
+                    <span>•</span>
+                    <span><strong style="color: #ffffff; font-weight: 600;">421</strong> posts</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Stock Instagram Camera Logo (Top Right) -->
+              <a href="https://www.instagram.com/magnovite.kengeri/" target="_blank" aria-label="Open Instagram Profile" style="color: #e1306c; transition: transform 0.2s ease; display: block;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#ig-grad)" stroke-width="2">
+                  <defs>
+                    <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#f09433" />
+                      <stop offset="25%" stop-color="#e6683c" />
+                      <stop offset="50%" stop-color="#dc2743" />
+                      <stop offset="75%" stop-color="#cc2366" />
+                      <stop offset="100%" stop-color="#bc1888" />
+                    </linearGradient>
+                  </defs>
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+            </div>
+
+            <!-- Stock Color 3x2 Post Grid -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; border-radius: 12px; overflow: hidden; background: #000;">
+              
+              <!-- Post 1: Unveiling Official Logo -->
+              <a href="https://www.instagram.com/magnovite.kengeri/" target="_blank" style="position: relative; aspect-ratio: 1/1; display: block; overflow: hidden; background: #0c0d12; group;" title="MAGNOVITE 2026 Official Logo Unveiling">
+                <img src="/logos/magnovite.png" alt="Magnovite 2026 Logo Post" style="width: 100%; height: 100%; object-fit: contain; padding: 1.5rem; background: radial-gradient(circle, #1a103c 0%, #070709 100%); transition: transform 0.3s ease;" />
+                <div style="position: absolute; top: 8px; right: 8px; color: #ffffff; drop-shadow: 0 2px 4px rgba(0,0,0,0.8);">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </a>
+
+              <!-- Post 2: Fest Crowd -->
+              <a href="https://www.instagram.com/magnovite.kengeri/" target="_blank" style="position: relative; aspect-ratio: 1/1; display: block; overflow: hidden; background: #111;" title="Campus Life & Energy">
+                <img src="/images/thumbnail.jpg" alt="Magnovite Fest Crowd" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" />
+                <div style="position: absolute; top: 8px; right: 8px; color: #ffffff; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </a>
+
+              <!-- Post 3: Cultural Events -->
+              <a href="https://www.instagram.com/magnovite.kengeri/" target="_blank" style="position: relative; aspect-ratio: 1/1; display: block; overflow: hidden; background: #111;" title="Stage & Dance Performances">
+                <img src="/events/placeholder.png" alt="Stage Performances" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); transition: transform 0.3s ease;" />
+                <div style="position: absolute; top: 8px; right: 8px; color: #ffffff; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+                </div>
+              </a>
+
+              <!-- Post 4: Live Concert / Band -->
+              <a href="https://www.instagram.com/magnovite.kengeri/" target="_blank" style="position: relative; aspect-ratio: 1/1; display: block; overflow: hidden; background: #111;" title="Pro-Show Night">
+                <img src="/images/thumbnail.jpg" alt="Pro-Show Band" style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); filter: contrast(1.1);" />
+                <div style="position: absolute; top: 8px; right: 8px; color: #ffffff; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </a>
+
+              <!-- Post 5: Technical Hackathon -->
+              <a href="https://www.instagram.com/magnovite.kengeri/" target="_blank" style="position: relative; aspect-ratio: 1/1; display: block; overflow: hidden; background: #0a0a0c; display: flex; align-items: center; justify-content: center;" title="Innovation & Tech Events">
+                <div style="text-align: center; padding: 1rem;">
+                  <span style="font-family: var(--font-heading); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; color: #f97316; display: block; margin-bottom: 0.3rem;">MAGNOVITE '26</span>
+                  <span style="font-size: 0.85rem; color: #ffffff; font-weight: 600;">Flagship Competitions</span>
+                </div>
+              </a>
+
+              <!-- Post 6: Fashion / Stage -->
+              <a href="https://www.instagram.com/magnovite.kengeri/" target="_blank" style="position: relative; aspect-ratio: 1/1; display: block; overflow: hidden; background: #111;" title="Fashion & Cultural Show">
+                <img src="/events/placeholder.png" alt="Cultural Fashion Show" style="width: 100%; height: 100%; object-fit: cover; filter: saturate(1.2);" />
+                <div style="position: absolute; top: 8px; right: 8px; color: #ffffff; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1-.9 2-2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+                </div>
+              </a>
+
             </div>
           </div>
 
+          <!-- Follow CTA Button -->
           <a href="https://www.instagram.com/magnovite.kengeri/" target="_blank" rel="noopener noreferrer" class="instagram-cta-btn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             Follow @magnovite.kengeri on Instagram
