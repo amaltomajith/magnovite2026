@@ -263,14 +263,16 @@ function initHero3D() {
       // Fade the glass card itself (not the wrapper) to preserve backdrop-filter context
       if (glassCard) {
         glassCard.style.opacity = visStr;
-      } else if (innerContent) {
-        // Non-glass cards (text-only steps 0, 1, 2): fade the inner element
-        innerContent.style.opacity = visStr;
+      } else {
+        // Non-glass cards (steps 0, 1, 2): fade all top-level child elements (logo emblem + text mark)
+        Array.from(el.children).forEach((child) => {
+          (child as HTMLElement).style.opacity = visStr;
+        });
       }
 
       if (idx === 2 && officialLogoYear) {
         const yearVis = Math.max(0, (vis - 0.25) / 0.75);
-        officialLogoYear.style.opacity = yearVis.toFixed(3);
+        officialLogoYear.style.opacity = (yearVis * vis).toFixed(3);
         officialLogoYear.style.transform = `translate3d(0, ${(10 * (1 - yearVis)).toFixed(1)}px, 0)`;
       }
     });
