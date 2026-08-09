@@ -5,15 +5,21 @@ export function initNavigation() {
 
   if (!toggleBtn || !overlay) return;
 
-  toggleBtn.addEventListener('click', () => {
+  // Re-bind listener safely
+  const newToggleBtn = toggleBtn.cloneNode(true) as HTMLElement;
+  toggleBtn.parentNode?.replaceChild(newToggleBtn, toggleBtn);
+
+  newToggleBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     const isOpen = overlay.classList.contains('active');
     if (isOpen) {
       overlay.classList.remove('active');
-      toggleBtn.classList.remove('is-active');
+      newToggleBtn.classList.remove('is-active');
       document.body.style.overflow = '';
     } else {
       overlay.classList.add('active');
-      toggleBtn.classList.add('is-active');
+      newToggleBtn.classList.add('is-active');
       document.body.style.overflow = 'hidden';
     }
   });
@@ -23,7 +29,7 @@ export function initNavigation() {
   navLinks.forEach(link => {
     link.addEventListener('click', () => {
       overlay.classList.remove('active');
-      toggleBtn.classList.remove('is-active');
+      newToggleBtn.classList.remove('is-active');
       document.body.style.overflow = '';
     });
   });
@@ -36,36 +42,70 @@ function initNavCountdown() {
   const targetDate = new Date(2026, 8, 15, 9, 0, 0).getTime();
 
   function update() {
-    const now = new Date().getTime();
+    const now = Date.now();
     const diff = Math.max(0, targetDate - now);
 
     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
     const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    setFlipDigit('days-t', Math.floor(d / 10));
-    setFlipDigit('days-u', d % 10);
-    setFlipDigit('hours-t', Math.floor(h / 10));
-    setFlipDigit('hours-u', h % 10);
-    setFlipDigit('mins-t', Math.floor(m / 10));
-    setFlipDigit('mins-u', m % 10);
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+    updateFlipCard('days-t', Math.floor(d / 10));
+    updateFlipCard('days-u', d % 10);
+    updateFlipCard('hours-t', Math.floor(h / 10));
+    updateFlipCard('hours-u', h % 10);
+    updateFlipCard('mins-t', Math.floor(m / 10));
+    updateFlipCard('mins-u', m % 10);
+    updateFlipCard('secs-t', Math.floor(s / 10));
+    updateFlipCard('secs-u', s % 10);
   }
 
-  function setFlipDigit(id: string, val: number) {
-    const card = document.getElementById(id);
-    if (!card) return;
-    const currentVal = card.getAttribute('data-val');
-    const newStr = String(val);
-    if (currentVal !== newStr) {
-      card.setAttribute('data-val', newStr);
-      const valEl = card.querySelector('.flip-val');
-      if (valEl) valEl.textContent = newStr;
+  function updateFlipCard(prefix: string, val: number) {
+    const targets = [`nav-${prefix}`, `hero-${prefix}`, prefix];
+    const nextVal = String(val);
 
-      card.classList.remove('flip-anim');
-      void card.offsetWidth; // Force reflow
-      card.classList.add('flip-anim');
-    }
+    targets.forEach(id => {
+      const cardEl = document.getElementById(id);
+      if (!cardEl) return;
+
+      const currentVal = cardEl.getAttribute('data-val') || '0';
+      if (currentVal !== nextVal) {
+        cardEl.setAttribute('data-val', nextVal);
+
+        const topSpan = cardEl.querySelector('.flip-top span');
+        const bottomSpan = cardEl.querySelector('.flip-bottom span');
+        const leafTopSpan = cardEl.querySelector('.flip-leaf-top span');
+        const leafBottomSpan = cardEl.querySelector('.flip-leaf-bottom span');
+
+        if (topSpan && bottomSpan && leafTopSpan && leafBottomSpan) {
+          leafTopSpan.textContent = currentVal;
+          bottomSpan.textContent = currentVal;
+          topSpan.textContent = nextVal;
+          leafBottomSpan.textContent = nextVal;
+
+          cardEl.classList.remove('is-flipping');
+          void cardEl.offsetWidth; // Force reflow
+          cardEl.classList.add('is-flipping');
+
+          setTimeout(() => {
+            bottomSpan.textContent = nextVal;
+          }, 450);
+        } else {
+          const valEl = cardEl.querySelector('.flip-val');
+          if (valEl) valEl.textContent = nextVal;
+        }
+      }
+    });
   }
 
   update();
   setInterval(update, 1000);
 }
+
+// Auto-execute initialization on module load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => initNavigation());
+} else {
+  initNavigation();
+}
+

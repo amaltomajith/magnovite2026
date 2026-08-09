@@ -226,7 +226,7 @@ function initHero3D() {
       const slideYStr = slideY.toFixed(1);
       const scaleStr = scale.toFixed(3);
 
-      const { el, innerContent, glassCard, officialLogoYear } = item;
+      const { el, glassCard, officialLogoYear } = item;
 
       // Skip DOM mutation if state has not changed
       const mouseKey = idx === 2 && !isMobileDevice ? `${(mouseX*10).toFixed(0)}_${(mouseY*10).toFixed(0)}` : '0_0';

@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About — Magnovite '26</title>
-    <meta name="description" content="Learn about Christ University Kengeri Campus and the legacy of Magnovite '26." />
+    <meta name="description" content="Learn about CHRIST University Kengeri Campus and the legacy of Magnovite '26 — India's premier inter-collegiate flagship fest." />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;700;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="stylesheet" href="/src/style.css" />
   </head>
-  <body>
+  <body class="about-page-body">
 
     <!-- Global Luxury Header -->
     <header class="site-header">
@@ -65,9 +65,9 @@
           </a>
         </nav>
 
-        <!-- Right Column: Date, Venue & Download Brochure Action -->
+                <!-- Right Column: Campus Location Map, Countdown & Download Brochure Action -->
         <div class="mega-showcase-panel">
-          <!-- Event Date & Venue Info -->
+          <!-- Fest Key Info Header -->
           <div class="mega-event-info-card">
             <div class="mega-date-block">
               <span class="mega-date-sub">FLAGSHIP FEST DATES</span>
@@ -81,21 +81,111 @@
             </div>
           </div>
 
-          <!-- Mini Fest Stats Strip -->
-          <div class="mega-stats-card">
-            <div class="mega-stat-item">
-              <span class="mega-stat-num">34+</span>
-              <span class="mega-stat-label">Events</span>
+          <!-- Embedded Location Map Card -->
+          <div class="mega-map-container">
+            <div class="mega-map-header">
+              <span class="mega-map-badge">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                Kengeri Campus Map
+              </span>
+              <a href="https://maps.google.com/?q=CHRIST+University+Kengeri+Campus+Bangalore" target="_blank" rel="noopener noreferrer" class="mega-map-open-link">Open Maps ↗</a>
             </div>
-            <div class="mega-stat-divider"></div>
-            <div class="mega-stat-item">
-              <span class="mega-stat-num">₹3L+</span>
-              <span class="mega-stat-label">Prizes</span>
+            <div class="mega-map-iframe-wrap">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.0267727192666!2d77.45607317585093!3d12.893198087415276!2m3!1f0!1f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae38e07865c3bb%3A0xd6891398c85779c1!2sCHRIST%20(Deemed%20to%20be%20University)%2C%20Kengeri%20Campus!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                width="100%" 
+                height="125" 
+                style="border:0; border-radius: 10px; filter: grayscale(0.25) contrast(1.1) invert(0.9) hue-rotate(180deg);" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade"
+                title="CHRIST University Location Map">
+              </iframe>
             </div>
-            <div class="mega-stat-divider"></div>
-            <div class="mega-stat-item">
-              <span class="mega-stat-num">16th</span>
-              <span class="mega-stat-label">Edition</span>
+          </div>
+
+          <!-- Hero-Style Live Mechanical Countdown Clock Card -->
+          <div class="mega-countdown-card">
+            <span class="mega-countdown-label">COUNTDOWN TO MAGNOVITE '26</span>
+            <div class="hero-flip-clock-grid mega-flip-clock-grid">
+              <!-- DAYS -->
+              <div class="hero-flip-unit">
+                <div class="hero-flip-digits-pair">
+                  <div class="hero-flip-card mega-flip-card" id="nav-days-t" data-val="0">
+                    <div class="flip-top"><span>0</span></div>
+                    <div class="flip-bottom"><span>0</span></div>
+                    <div class="flip-leaf-top"><span>0</span></div>
+                    <div class="flip-leaf-bottom"><span>0</span></div>
+                  </div>
+                  <div class="hero-flip-card mega-flip-card" id="nav-days-u" data-val="0">
+                    <div class="flip-top"><span>0</span></div>
+                    <div class="flip-bottom"><span>0</span></div>
+                    <div class="flip-leaf-top"><span>0</span></div>
+                    <div class="flip-leaf-bottom"><span>0</span></div>
+                  </div>
+                </div>
+                <span class="hero-flip-label">DAYS</span>
+              </div>
+              <span class="hero-flip-colon">:</span>
+
+              <!-- HOURS -->
+              <div class="hero-flip-unit">
+                <div class="hero-flip-digits-pair">
+                  <div class="hero-flip-card mega-flip-card" id="nav-hours-t" data-val="0">
+                    <div class="flip-top"><span>0</span></div>
+                    <div class="flip-bottom"><span>0</span></div>
+                    <div class="flip-leaf-top"><span>0</span></div>
+                    <div class="flip-leaf-bottom"><span>0</span></div>
+                  </div>
+                  <div class="hero-flip-card mega-flip-card" id="nav-hours-u" data-val="0">
+                    <div class="flip-top"><span>0</span></div>
+                    <div class="flip-bottom"><span>0</span></div>
+                    <div class="flip-leaf-top"><span>0</span></div>
+                    <div class="flip-leaf-bottom"><span>0</span></div>
+                  </div>
+                </div>
+                <span class="hero-flip-label">HOURS</span>
+              </div>
+              <span class="hero-flip-colon">:</span>
+
+              <!-- MINUTES -->
+              <div class="hero-flip-unit">
+                <div class="hero-flip-digits-pair">
+                  <div class="hero-flip-card mega-flip-card" id="nav-mins-t" data-val="0">
+                    <div class="flip-top"><span>0</span></div>
+                    <div class="flip-bottom"><span>0</span></div>
+                    <div class="flip-leaf-top"><span>0</span></div>
+                    <div class="flip-leaf-bottom"><span>0</span></div>
+                  </div>
+                  <div class="hero-flip-card mega-flip-card" id="nav-mins-u" data-val="0">
+                    <div class="flip-top"><span>0</span></div>
+                    <div class="flip-bottom"><span>0</span></div>
+                    <div class="flip-leaf-top"><span>0</span></div>
+                    <div class="flip-leaf-bottom"><span>0</span></div>
+                  </div>
+                </div>
+                <span class="hero-flip-label">MINS</span>
+              </div>
+              <span class="hero-flip-colon">:</span>
+
+              <!-- SECONDS -->
+              <div class="hero-flip-unit">
+                <div class="hero-flip-digits-pair">
+                  <div class="hero-flip-card mega-flip-card" id="nav-secs-t" data-val="0">
+                    <div class="flip-top"><span>0</span></div>
+                    <div class="flip-bottom"><span>0</span></div>
+                    <div class="flip-leaf-top"><span>0</span></div>
+                    <div class="flip-leaf-bottom"><span>0</span></div>
+                  </div>
+                  <div class="hero-flip-card mega-flip-card" id="nav-secs-u" data-val="0">
+                    <div class="flip-top"><span>0</span></div>
+                    <div class="flip-bottom"><span>0</span></div>
+                    <div class="flip-leaf-top"><span>0</span></div>
+                    <div class="flip-leaf-bottom"><span>0</span></div>
+                  </div>
+                </div>
+                <span class="hero-flip-label">SECS</span>
+              </div>
             </div>
           </div>
 
@@ -112,98 +202,159 @@
       </div>
     </div>
 
-    <main class="page-container">
-      <header class="page-header">
-        <div class="badge">CHRIST University Kengeri Campus</div>
-        <h1 class="page-title">MAGNOVITE '26</h1>
-        <p class="page-description">
-          MAGNOVITE is the premier 16th edition annual inter-collegiate fest of CHRIST University, Kengeri Campus, bringing together visionaries, creators, and competitors across India.
-        </p>
-      </header>
+    <!-- ABOUT PAGE HERO — Same structure as events hero -->
+    <section class="events-hero-section">
+      <div class="events-hero-glow"></div>
+      <div class="events-hero-glow-2"></div>
+      <div class="events-hero-dots" aria-hidden="true">
+        <span class="edot edot-1"></span>
+        <span class="edot edot-2"></span>
+        <span class="edot edot-3"></span>
+        <span class="edot edot-4"></span>
+      </div>
 
-      <!-- Key Stats Grid -->
-      <section class="stats-grid">
-        <div class="glass-card stat-card">
-          <span class="stat-number">15,000+</span>
-          <span class="stat-label">Footfall & Participants</span>
+      <div class="events-hero-container">
+        <h1 class="hero-anim-title">ABOUT MAGNOVITE</h1>
+        <p class="events-hero-subtitle">Sixteen editions. Thousands of competitors. One unforgettable fest.</p>
+
+        <!-- Stats strip -->
+        <div class="events-stats-strip">
+          <div class="events-stat-pill">
+            <span class="stat-num">15,000+</span>
+            <span class="stat-txt">Footfall</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="events-stat-pill">
+            <span class="stat-num">50+</span>
+            <span class="stat-txt">Events</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="events-stat-pill">
+            <span class="stat-num">120+</span>
+            <span class="stat-txt">Colleges</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="events-stat-pill">
+            <span class="stat-num">₹5L+</span>
+            <span class="stat-txt">Prize Pool</span>
+          </div>
         </div>
-        <div class="glass-card stat-card">
-          <span class="stat-number">50+</span>
-          <span class="stat-label">Technical & Cultural Events</span>
-        </div>
-        <div class="glass-card stat-card">
-          <span class="stat-number">120+</span>
-          <span class="stat-label">Participating Colleges</span>
-        </div>
-        <div class="glass-card stat-card">
-          <span class="stat-number">₹5 Lakh+</span>
-          <span class="stat-label">Prize Pool & Awards</span>
+      </div>
+    </section>
+
+    <!-- ABOUT PAGE MAIN CONTENT -->
+    <main class="about-content-wrap">
+
+      <!-- Narrative Two-Column Cards -->
+      <section class="about-narrative-section">
+        <div class="about-narrative-grid">
+          <div class="about-card">
+            <div class="about-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <h2 class="about-card-title">Our Legacy</h2>
+            <p class="about-card-body">Now in its 16th celebrated edition, MAGNOVITE has evolved into a hallmark event for student innovation. It fosters healthy competition, cross-disciplinary collaboration, and positive connections among students across engineering, management, architecture, and humanities.</p>
+            <p class="about-card-body">From high-stakes hackathons to electrifying stage performances, every moment is crafted to challenge limits and inspire greatness.</p>
+          </div>
+
+          <div class="about-card">
+            <div class="about-card-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <h2 class="about-card-title">The Campus Experience</h2>
+            <p class="about-card-body">Nestled amid lush green landscapes in Mysuru Road, Bengaluru, CHRIST University Kengeri Campus offers world-class infrastructure including state-of-the-art research labs, auditoriums, sports arenas, and vibrant amphitheaters.</p>
+            <p class="about-card-body">It serves as the perfect canvas for two days of non-stop energy, learning, and celebration.</p>
+          </div>
         </div>
       </section>
 
-      <!-- Narrative Section -->
-      <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 3rem;">
-        <div class="glass-card">
-          <h2 style="font-family: var(--font-heading); font-size: 1.6rem; margin-bottom: 1rem; color: #ff9d5c;">Our Legacy</h2>
-          <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
-            Over 15 celebrated editions, MAGNOVITE has evolved into a hallmark event for student innovation. It fosters healthy competition, cross-disciplinary collaboration, and positive connections among students across engineering, management, architecture, and humanities.
-          </p>
-          <p style="color: var(--text-secondary); line-height: 1.7;">
-            From high-stakes hackathons to electrifying stage performances, every moment is crafted to challenge limits and inspire greatness.
-          </p>
+      <!-- Meet Our Team Section -->
+      <section class="about-team-section">
+        <div class="about-section-header">
+          <span class="about-section-badge">ORGANIZING COMMITTEE</span>
+          <h2 class="about-section-title">Meet Our Team</h2>
+          <p class="about-section-subtitle">The dedicated faculty and student coordinators driving MAGNOVITE '26 to new heights.</p>
         </div>
 
-        <div class="glass-card">
-          <h2 style="font-family: var(--font-heading); font-size: 1.6rem; margin-bottom: 1rem; color: #ff9d5c;">The Campus Experience</h2>
-          <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
-            Nestled amid lush green landscapes in Mysuru Road, Bengaluru, CHRIST University Kengeri Campus offers world-class infrastructure including state-of-the-art research labs, auditoriums, sports arenas, and vibrant amphitheaters.
-          </p>
-          <p style="color: var(--text-secondary); line-height: 1.7;">
-            It serves as the perfect canvas for two days of non-stop energy, learning, and celebration.
-          </p>
+        <div class="about-team-grid">
+          <!-- Faculty Incharge 1 -->
+          <div class="team-card">
+            <div class="team-avatar-pill">SK</div>
+            <h3 class="team-name">Dr. SARATH CHANDRA K</h3>
+            <span class="team-role team-role--faculty">Faculty Incharge</span>
+          </div>
+
+          <!-- Faculty Incharge 2 -->
+          <div class="team-card">
+            <div class="team-avatar-pill">JC</div>
+            <h3 class="team-name">Dr. JINCY CHERIAN</h3>
+            <span class="team-role team-role--faculty">Faculty Incharge</span>
+          </div>
+
+          <!-- Faculty Incharge 3 (Updated: Dr. Anil Melwyn Rego) -->
+          <div class="team-card">
+            <div class="team-avatar-pill">AR</div>
+            <h3 class="team-name">Dr. ANIL MELWYN REGO</h3>
+            <span class="team-role team-role--faculty">Faculty Incharge</span>
+          </div>
+
+          <!-- Student Coordinator 1 (Updated: Adisankar) -->
+          <div class="team-card">
+            <div class="team-avatar-pill">AS</div>
+            <h3 class="team-name">ADISANKAR</h3>
+            <span class="team-role team-role--student">Student Coordinator</span>
+          </div>
+
+          <!-- Student Coordinator 2 (Updated: Bettina Sony) -->
+          <div class="team-card">
+            <div class="team-avatar-pill">BS</div>
+            <h3 class="team-name">BETTINA SONY</h3>
+            <span class="team-role team-role--student">Student Coordinator</span>
+          </div>
         </div>
       </section>
 
-      <!-- Official Promo Video Section -->
-      <section style="margin-top: 3rem;">
-        <div class="glass-card" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; align-items: center;">
-          <div>
-            <span class="badge" style="margin-bottom: 0.8rem;">Official Teaser</span>
-            <h2 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 1rem; color: #ffffff;">Watch the Magnovite 2026 Promo</h2>
-            <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">
-              Experience the energy, innovation, and pulse of CHRIST University Kengeri Campus's annual flagship fest. Get a glimpse of what awaits you at Magnovite 2026.
-            </p>
-            <a href="https://youtu.be/EGSUtEnfX9g?si=VlRLHr6CpcPqeorP" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display: inline-flex; text-decoration: none;">
-              <span>Watch Promo Video on YouTube</span> ↗
+      <!-- Promo Video Section -->
+      <section class="about-video-section">
+        <div class="about-video-card">
+          <div class="about-video-info">
+            <span class="about-video-badge">Official Teaser</span>
+            <h2 class="about-video-title">Watch the Magnovite 2026 Promo</h2>
+            <p class="about-video-desc">Experience the energy, innovation, and pulse of CHRIST University Kengeri Campus's annual flagship fest. Get a glimpse of what awaits you at Magnovite 2026.</p>
+            <a href="https://youtu.be/EGSUtEnfX9g?si=VlRLHr6CpcPqeorP" target="_blank" rel="noopener noreferrer" class="btn-primary">
+              <span>Watch on YouTube</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
           </div>
-          <div id="about-promo-container">
-            <button type="button" id="about-play-promo-btn" style="position: relative; display: block; width: 100%; aspect-ratio: 16/9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 16px 36px rgba(0,0,0,0.5); background: none; padding: 0; cursor: pointer; text-align: left;" title="Play Magnovite 2026 Official Promo Video">
-              <img src="/images/thumbnail.jpg" alt="Magnovite 2026 Official Promo Video Thumbnail" style="width: 100%; height: 100%; object-fit: cover;" />
-              <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem;">
-                <div style="width: 58px; height: 58px; border-radius: 50%; background: #ffffff; color: #0f172a; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.5); padding-left: 4px;">
+          <div id="about-promo-container" class="about-video-thumb-wrap">
+            <button type="button" id="about-play-promo-btn" class="about-play-btn" title="Play Magnovite 2026 Official Promo Video">
+              <img src="/images/thumbnail.jpg" alt="Magnovite 2026 Official Promo Video Thumbnail" class="about-thumb-img" />
+              <div class="about-play-overlay">
+                <div class="about-play-circle">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                 </div>
-                <span style="font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.14em; color: #fff; background: rgba(12,12,12,0.82); backdrop-filter: blur(10px); padding: 0.35rem 0.9rem; border-radius: 9999px; border: 1px solid rgba(255,255,255,0.25);">PLAY PROMO VIDEO ▶</span>
+                <span class="about-play-label">PLAY PROMO VIDEO ▶</span>
               </div>
             </button>
           </div>
         </div>
       </section>
 
-      <!-- Contact & Venue Card -->
-      <section style="margin-top: 3rem;">
-        <div class="glass-card" style="text-align: center;">
-          <h2 style="font-family: var(--font-heading); font-size: 1.6rem; margin-bottom: 0.5rem;">Join Us at the Campus</h2>
-          <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 1.5rem;">
-            CHRIST (Deemed to be University), Kengeri Campus, Kanmanike, Kumbalgodu, Bengaluru, Karnataka 560074.
-          </p>
+      <!-- Contact Card -->
+      <section class="about-contact-section">
+        <div class="about-contact-card">
+          <div class="about-contact-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h2 class="about-contact-title">Join Us at the Campus</h2>
+          <p class="about-contact-address">CHRIST (Deemed to be University), Kengeri Campus, Kanmanike, Kumbalgodu, Bengaluru, Karnataka 560074.</p>
           <a href="mailto:magnovite@christuniversity.in" class="btn-primary">
-            <span>Contact Organizing Committee</span>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>Contact Organizing Committee</span>
           </a>
         </div>
       </section>
+
     </main>
 
     <script type="module" src="/src/about.ts"></script>
