@@ -387,14 +387,14 @@ body {
   background: rgba(18, 18, 22, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
-  padding: 1.25rem 1.3rem;
+  padding: 1.4rem 1.5rem;
   backdrop-filter: blur(28px);
   -webkit-backdrop-filter: blur(28px);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.18);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.85rem;
+  gap: 1.1rem;
   height: 100%;
   text-align: left;
   position: relative;
@@ -403,41 +403,41 @@ body {
 
 .mega-comp-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
 }
 
 .mega-comp-header-main {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.2rem;
 }
 
 .mega-comp-eyebrow {
   font-family: var(--font-heading);
-  font-size: 0.58rem;
+  font-size: 0.6rem;
   font-weight: 800;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   color: var(--accent-orange);
   text-transform: uppercase;
 }
 
 .mega-comp-title {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 900;
   letter-spacing: -0.01em;
   color: #ffffff;
   margin: 0;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .mega-comp-stats {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.5rem;
   flex-shrink: 0;
 }
 
@@ -448,19 +448,19 @@ body {
   justify-content: center;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 0.25rem 0.55rem;
-  min-width: 52px;
+  border-radius: 10px;
+  padding: 0.35rem 0.65rem;
+  min-width: 58px;
 }
 
 .mega-comp-stat--accent {
   background: rgba(249, 115, 22, 0.12);
-  border-color: rgba(249, 115, 22, 0.3);
+  border-color: rgba(249, 115, 22, 0.35);
 }
 
 .mega-comp-stat-num {
   font-family: var(--font-heading);
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   font-weight: 900;
   color: #ffffff;
   line-height: 1;
@@ -472,49 +472,52 @@ body {
 
 .mega-comp-stat-lbl {
   font-family: var(--font-heading);
-  font-size: 0.5rem;
+  font-size: 0.52rem;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: rgba(255, 255, 255, 0.5);
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
-/* Category Grid: 2 Columns x 3 Rows */
+/* Category Grid: 2 Columns x 3 Rows - Spacious Layout */
 .mega-cat-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.55rem;
+  gap: 0.75rem;
   flex: 1;
-  align-content: center;
+  align-content: stretch;
 }
 
 .mega-cat-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 10px;
-  padding: 0.55rem 0.65rem;
-  transition: all 0.22s ease;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.85rem 0.9rem;
+  transition: all 0.25s ease;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  justify-content: center;
+  gap: 0.35rem;
+  text-decoration: none;
 }
 
 .mega-cat-card:hover {
-  background: rgba(249, 115, 22, 0.08);
-  border-color: rgba(249, 115, 22, 0.25);
-  transform: translateY(-1px);
+  background: rgba(249, 115, 22, 0.09);
+  border-color: rgba(249, 115, 22, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .mega-cat-header {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
 }
 
 .mega-cat-icon {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
@@ -522,43 +525,52 @@ body {
   justify-content: center;
   color: var(--accent-orange);
   flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+.mega-cat-card:hover .mega-cat-icon {
+  background: var(--accent-orange);
+  color: #ffffff;
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.5);
 }
 
 .mega-cat-title {
   font-family: var(--font-heading);
-  font-size: 0.74rem;
+  font-size: 0.82rem;
   font-weight: 800;
   color: #ffffff;
   margin: 0;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 
-.mega-cat-list {
+.mega-cat-tag {
   font-family: var(--font-main);
-  font-size: 0.62rem;
-  color: rgba(200, 200, 200, 0.65);
-  line-height: 1.35;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.45);
   margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+}
+
+.mega-cat-card:hover .mega-cat-tag {
+  color: rgba(255, 255, 255, 0.75);
 }
 
 /* Card Footer & Explore Button */
 .mega-comp-footer {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  padding-top: 0.65rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 0.75rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
 }
 
 .mega-comp-subtext {
   font-family: var(--font-main);
-  font-size: 0.65rem;
-  color: rgba(200, 200, 200, 0.55);
-  line-height: 1.35;
+  font-size: 0.72rem;
+  color: rgba(200, 200, 200, 0.6);
+  line-height: 1.4;
   margin: 0;
 }
 
@@ -566,29 +578,29 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
   background: #ffffff;
   color: #080a0f;
   font-family: var(--font-heading);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-decoration: none;
-  padding: 0.5rem 0.9rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-  transition: all 0.22s ease;
+  padding: 0.65rem 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: all 0.25s ease;
   width: 100%;
 }
 
 .mega-comp-btn:hover {
   background: var(--accent-orange);
   color: #ffffff;
-  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+  box-shadow: 0 6px 24px rgba(249, 115, 22, 0.45);
 }
 
 .mega-comp-btn-arrow {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   transition: transform 0.2s ease;
 }
 
