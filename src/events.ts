@@ -170,7 +170,7 @@ function renderEvents() {
       const fallbackSrc = '/images/events/robosoccer.jpg';
 
       return `
-        <a href="events/${slug}.html" class="event-card" style="text-decoration: none; color: inherit; display: flex; flex-direction: column;">
+        <a href="/events/${slug}.html" class="event-card" style="text-decoration: none; color: inherit; display: flex; flex-direction: column;">
           <div class="card-image-wrapper">
             <img 
               class="card-image" 

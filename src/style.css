@@ -351,28 +351,43 @@ body {
   line-height: 1.35;
 }
 
-/* Dark Theme Embedded Google Map */
-.mega-map-container {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 8.2;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+/* Mini Fest Stats Card inside Opened Menu Overlay */
+.mega-stats-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 0.85rem 0.5rem;
 }
 
-.mega-map-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: block;
-  filter: invert(90%) hue-rotate(180deg) contrast(1.1) brightness(0.9);
-  transition: filter 0.3s ease;
+.mega-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
 }
 
-.mega-map-container:hover .mega-map-iframe {
-  filter: invert(90%) hue-rotate(180deg) contrast(1.2) brightness(0.95);
+.mega-stat-num {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.mega-stat-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.mega-stat-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .mega-brochure-btn {
