@@ -35,10 +35,10 @@ function initHero3D() {
 
   const scene = new THREE.Scene();
   
-  // Luxury Deep Space Background & Fog (Tuned to be rich and deep without glare)
-  const spaceBgColor = 0x05070e;
+  // Pure Neutral Obsidian Space Background & Fog (0 blue tint)
+  const spaceBgColor = 0x040404;
   scene.background = new THREE.Color(spaceBgColor);
-  scene.fog = new THREE.FogExp2(0x080a14, 0.0075);
+  scene.fog = new THREE.FogExp2(0x060606, 0.0075);
 
   const camera = new THREE.PerspectiveCamera(
     55,

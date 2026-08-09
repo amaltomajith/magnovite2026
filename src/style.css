@@ -384,7 +384,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background: rgba(10, 12, 18, 0.75);
+  background: rgba(12, 12, 12, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
   padding: 1.75rem 1.5rem;
@@ -2003,7 +2003,7 @@ select.form-control option {
 
 /* Apple Pro Glass Live Floating Tab Card */
 .apple-glass-card {
-  background: rgba(14, 17, 24, 0.72);
+  background: rgba(12, 12, 12, 0.72);
   backdrop-filter: blur(48px) saturate(220%);
   -webkit-backdrop-filter: blur(48px) saturate(220%);
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -2468,7 +2468,7 @@ select.form-control option {
     border-radius: 18px !important;
     backdrop-filter: blur(12px) !important;
     -webkit-backdrop-filter: blur(12px) !important;
-    background: rgba(10, 12, 18, 0.94) !important;
+    background: rgba(12, 12, 12, 0.94) !important;
   }
 
   /* ---- Remove Inner Scroll Trap on Mobile ---- */
