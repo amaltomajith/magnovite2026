@@ -537,17 +537,32 @@ function initHeroCountdown() {
     const cardEl = document.getElementById(id);
     if (!cardEl) return;
 
-    const valEl = cardEl.querySelector('.flip-val');
-    const currentVal = cardEl.getAttribute('data-val');
+    const currentVal = cardEl.getAttribute('data-val') || '0';
     const nextVal = String(newDigit);
 
     if (currentVal !== nextVal) {
       cardEl.setAttribute('data-val', nextVal);
-      if (valEl) valEl.textContent = nextVal;
 
-      cardEl.classList.remove('flip-anim');
-      void cardEl.offsetWidth;
-      cardEl.classList.add('flip-anim');
+      const topSpan = cardEl.querySelector('.flip-top span');
+      const bottomSpan = cardEl.querySelector('.flip-bottom span');
+      const leafTopSpan = cardEl.querySelector('.flip-leaf-top span');
+      const leafBottomSpan = cardEl.querySelector('.flip-leaf-bottom span');
+
+      if (topSpan && bottomSpan && leafTopSpan && leafBottomSpan) {
+        // Set flap numbers for mechanical 3D drop
+        leafTopSpan.textContent = currentVal;
+        bottomSpan.textContent = currentVal;
+        topSpan.textContent = nextVal;
+        leafBottomSpan.textContent = nextVal;
+
+        cardEl.classList.remove('is-flipping');
+        void cardEl.offsetWidth; // Trigger reflow
+        cardEl.classList.add('is-flipping');
+
+        setTimeout(() => {
+          bottomSpan.textContent = nextVal;
+        }, 450);
+      }
     }
   }
 

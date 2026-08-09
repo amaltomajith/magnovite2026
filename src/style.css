@@ -2083,44 +2083,44 @@ select.form-control option {
   border-radius: 9999px;
 }
 
+/* ============================================================
+   COUNTDOWN FLIP CLOCK — 3D Split Flap Mechanical Falling Flip
+   Monochromatic Obsidian & Liquid Silver (0 Blue Tint)
+   ============================================================ */
 .hero-flip-clock-grid {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 .hero-flip-unit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.55rem;
 }
 
 .hero-flip-digits-pair {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .hero-flip-card {
   position: relative;
-  width: 52px;
-  height: 72px;
-  background: linear-gradient(180deg, #181c28 0%, #0d0f17 100%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 54px;
+  height: 76px;
+  background: #111113;
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 12px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 10px 24px rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 14px 28px rgba(0, 0, 0, 0.85);
+  perspective: 400px;
   overflow: hidden;
-  perspective: 300px;
 }
 
-.hero-flip-card.flip-anim {
-  animation: fallFlip 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
+/* Horizontal Center Split Hinge Line */
 .hero-flip-card::after {
   content: '';
   position: absolute;
@@ -2128,34 +2128,109 @@ select.form-control option {
   left: 0;
   right: 0;
   height: 2px;
-  background: #06070a;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
-  z-index: 10;
+  margin-top: -1px;
+  background: #050505;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+  z-index: 25;
 }
 
-.hero-flip-card .flip-val {
+/* Static and Flipping Card Halves */
+.flip-top,
+.flip-bottom,
+.flip-leaf-top,
+.flip-leaf-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #1f1f23 0%, #111113 100%);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-top,
+.flip-leaf-top {
+  top: 0;
+  height: 50%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.7);
+  transform-origin: 50% 100%;
+}
+
+.flip-top span,
+.flip-leaf-top span {
+  position: absolute;
+  top: 0;
+  height: 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-heading), monospace;
   font-size: 2.6rem;
   font-weight: 900;
   color: #ffffff;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-  line-height: 1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+.flip-bottom,
+.flip-leaf-bottom {
+  bottom: 0;
+  height: 50%;
+  transform-origin: 50% 0%;
+}
+
+.flip-bottom span,
+.flip-leaf-bottom span {
+  position: absolute;
+  bottom: 0;
+  height: 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading), monospace;
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+/* 3D Falling Flip Keyframe Animations */
+.hero-flip-card.is-flipping .flip-leaf-top {
+  animation: flipFoldTop 0.22s ease-in forwards;
+  z-index: 10;
+}
+
+.hero-flip-card.is-flipping .flip-leaf-bottom {
+  animation: flipUnfoldBottom 0.22s 0.2s ease-out forwards;
+  z-index: 10;
+}
+
+@keyframes flipFoldTop {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-90deg); }
+}
+
+@keyframes flipUnfoldBottom {
+  0% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0deg); }
 }
 
 .hero-flip-colon {
   font-family: monospace;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.3rem;
   animation: whitePulse 1.5s infinite;
 }
 
 .hero-flip-label {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 800;
-  letter-spacing: 0.18em;
-  color: #94a3b8;
+  letter-spacing: 0.16em;
+  color: #a1a1aa; /* Neutral zinc 400 (0 blue tint) */
 }
 
 .apple-btn-white {
@@ -2700,36 +2775,40 @@ select.form-control option {
   }
 
   .hero-flip-clock-grid {
-    gap: 0.55rem;
+    gap: 0.4rem;
     flex-wrap: nowrap;
   }
 
   .hero-flip-card {
-    width: 38px;
+    width: 36px;
     height: 52px;
     border-radius: 8px;
   }
 
-  .hero-flip-card .flip-val {
-    font-size: 1.8rem;
+  .flip-top span,
+  .flip-bottom span,
+  .flip-leaf-top span,
+  .flip-leaf-bottom span {
+    font-size: 1.75rem;
   }
 
   .hero-flip-digits-pair {
-    gap: 0.25rem;
+    gap: 0.2rem;
   }
 
   .hero-flip-colon {
-    font-size: 1.4rem;
-    margin-bottom: 1.1rem;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
   }
 
   .hero-flip-label {
-    font-size: 0.58rem;
-    letter-spacing: 0.12em;
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+    color: #a1a1aa;
   }
 
   .hero-flip-unit {
-    gap: 0.5rem;
+    gap: 0.45rem;
   }
 
   /* ---- Inner Page Containers ---- */
