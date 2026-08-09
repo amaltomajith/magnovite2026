@@ -762,6 +762,16 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   padding: 0.65rem 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+.mega-map-container:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
 
 .mega-map-header {
@@ -791,7 +801,7 @@ body {
   transition: var(--transition);
 }
 
-.mega-map-open-link:hover {
+.mega-map-container:hover .mega-map-open-link {
   color: #ff9d5c;
 }
 
@@ -851,43 +861,6 @@ body {
 .mega-flip-clock-grid .hero-flip-label {
   font-size: 0.55rem;
 }
-
-/* Download Brochure Button — exact match to .mega-comp-btn */
-.mega-brochure-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background: #ffffff;
-  color: #080a0f;
-  font-family: var(--font-heading);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  padding: 0.65rem 1rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  transition: all 0.25s ease;
-  width: 100%;
-}
-
-.mega-brochure-btn:hover {
-  background: var(--accent-orange);
-  color: #ffffff;
-  box-shadow: 0 6px 24px rgba(249, 115, 22, 0.45);
-}
-
-.mega-brochure-btn .mega-comp-btn-arrow {
-  font-size: 0.85rem;
-  transition: transform 0.2s ease;
-}
-
-.mega-brochure-btn:hover .mega-comp-btn-arrow {
-  transform: translate(2px, -2px);
-}
-
-
 
 /* Right Column: Spacious Showcase Hero Card */
 .mega-hero-card {
