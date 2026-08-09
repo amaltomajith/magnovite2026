@@ -272,130 +272,129 @@ body {
   }
 }
 
-/* Right Column: Creative Showcase Panel */
+/* Right Column: Impressive Venue & Date Map Panel inside Opened Menu */
 .mega-showcase-panel {
-  background: rgba(18, 18, 22, 0.75);
+  background: rgba(18, 18, 22, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
-  padding: 1.8rem 1.8rem 1.6rem;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  padding: 1.6rem;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.18);
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.1rem;
 }
 
-.mega-showcase-header {
+.mega-event-info-card {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 0.85rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1.1rem 1.2rem;
 }
 
-.mega-showcase-badge {
-  font-size: 0.68rem;
+.mega-date-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.mega-date-sub {
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #ffb703;
+}
+
+.mega-date-title {
+  font-family: var(--font-heading);
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0;
+  background: linear-gradient(135deg, #ffffff 40%, rgba(255, 255, 255, 0.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mega-venue-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mega-venue-label {
+  font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.14em;
-  color: #ffb703;
-  background: rgba(255, 183, 3, 0.12);
-  border: 1px solid rgba(255, 183, 3, 0.25);
-  padding: 0.3rem 0.75rem;
-  border-radius: 9999px;
+  color: var(--text-secondary);
 }
 
-.mega-showcase-concert {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.mega-showcase-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 25%;
-  transition: transform 0.4s ease;
-}
-
-.mega-showcase-concert:hover .mega-showcase-img {
-  transform: scale(1.05);
-}
-
-.mega-showcase-concert-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.85) 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0.9rem 1.1rem;
-}
-
-.mega-concert-tag {
-  font-size: 0.58rem;
+.mega-venue-name {
   font-weight: 800;
-  letter-spacing: 0.15em;
-  color: #ff9d5c;
-  margin-bottom: 0.2rem;
-}
-
-.mega-concert-title {
-  font-weight: 800;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   color: #ffffff;
   margin: 0;
 }
 
-.mega-stats-mini-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.6rem;
-}
-
-.mega-stat-box {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 10px;
-  padding: 0.55rem 0.6rem;
-  text-align: center;
-}
-
-.mega-stat-val {
-  font-size: 1.05rem;
-  font-weight: 900;
-  color: #ffffff;
-  display: block;
-}
-
-.mega-stat-lbl {
-  font-size: 0.58rem;
-  font-weight: 700;
+.mega-venue-sub {
+  font-size: 0.74rem;
   color: var(--text-secondary);
-  letter-spacing: 0.08em;
+  line-height: 1.35;
 }
 
-.mega-showcase-btn {
+/* Dark Theme Embedded Google Map */
+.mega-map-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 8.5;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+.mega-map-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  filter: invert(90%) hue-rotate(180deg) contrast(1.1) brightness(0.9);
+  transition: filter 0.3s ease;
+}
+
+.mega-map-container:hover .mega-map-iframe {
+  filter: invert(90%) hue-rotate(180deg) contrast(1.2) brightness(0.95);
+}
+
+.mega-brochure-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   padding: 0.75rem 1.2rem;
   border-radius: 9999px;
-  background: #ffffff;
-  color: #000000;
-  font-weight: 800;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  font-weight: 700;
   font-size: 0.82rem;
   text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
   transition: var(--transition);
 }
 
-.mega-showcase-btn:hover {
-  background: #ffb703;
-  color: #000000;
+.mega-brochure-btn:hover {
+  background: rgba(255, 183, 3, 0.15);
+  border-color: rgba(255, 183, 3, 0.4);
+  color: #ffb703;
   transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(255, 183, 3, 0.35);
+  box-shadow: 0 8px 24px rgba(255, 183, 3, 0.15);
 }
 
 /* Modern Centered Navigation Links */
