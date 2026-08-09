@@ -254,15 +254,25 @@ body {
 
 .mega-menu-inner {
   width: 100%;
-  max-width: 980px;
+  max-width: 1300px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1.75rem;
   align-items: stretch;
 }
 
-@media (max-width: 868px) {
+@media (max-width: 1024px) {
+  .mega-menu-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .mega-identity-card {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
   .mega-menu-inner {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -371,6 +381,228 @@ body {
   opacity: 1;
   transform: translate(0, 0);
 }
+
+/* Middle Column: Magnovite Identity Card — Editorial Redesign */
+.mega-identity-card {
+  background: rgba(18, 18, 22, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 1.4rem;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0;
+  height: 100%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle corner accent lines */
+.mega-identity-card::before,
+.mega-identity-card::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+}
+.mega-identity-card::before {
+  top: 14px; left: 14px;
+  border-top: 1.5px solid rgba(249, 115, 22, 0.35);
+  border-left: 1.5px solid rgba(249, 115, 22, 0.35);
+  border-radius: 4px 0 0 0;
+}
+.mega-identity-card::after {
+  bottom: 14px; right: 14px;
+  border-bottom: 1.5px solid rgba(249, 115, 22, 0.35);
+  border-right: 1.5px solid rgba(249, 115, 22, 0.35);
+  border-radius: 0 0 4px 0;
+}
+
+/* Top eyebrow: "CHRIST UNIVERSITY PRESENTS" with lines */
+.mega-id-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.1rem 0.2rem;
+  margin-bottom: 0.5rem;
+}
+.mega-id-eyebrow-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.mega-id-eyebrow-text {
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Hero centre: logo + wordmark */
+.mega-id-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  flex: 1;
+  justify-content: center;
+  padding: 0.6rem 0;
+}
+
+.mega-identity-logo {
+  width: 64px;
+  height: auto;
+  opacity: 0.95;
+}
+
+.mega-identity-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.mega-identity-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #ffffff 30%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  line-height: 1;
+}
+
+.mega-identity-year {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.38em;
+  color: var(--accent-orange);
+  opacity: 0.8;
+}
+
+/* Orange gradient rule below hero */
+.mega-identity-divider {
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(249, 115, 22, 0.5), transparent);
+  margin: 0.6rem auto;
+}
+
+/* Stats: horizontal 4-column strip */
+.mega-identity-stats {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1fr;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 0.75rem 0.4rem;
+  margin: 0.1rem 0;
+}
+
+.mega-identity-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.mega-id-stat-sep {
+  width: 1px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mega-identity-stat-num {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.mega-identity-stat-lbl {
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Bottom: instagram + edition pill */
+.mega-id-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  gap: 0.5rem;
+}
+
+.mega-id-instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease;
+}
+.mega-id-instagram:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+.mega-id-instagram svg {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+.mega-id-instagram:hover svg {
+  opacity: 1;
+}
+
+.mega-identity-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  padding: 0.3rem 0.7rem;
+  white-space: nowrap;
+}
+
+.mega-identity-badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+  animation: blink-dot 1.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes blink-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
 
 /* Right Column: Twin Glass Panel for Showcase Info */
 .mega-showcase-panel {
