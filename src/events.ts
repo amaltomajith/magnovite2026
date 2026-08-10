@@ -211,8 +211,10 @@ function escapeHtml(str: string): string {
 }
 
 import { initNavigation } from './navigation';
+import { initGalaxySky } from './galaxySky';
 
 document.addEventListener('DOMContentLoaded', () => {
+  initGalaxySky();
   initSearchListener();
   renderCategories();
   renderEvents();

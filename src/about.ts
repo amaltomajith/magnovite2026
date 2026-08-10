@@ -1,7 +1,9 @@
 import { initNavigation } from './navigation';
+import { initGalaxySky } from './galaxySky';
 
 document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
+  initGalaxySky();
   initAboutPromoInlinePlayer();
 });
 

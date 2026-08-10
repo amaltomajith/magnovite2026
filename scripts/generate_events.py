@@ -1072,13 +1072,13 @@ html_template = '''<!DOCTYPE html>
           <a href="/events.html" class="btn-primary" style="display: inline-flex; width: auto; padding: 0.55rem 1.25rem; font-size: 0.85rem; text-decoration: none; border-radius: 999px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);">
             ← Back to Events
           </a>
-          <span class="card-badge" style="font-size: 0.8rem; padding: 0.4rem 0.95rem; letter-spacing: 0.12em; background: linear-gradient(135deg, rgba(249, 115, 22, 0.18), rgba(234, 88, 12, 0.08)); border: 1px solid rgba(249, 115, 22, 0.3); text-transform: uppercase;">{category}</span>
+          <span class="card-badge" style="font-size: 0.8rem; padding: 0.4rem 0.95rem; letter-spacing: 0.12em; background: linear-gradient(135deg, rgba(99, 102, 241, 0.18), rgba(124, 58, 237, 0.08)); border: 1px solid rgba(99, 102, 241, 0.3); color: #a78bfa; text-transform: uppercase;">{category}</span>
         </div>
 
         <!-- Clean Bold Title & Tagline -->
         <div style="margin-bottom: 2rem;">
           <h1 class="page-title" style="font-size: clamp(2.4rem, 5.5vw, 4rem); font-weight: 900; color: #ffffff; letter-spacing: -0.02em; margin-bottom: 0.6rem;">{title}</h1>
-          <p style="font-size: 1.2rem; color: #ff9d5c; font-weight: 500; line-height: 1.4; max-width: 800px; margin: 0;">{tagline}</p>
+          <p style="font-size: 1.2rem; color: #a78bfa; font-weight: 500; line-height: 1.4; max-width: 800px; margin: 0;">{tagline}</p>
         </div>
 
         <!-- Showcase Hero Image (Prominent position below Title Header) -->
@@ -1129,9 +1129,9 @@ html_template = '''<!DOCTYPE html>
           <div class="event-sidebar-sticky" style="display: flex; flex-direction: column; gap: 1.5rem; position: sticky; top: 6rem;">
             
             <!-- Prize Pool Card -->
-            <div class="modal-prize-card" style="background: linear-gradient(135deg, rgba(249, 115, 22, 0.16) 0%, rgba(234, 88, 12, 0.06) 100%); border: 1px solid rgba(249, 115, 22, 0.35); border-radius: 18px; padding: 1.5rem 1.75rem; margin: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; box-shadow: 0 10px 30px rgba(249, 115, 22, 0.12);">
-              <span class="modal-prize-label" style="font-size: 0.78rem; letter-spacing: 0.15em; color: #ff9d5c; font-weight: 800; text-transform: uppercase;">TOTAL PRIZE POOL</span>
-              <div class="modal-prize-amount" style="font-family: var(--font-heading); font-size: 2.4rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 16px rgba(249, 115, 22, 0.4);">{prize}</div>
+            <div class="modal-prize-card" style="background: linear-gradient(135deg, rgba(99, 102, 241, 0.16) 0%, rgba(124, 58, 237, 0.06) 100%); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 18px; padding: 1.5rem 1.75rem; margin: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.15);">
+              <span class="modal-prize-label" style="font-size: 0.78rem; letter-spacing: 0.15em; color: #a78bfa; font-weight: 800; text-transform: uppercase;">TOTAL PRIZE POOL</span>
+              <div class="modal-prize-amount" style="font-family: var(--font-heading); font-size: 2.4rem; font-weight: 900; color: #ffffff; text-shadow: 0 0 16px rgba(99, 102, 241, 0.4);">{prize}</div>
             </div>
 
             <!-- Key Info Metrics -->
@@ -1164,7 +1164,7 @@ html_template = '''<!DOCTYPE html>
 
             <!-- SINGLE PRIMARY REGISTER BUTTON -->
             <!-- TODO: paste Google Form link here -->
-            <a href="#" class="btn-primary modal-register-btn" data-register-link="PENDING" style="display: inline-flex; width: 100%; justify-content: center; padding: 1.1rem; font-size: 1.05rem; text-decoration: none; border-radius: 999px; box-shadow: 0 10px 30px rgba(249, 115, 22, 0.35);">
+            <a href="#" class="btn-primary modal-register-btn" data-register-link="PENDING" style="display: inline-flex; width: 100%; justify-content: center; padding: 1.1rem; font-size: 1.05rem; text-decoration: none; border-radius: 999px; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35); background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);">
               <span>Register Now</span> ↗
             </a>
 
@@ -1189,11 +1189,11 @@ for ev in events_data:
     rounds_html = ''
     if ev.get('round_details'):
         rounds_html = ''.join([
-            f'<div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.07); padding: 1.1rem 1.25rem; border-radius: 14px;"><strong style="color: #ff9d5c; font-size: 1rem; display: block; margin-bottom: 0.35rem;">{rd["title"]}</strong><p style="color: #cfcfcf; font-size: 0.88rem; margin: 0; line-height: 1.5;">{rd["desc"]}</p></div>'
+            f'<div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.07); padding: 1.1rem 1.25rem; border-radius: 14px;"><strong style="color: #a78bfa; font-size: 1rem; display: block; margin-bottom: 0.35rem;">{rd["title"]}</strong><p style="color: #cfcfcf; font-size: 0.88rem; margin: 0; line-height: 1.5;">{rd["desc"]}</p></div>'
             for rd in ev['round_details']
         ])
     else:
-        rounds_html = f'<div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.07); padding: 1.1rem 1.25rem; border-radius: 14px;"><strong style="color: #ff9d5c; font-size: 1rem; display: block; margin-bottom: 0.35rem;">Event Structure</strong><p style="color: #cfcfcf; font-size: 0.88rem; margin: 0;">{ev["rounds"]}</p></div>'
+        rounds_html = f'<div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.07); padding: 1.1rem 1.25rem; border-radius: 14px;"><strong style="color: #a78bfa; font-size: 1rem; display: block; margin-bottom: 0.35rem;">Event Structure</strong><p style="color: #cfcfcf; font-size: 0.88rem; margin: 0;">{ev["rounds"]}</p></div>'
 
     faqs_html = ''.join([
         f'<div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 1rem 1.25rem; border-radius: 12px;"><strong style="color: #fff; font-size: 0.95rem;">Q: {f["q"]}</strong><p style="color: var(--text-secondary); margin-top: 0.35rem; font-size: 0.88rem; margin-bottom: 0;">A: {f["a"]}</p></div>'

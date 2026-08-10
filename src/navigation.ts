@@ -1,7 +1,12 @@
+import { initGalaxySky } from './galaxySky';
+
 // Navigation & Full Overlay Mega Menu Script
 export function initNavigation() {
   const toggleBtn = document.getElementById('menu-toggle');
   const overlay = document.getElementById('mega-menu-overlay');
+
+  // Initialize realistic live galaxy sky for hero sections
+  initGalaxySky();
 
   if (!toggleBtn || !overlay) return;
 
