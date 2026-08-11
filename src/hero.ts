@@ -61,7 +61,7 @@ function initHero3D() {
 
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.86;
+  renderer.toneMappingExposure = 0.65;
 
   const composer = new EffectComposer(renderer);
   const renderPass = new RenderPass(scene, camera);
@@ -69,7 +69,7 @@ function initHero3D() {
 
   const bloomPass = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
-    0.22, // strength tuned for subtle luxury cosmic glow without over-exposure
+    0.14, // strength tuned for subtle luxury cosmic glow without over-exposure
     0.35, // radius
     0.85  // threshold
   );
@@ -171,10 +171,21 @@ function initHero3D() {
 
   let targetRawIndex = 0;
   let currentSmoothRawIndex = 0;
+
+  // Lock the initial viewport height so mobile browser-chrome hide/show
+  // (address bar collapsing on first scroll) doesn't jump rawIndex.
+  // We capture height ASAP before any chrome animation fires.
   let stableViewportHeight = window.innerHeight;
   let cachedMaxScroll = Math.max(document.body.scrollHeight - stableViewportHeight, 1);
 
+  // Suppress resize-based recalculation for the first 1.5 s on mobile.
+  // The address bar hides within ~400 ms of the first scroll; after that
+  // the new stable height is safe to use.
+  let _scrollStabilized = !isMobileDevice;
+  setTimeout(() => { _scrollStabilized = true; }, 1500);
+
   function recalculateMaxScroll() {
+    if (!_scrollStabilized) return; // ignore chrome-hide resize on mobile
     stableViewportHeight = window.innerHeight;
     cachedMaxScroll = Math.max(document.body.scrollHeight - stableViewportHeight, 1);
   }
@@ -288,9 +299,9 @@ function initHero3D() {
       }
     });
 
-    if (Math.abs(rawIndex - 3) > 0.65) {
-      pauseHeroPromoVideo();
-    }
+    // Pause/remove promo video when not near step 3 to stop audio on mobile
+    const nearStep3 = Math.abs(rawIndex - 3) <= 0.65;
+    manageHeroPromoVideo(nearStep3);
 
     const nearestIdx = Math.round(rawIndex);
     sectionDots.forEach((dot, idx) => {
@@ -470,10 +481,27 @@ function initHero3D() {
     })
     .catch(() => { finishLoadingAndWarmup(); });
 
+  function updateCameraFov() {
+    const aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = aspect;
+    if (aspect < 1.4) {
+      // Maintain horizontal field of view across portrait and narrow aspect ratios so background model/galaxy remains prominent
+      const refFovRad = (55 * Math.PI) / 180;
+      const refAspect = 1.4;
+      const hFovRad = 2 * Math.atan(Math.tan(refFovRad / 2) * refAspect);
+      const targetFovRad = 2 * Math.atan(Math.tan(hFovRad / 2) / aspect);
+      camera.fov = Math.min(82, (targetFovRad * 180) / Math.PI);
+    } else {
+      camera.fov = 55;
+    }
+    camera.updateProjectionMatrix();
+  }
+
+  updateCameraFov();
+
   function onWindowResize() {
     isMobileDevice = checkMobile();
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+    updateCameraFov();
     renderer.setSize(window.innerWidth, window.innerHeight);
     composer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(isMobileDevice ? 1.0 : Math.min(window.devicePixelRatio, 2));
@@ -607,35 +635,63 @@ function initHeroCountdown() {
   setInterval(updateTimer, 1000);
 }
 
-function pauseHeroPromoVideo() {
-  const iframe = document.getElementById('hero-promo-iframe') as HTMLIFrameElement | null;
-  if (iframe && iframe.contentWindow) {
-    try {
-      iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-    } catch (_) {}
+// Track whether the promo video (iframe) is currently playing
+let _promoVideoActive = false;
+let _promoContainerSnapshot: string | null = null; // original thumbnail HTML
+
+function manageHeroPromoVideo(nearStep3: boolean) {
+  const container = document.getElementById('hero-promo-container');
+  if (!container) return;
+
+  if (!nearStep3 && _promoVideoActive) {
+    // ── Scrolled away: kill iframe to stop audio completely ─────────────────
+    const iframe = container.querySelector('#hero-promo-iframe') as HTMLIFrameElement | null;
+    if (iframe) {
+      // Try postMessage pause first (graceful)
+      try {
+        iframe.contentWindow?.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      } catch (_) {}
+      // Then remove iframe from DOM to guarantee silence on mobile
+      setTimeout(() => {
+        if (container && _promoContainerSnapshot) {
+          container.innerHTML = _promoContainerSnapshot;
+          _promoVideoActive = false;
+          initPromoInlinePlayer(); // re-bind click handler
+        }
+      }, 80);
+    }
   }
 }
 
 function initPromoInlinePlayer() {
   const playBtn = document.getElementById('hero-play-promo-btn');
   const container = document.getElementById('hero-promo-container');
-  if (playBtn && container) {
-    playBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      container.innerHTML = `
-        <div style="position: relative; width: 100%; aspect-ratio: 16 / 7.5; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8); background: #000;">
-          <iframe id="hero-promo-iframe"
-                  src="https://www.youtube-nocookie.com/embed/EGSUtEnfX9g?autoplay=1&enablejsapi=1&rel=0" 
-                  title="Magnovite 2026 Official Promo" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                  allowfullscreen 
-                  style="width: 100%; height: 100%; border: none; display: block;">
-          </iframe>
-        </div>
-      `;
-    });
+  if (!playBtn || !container) return;
+
+  // Snapshot the original thumbnail HTML so we can restore it later
+  if (!_promoContainerSnapshot) {
+    _promoContainerSnapshot = container.innerHTML;
   }
+
+  const newPlayBtn = playBtn.cloneNode(true) as HTMLElement;
+  playBtn.parentNode?.replaceChild(newPlayBtn, playBtn);
+
+  newPlayBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    _promoVideoActive = true;
+    container.innerHTML = `
+      <div style="position: relative; width: 100%; aspect-ratio: 16 / 7.5; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8); background: #000;">
+        <iframe id="hero-promo-iframe"
+                src="https://www.youtube-nocookie.com/embed/EGSUtEnfX9g?autoplay=1&enablejsapi=1&rel=0" 
+                title="Magnovite 2026 Official Promo" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen 
+                style="width: 100%; height: 100%; border: none; display: block;">
+        </iframe>
+      </div>
+    `;
+  });
 }
 
 import { initNavigation } from './navigation';

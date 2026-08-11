@@ -40,7 +40,7 @@ body {
    ============================================================ */
 
 /* Page needs height so the browser scroll bar exists */
-.hero-page-body { min-height: 800vh; background: #040404; }
+.hero-page-body { min-height: 800vh; background: #040404; overscroll-behavior-y: none; }
 
 .dbg-title {
   font-weight: 700;
@@ -1750,7 +1750,10 @@ body {
   right: 0;
   bottom: 0;
   width: 100vw;
+  /* svh = small viewport height (excludes browser chrome) — prevents layout jump on mobile
+     when address bar hides. dvh = dynamic, used as progressive enhancement. */
   height: 100vh;
+  height: 100svh;
   height: 100dvh;
   overflow: hidden;
   background-color: #040404;
@@ -3888,16 +3891,26 @@ select.form-control option {
 
   /* ---- Mega Menu Mobile ---- */
   .mega-menu-overlay {
+    /* Use svh so overlay height is stable even as browser chrome hides */
     padding: 4.5rem 1rem 2.5rem;
     align-items: flex-start;
     height: 100vh;
+    height: 100svh;
     height: 100dvh;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
 
   .mega-menu-inner {
     max-width: 100%;
     gap: 1.25rem;
+    /* Stack to single column and only show nav links + identity on mobile */
+    grid-template-columns: 1fr;
+  }
+
+  /* Hide the map/countdown showcase panel on mobile — nav links + event info are enough */
+  .mega-showcase-panel {
+    display: none;
   }
 
   .mega-nav-links {
@@ -3919,8 +3932,10 @@ select.form-control option {
 
   /* ---- Hero Page Body ---- */
   .hero-page-body {
-    /* Keep 800vh — scroll length stays the same for the 3D journey */
-    min-height: 800vh;
+    /* 800svh uses the SMALL viewport (browser chrome visible) — stays stable
+       when address bar hides, matching the JS cachedMaxScroll calculation */
+    min-height: 800svh;
+    min-height: 800dvh; /* progressive enhancement: dynamic if svh unsupported */
   }
 
   /* ---- Hero Overlay Container ---- */
