@@ -82,7 +82,10 @@ function initHero3D() {
 
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   let isReducedMotion = motionQuery.matches;
-  motionQuery.addEventListener('change', (e) => { isReducedMotion = e.matches; });
+  motionQuery.addEventListener('change', (e) => {
+    isReducedMotion = e.matches;
+    requestHeroFrame();
+  });
 
   const starSprite = createStarSprite();
 
@@ -109,13 +112,12 @@ function initHero3D() {
   // Pre-cached step card elements to avoid DOM tree querying during high-FPS scroll loop
   interface StepCardItem {
     el: HTMLElement;
-    innerContent: HTMLElement | null;
     officialLogoYear: HTMLElement | null;
-    isGlassCard: boolean;
-    glassCard: HTMLElement | null;        // direct .premium-glass-card child for opacity
-    lastVisStr: string;
-    lastSlideYStr: string;
-    lastTransformStr: string;
+    glassCard: HTMLElement | null;
+    glassFadeInner: HTMLElement | null;
+    glassShimmer: HTMLElement | null;
+    lastRenderKey: string;
+    lastGlassSurfaceKey: string;
   }
 
   const stepCardItems: StepCardItem[] = Array.from(
@@ -127,13 +129,12 @@ function initHero3D() {
     const officialLogoYear = el.querySelector('.official-logo-year') as HTMLElement | null;
     return {
       el,
-      innerContent,
       officialLogoYear,
-      isGlassCard,
       glassCard,
-      lastVisStr: '',
-      lastSlideYStr: '',
-      lastTransformStr: ''
+      glassFadeInner: glassCard?.querySelector<HTMLElement>('.pgc-fade-inner') ?? null,
+      glassShimmer: glassCard?.querySelector<HTMLElement>('.pgc-shimmer') ?? null,
+      lastRenderKey: '',
+      lastGlassSurfaceKey: ''
     };
   });
 
@@ -171,6 +172,7 @@ function initHero3D() {
 
   let targetRawIndex = 0;
   let currentSmoothRawIndex = 0;
+  let wasNearStep3: boolean | null = null;
 
   // Lock the initial viewport height so mobile browser-chrome hide/show
   // (address bar collapsing on first scroll) doesn't jump rawIndex.
@@ -248,15 +250,15 @@ function initHero3D() {
       const slideYStr = slideY.toFixed(1);
       const scaleStr = scale.toFixed(3);
 
-      const { el, glassCard, officialLogoYear } = item;
+      const { el, glassCard, glassFadeInner, glassShimmer, officialLogoYear } = item;
 
       // Skip DOM mutation if state has not changed
       const mouseKey = idx === 2 && !isMobileDevice ? `${(mouseX*10).toFixed(0)}_${(mouseY*10).toFixed(0)}` : '0_0';
       const cacheKey = `${visStr}_${slideYStr}_${scaleStr}_${mouseKey}`;
-      if (cacheKey === item.lastVisStr) {
+      if (cacheKey === item.lastRenderKey) {
         return;
       }
-      item.lastVisStr = cacheKey;
+      item.lastRenderKey = cacheKey;
 
       const isVisible = vis > 0.001;
 
@@ -280,16 +282,48 @@ function initHero3D() {
         transformStr += ` perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)`;
       }
 
-      el.style.transform = transformStr;
-
-      // Fade the glass card itself (not the wrapper) to preserve backdrop-filter context
       if (glassCard) {
-        glassCard.style.opacity = visStr;
+        // Fade the glass element itself, never its wrapper. A wrapper opacity
+        // creates a backdrop root that hides the canvas from the child filter;
+        // direct card opacity keeps the frosted WebGL blur intact.
+        //
+        // Quantizing to 2% avoids modifying the large filtered surface on every
+        // scroll frame, while keeping the card/text fade visually continuous.
+        el.style.transform = 'none';
+
+        const glassSurfaceVis = Math.round(vis * 50) / 50;
+        const glassSurfaceKey = glassSurfaceVis.toFixed(2);
+        if (glassSurfaceKey !== item.lastGlassSurfaceKey) {
+          item.lastGlassSurfaceKey = glassSurfaceKey;
+          glassCard.style.opacity = glassSurfaceKey;
+        }
+
+        const glassContentTransform = `translate3d(0, ${slideYStr}px, 0)`;
+        if (glassFadeInner) {
+          glassFadeInner.style.opacity = '1';
+          glassFadeInner.style.transform = glassContentTransform;
+        }
+        if (glassShimmer) {
+          glassShimmer.style.opacity = '1';
+          glassShimmer.style.transform = glassContentTransform;
+        }
       } else {
-        // Non-glass cards (steps 0, 1, 2): fade all top-level child elements (logo emblem + text mark)
+        el.style.transform = transformStr;
+        // Non-glass cards: fade top-level children; step 6 subtext trails in after main line
+        const excitedSub = idx === 6
+          ? el.querySelector<HTMLElement>('.hero-excited-sub')
+          : null;
+
         Array.from(el.children).forEach((child) => {
+          if (excitedSub && child === excitedSub) return;
           (child as HTMLElement).style.opacity = visStr;
         });
+
+        if (excitedSub) {
+          const subVis = Math.max(0, (vis - 0.22) / 0.78);
+          excitedSub.style.opacity = (subVis * vis).toFixed(3);
+          excitedSub.style.transform = `translate3d(0, ${(10 * (1 - subVis)).toFixed(1)}px, 0)`;
+        }
       }
 
       if (idx === 2 && officialLogoYear) {
@@ -299,9 +333,13 @@ function initHero3D() {
       }
     });
 
-    // Pause/remove promo video when not near step 3 to stop audio on mobile
+    // Pause/remove the promo only when crossing the step boundary. Calling this
+    // on every animation frame can queue many DOM restores while scrolling away.
     const nearStep3 = Math.abs(rawIndex - 3) <= 0.65;
-    manageHeroPromoVideo(nearStep3);
+    if (nearStep3 !== wasNearStep3) {
+      wasNearStep3 = nearStep3;
+      manageHeroPromoVideo(nearStep3);
+    }
 
     const nearestIdx = Math.round(rawIndex);
     sectionDots.forEach((dot, idx) => {
@@ -311,7 +349,10 @@ function initHero3D() {
     if (scrollBar) scrollBar.style.height = `${scrollFrac * 100}%`;
   }
 
-  window.addEventListener('scroll', updateRawIndexFromScroll, { passive: true });
+  window.addEventListener('scroll', () => {
+    updateRawIndexFromScroll();
+    requestHeroFrame();
+  }, { passive: true });
 
   // Progress update helper
   function updateProgressUI(pct: number) {
@@ -467,6 +508,7 @@ function initHero3D() {
             });
 
             scene.add(heroModel);
+            requestHeroFrame();
           },
           undefined,
           (err) => {
@@ -505,6 +547,8 @@ function initHero3D() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     composer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(isMobileDevice ? 1.0 : Math.min(window.devicePixelRatio, 2));
+    updateRawIndexFromScroll();
+    requestHeroFrame();
   }
   window.addEventListener('resize', onWindowResize);
 
@@ -517,39 +561,66 @@ function initHero3D() {
     window.addEventListener('mousemove', (e) => {
       targetMouseX = (e.clientX / window.innerWidth - 0.5) * 2;
       targetMouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      requestHeroFrame();
     }, { passive: true });
   }
 
   const smoothCamPos    = currentCamPos.clone();
   const smoothCamTarget = currentCamTarget.clone();
+  const interactiveCamPos = currentCamPos.clone();
   let   smoothModelRotY = 0;
+  let heroFrameRequested = false;
 
-  updateRawIndexFromScroll();
-  currentSmoothRawIndex = targetRawIndex;
-  updateFromScroll(currentSmoothRawIndex);
+  function requestHeroFrame() {
+    if (heroFrameRequested) return;
+    heroFrameRequested = true;
+    requestAnimationFrame(renderHeroFrame);
+  }
 
-  function animate() {
-    requestAnimationFrame(animate);
+  function renderHeroFrame() {
+    heroFrameRequested = false;
 
-    updateRawIndexFromScroll();
-
-    if (!isMobileDevice) {
-      mouseX += (targetMouseX - mouseX) * 0.018;
-      mouseY += (targetMouseY - mouseY) * 0.018;
+    const rawDelta = targetRawIndex - currentSmoothRawIndex;
+    const hasPendingScroll = Math.abs(rawDelta) > 0.0001;
+    if (hasPendingScroll) {
+      currentSmoothRawIndex += rawDelta * (isReducedMotion ? 1.0 : 0.038);
+    } else {
+      currentSmoothRawIndex = targetRawIndex;
     }
 
-    const lerpSpeed = isReducedMotion ? 1.0 : 0.038;
-    currentSmoothRawIndex += (targetRawIndex - currentSmoothRawIndex) * lerpSpeed;
+    let hasPendingMouse = false;
+    if (!isMobileDevice) {
+      const mouseDeltaX = targetMouseX - mouseX;
+      const mouseDeltaY = targetMouseY - mouseY;
+      hasPendingMouse = Math.abs(mouseDeltaX) > 0.0005 || Math.abs(mouseDeltaY) > 0.0005;
+      if (hasPendingMouse) {
+        mouseX += mouseDeltaX * 0.05;
+        mouseY += mouseDeltaY * 0.05;
+      } else {
+        mouseX = targetMouseX;
+        mouseY = targetMouseY;
+      }
+    }
 
     updateFromScroll(currentSmoothRawIndex);
 
-    const speed = isReducedMotion ? 1.0 : 0.05;
+    const cameraSpeed = isReducedMotion ? 1.0 : 0.05;
+    const hasPendingCamera =
+      smoothCamPos.distanceToSquared(currentCamPos) > 0.00000001 ||
+      smoothCamTarget.distanceToSquared(currentCamTarget) > 0.00000001 ||
+      Math.abs(currentModelRotY - smoothModelRotY) > 0.00001;
 
-    smoothCamPos.lerp(currentCamPos, speed);
-    smoothCamTarget.lerp(currentCamTarget, speed);
-    smoothModelRotY += (currentModelRotY - smoothModelRotY) * speed;
+    if (hasPendingCamera) {
+      smoothCamPos.lerp(currentCamPos, cameraSpeed);
+      smoothCamTarget.lerp(currentCamTarget, cameraSpeed);
+      smoothModelRotY += (currentModelRotY - smoothModelRotY) * cameraSpeed;
+    } else {
+      smoothCamPos.copy(currentCamPos);
+      smoothCamTarget.copy(currentCamTarget);
+      smoothModelRotY = currentModelRotY;
+    }
 
-    const interactiveCamPos = smoothCamPos.clone();
+    interactiveCamPos.copy(smoothCamPos);
     if (!isMobileDevice) {
       interactiveCamPos.x += mouseX * 0.006;
       interactiveCamPos.y += -mouseY * 0.006;
@@ -565,9 +636,16 @@ function initHero3D() {
     } else {
       composer.render();
     }
+
+    if (hasPendingScroll || hasPendingMouse || hasPendingCamera) {
+      requestHeroFrame();
+    }
   }
 
-  animate();
+  updateRawIndexFromScroll();
+  currentSmoothRawIndex = targetRawIndex;
+  updateFromScroll(currentSmoothRawIndex);
+  requestHeroFrame();
 }
 
 // -----------------------------------------------------------------------
@@ -637,29 +715,34 @@ function initHeroCountdown() {
 
 // Track whether the promo video (iframe) is currently playing
 let _promoVideoActive = false;
+let _promoRestorePending = false;
 let _promoContainerSnapshot: string | null = null; // original thumbnail HTML
 
 function manageHeroPromoVideo(nearStep3: boolean) {
   const container = document.getElementById('hero-promo-container');
   if (!container) return;
 
-  if (!nearStep3 && _promoVideoActive) {
+  if (!nearStep3 && _promoVideoActive && !_promoRestorePending) {
     // ── Scrolled away: kill iframe to stop audio completely ─────────────────
+    _promoRestorePending = true;
     const iframe = container.querySelector('#hero-promo-iframe') as HTMLIFrameElement | null;
     if (iframe) {
       // Try postMessage pause first (graceful)
       try {
         iframe.contentWindow?.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
       } catch (_) {}
-      // Then remove iframe from DOM to guarantee silence on mobile
-      setTimeout(() => {
-        if (container && _promoContainerSnapshot) {
-          container.innerHTML = _promoContainerSnapshot;
-          _promoVideoActive = false;
-          initPromoInlinePlayer(); // re-bind click handler
-        }
-      }, 80);
     }
+
+    // Then remove iframe from DOM to guarantee silence on mobile. The pending
+    // guard prevents a scrolling render loop from scheduling duplicate restores.
+    setTimeout(() => {
+      if (_promoContainerSnapshot) {
+        container.innerHTML = _promoContainerSnapshot;
+        _promoVideoActive = false;
+        initPromoInlinePlayer(); // re-bind click handler
+      }
+      _promoRestorePending = false;
+    }, 80);
   }
 }
 
