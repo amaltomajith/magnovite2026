@@ -1,9 +1,12 @@
 // ============================================================
-// PHOTOREALISTIC DEEP SPACE NEBULA — Canvas Engine v5
-// Approach: multi-scale overlapping soft gradients create a
-// continuous volumetric cloud (not individual blobs).
-// Stars: simple point-light dots, no decorative spikes.
-// No spheres, no cartoonish effects.
+// AURORA BOREALIS — Canvas Engine v8
+// Column-based vertical ray renderer.
+// Each curtain = hundreds of thin vertical strips with
+// independent height + brightness driven by multi-octave noise.
+// This is how real northern lights actually look:
+// ragged upper edge, bright dense base, fading upward rays,
+// dark gaps between bright ray fingers.
+// Royal navy / indigo palette. Faint teal accent only.
 // ============================================================
 
 export function initGalaxySky() {
@@ -24,8 +27,313 @@ export function initGalaxySky() {
   let H = (canvas.height = heroSection.clientHeight);
   let animId = 0;
 
-  // ── STAR COLOURS (spectral, but no orange/warm — space nebula field) ──
-  const STAR_COLS = ['#ffffff','#eef2ff','#dde8ff','#ccd8ff','#f8f8ff'];
+  const STAR_COLS = ['#ffffff', '#eef2ff', '#dde8ff', '#ccd8ff', '#f0faff'];
+
+  interface Star {
+    x: number; y: number; r: number;
+    col: string; base: number; sp: number; ph: number;
+  }
+
+  // ── AURORA CURTAIN ───────────────────────────────────────────
+  // Rendered column-by-column. NOT as a horizontal polygon.
+  // baseY  = where the bright lower edge of curtain hangs (frac H)
+  // Each column independently computes ray height + intensity from noise.
+  interface Curtain {
+    baseY:    number;  // fractional Y of bright base edge at rest
+    baseWave: number;  // amplitude of vertical base oscillation (frac H)
+    baseFreq: number;  // spatial frequency of base wave
+    baseSpd:  number;  // animation speed of base wave
+    basePh:   number;  // initial phase
+
+    maxRayH:  number;  // max upward ray height (fraction of H)
+
+    // Multi-octave intensity noise → per-column brightness [0..1]
+    // Low freq harmonics = wide bright blobs, high freq = tight ray fingers
+    iFreqs: number[]; iAmps: number[]; iSpds: number[]; iPhs: number[]; iDirs: number[];
+    // Multi-octave ray-height noise → per-column vertical extent
+    rFreqs: number[]; rAmps: number[]; rSpds: number[]; rPhs: number[]; rDirs: number[];
+
+    cr: number; cg: number; cb: number;
+    alpha: number;       // peak alpha for brightest columns
+    pulseSpd: number; pulsePh: number;
+    // Slow horizontal drift of the whole curtain pattern
+    driftSpd: number; driftPh: number; driftW: number; // driftW in px
+  }
+
+  let stars: Star[] = [];
+  let curtains: Curtain[] = [];
+
+  // Sum-of-sinusoids pseudo-noise
+  function pNoise(
+    fx: number, t: number,
+    freqs: number[], amps: number[], spds: number[], phs: number[], dirs: number[]
+  ): number {
+    let v = 0;
+    for (let i = 0; i < freqs.length; i++) {
+      v += Math.sin(fx * Math.PI * 2 * freqs[i] + t * spds[i] * dirs[i] + phs[i]) * amps[i];
+    }
+    return v;
+  }
+
+  function build() {
+    stars = [];
+    const cnt = Math.min(480, Math.max(140, Math.floor(W * H / 1050)));
+    for (let i = 0; i < cnt; i++) {
+      const tier = Math.random();
+      const r = tier < 0.85 ? 0.14 + Math.random() * 0.28
+              : tier < 0.97 ? 0.38 + Math.random() * 0.40
+              :               0.78 + Math.random() * 0.52;
+      stars.push({
+        x: Math.random() * W, y: Math.random() * H, r,
+        col: STAR_COLS[Math.floor(Math.random() * STAR_COLS.length)],
+        base: 0.08 + Math.random() * 0.62,
+        sp:   0.0005 + Math.random() * 0.0022,
+        ph:   Math.random() * Math.PI * 2,
+      });
+    }
+
+    const WW = W || 1000;
+
+    // Six column-rendered aurora curtains.
+    // iFreqs: mixing LOW (wide blobs) + HIGH (tight fingers) gives the
+    // characteristic clumpy-yet-detailed aurora ray texture.
+    curtains = [
+      // 1. Wide indigo background base glow
+      {
+        baseY: 0.60, baseWave: 0.06, baseFreq: 1.4, baseSpd: 0.00010, basePh: 0.0,
+        maxRayH: 0.52,
+        iFreqs: [1.8, 4.5, 11.0, 26.0], iAmps: [0.30, 0.25, 0.25, 0.20],
+        iSpds:  [0.00012, 0.00028, 0.00058, 0.00115],
+        iPhs:   [0.0, 2.2, 4.8, 1.5], iDirs: [1, -1, 1, -1],
+        rFreqs: [1.5, 3.8, 9.0], rAmps: [0.38, 0.32, 0.30],
+        rSpds:  [0.00009, 0.00022, 0.00045],
+        rPhs:   [1.8, 0.5, 3.5], rDirs: [1, -1, 1],
+        cr: 30, cg: 55, cb: 210, alpha: 0.24,
+        pulseSpd: 0.00038, pulsePh: 0.0,
+        driftSpd: 0.00005, driftPh: 0.0, driftW: WW * 0.06,
+      },
+      // 2. Primary deep indigo/violet curtain (main show)
+      {
+        baseY: 0.52, baseWave: 0.08, baseFreq: 2.0, baseSpd: 0.00016, basePh: 1.5,
+        maxRayH: 0.44,
+        iFreqs: [2.5, 6.2, 15.0, 36.0], iAmps: [0.28, 0.27, 0.25, 0.20],
+        iSpds:  [0.00020, 0.00042, 0.00085, 0.00170],
+        iPhs:   [2.8, 0.6, 4.2, 3.0], iDirs: [-1, 1, -1, 1],
+        rFreqs: [2.2, 5.5, 13.0], rAmps: [0.36, 0.34, 0.30],
+        rSpds:  [0.00014, 0.00032, 0.00065],
+        rPhs:   [0.4, 3.2, 5.5], rDirs: [-1, 1, -1],
+        cr: 55, cg: 30, cb: 245, alpha: 0.38,
+        pulseSpd: 0.00060, pulsePh: 2.0,
+        driftSpd: 0.00009, driftPh: 2.5, driftW: WW * 0.05,
+      },
+      // 3. Royal cobalt filament (thin, bright, fast-moving rays)
+      {
+        baseY: 0.44, baseWave: 0.10, baseFreq: 2.8, baseSpd: 0.00025, basePh: 3.8,
+        maxRayH: 0.32,
+        iFreqs: [3.5, 8.5, 20.0, 46.0], iAmps: [0.24, 0.26, 0.26, 0.24],
+        iSpds:  [0.00032, 0.00068, 0.00135, 0.00270],
+        iPhs:   [5.0, 1.8, 3.0, 0.3], iDirs: [1, 1, -1, 1],
+        rFreqs: [3.0, 7.5, 18.0], rAmps: [0.34, 0.34, 0.32],
+        rSpds:  [0.00022, 0.00050, 0.00100],
+        rPhs:   [2.6, 5.1, 1.0], rDirs: [1, -1, 1],
+        cr: 12, cg: 85, cb: 255, alpha: 0.36,
+        pulseSpd: 0.00092, pulsePh: 3.8,
+        driftSpd: 0.00013, driftPh: 1.2, driftW: WW * 0.07,
+      },
+      // 4. Very faint teal-green whisper (the ONLY hint of green)
+      {
+        baseY: 0.40, baseWave: 0.12, baseFreq: 3.5, baseSpd: 0.00032, basePh: 5.5,
+        maxRayH: 0.24,
+        iFreqs: [4.5, 11.0, 26.0], iAmps: [0.34, 0.34, 0.32],
+        iSpds:  [0.00042, 0.00085, 0.00170],
+        iPhs:   [1.0, 3.8, 0.6], iDirs: [-1, 1, -1],
+        rFreqs: [4.0, 10.0], rAmps: [0.50, 0.50],
+        rSpds:  [0.00035, 0.00070],
+        rPhs:   [3.8, 1.4], rDirs: [-1, 1],
+        cr: 0, cg: 160, cb: 195, alpha: 0.16,
+        pulseSpd: 0.00075, pulsePh: 5.8,
+        driftSpd: 0.00017, driftPh: 4.5, driftW: WW * 0.04,
+      },
+      // 5. Violet/purple depth band
+      {
+        baseY: 0.56, baseWave: 0.07, baseFreq: 1.7, baseSpd: 0.00013, basePh: 2.2,
+        maxRayH: 0.40,
+        iFreqs: [2.2, 5.5, 13.0, 30.0], iAmps: [0.30, 0.28, 0.24, 0.18],
+        iSpds:  [0.00016, 0.00036, 0.00072, 0.00144],
+        iPhs:   [3.8, 0.3, 4.5, 2.2], iDirs: [1, -1, 1, -1],
+        rFreqs: [1.8, 4.5, 11.0], rAmps: [0.38, 0.32, 0.30],
+        rSpds:  [0.00011, 0.00028, 0.00055],
+        rPhs:   [2.0, 5.0, 0.8], rDirs: [-1, 1, -1],
+        cr: 95, cg: 22, cb: 218, alpha: 0.26,
+        pulseSpd: 0.00052, pulsePh: 1.5,
+        driftSpd: 0.00007, driftPh: 3.8, driftW: WW * 0.05,
+      },
+      // 6. Feathery deep-blue upper haze
+      {
+        baseY: 0.36, baseWave: 0.14, baseFreq: 1.2, baseSpd: 0.00020, basePh: 4.0,
+        maxRayH: 0.28,
+        iFreqs: [3.0, 7.0, 17.0], iAmps: [0.36, 0.34, 0.30],
+        iSpds:  [0.00028, 0.00058, 0.00115],
+        iPhs:   [0.8, 2.5, 5.2], iDirs: [1, -1, 1],
+        rFreqs: [2.5, 6.5], rAmps: [0.50, 0.50],
+        rSpds:  [0.00020, 0.00042],
+        rPhs:   [4.5, 1.8], rDirs: [-1, 1],
+        cr: 10, cg: 95, cb: 255, alpha: 0.22,
+        pulseSpd: 0.00110, pulsePh: 4.5,
+        driftSpd: 0.00018, driftPh: 0.5, driftW: WW * 0.08,
+      },
+    ];
+  }
+
+  build();
+
+  const onResize = () => {
+    W = canvas.width  = heroSection.clientWidth;
+    H = canvas.height = heroSection.clientHeight;
+    build();
+  };
+  window.addEventListener('resize', onResize);
+
+  // ── DRAW AURORA CURTAIN: column-by-column vertical rays ──────
+  // The fundamental insight: real aurora is NOT horizontal bands —
+  // it is vertical curtains of light where each "column" of air
+  // glows with a different brightness and height. We simulate this
+  // by computing per-column intensity + ray-height from noise and
+  // drawing a thin vertical rectangle with a vertical gradient.
+  function drawCurtain(c: Curtain, now: number) {
+    const COL   = 4;  // column width in px
+    const nCols = Math.ceil(W / COL) + 2;
+
+    const pulse  = 1.0 + Math.sin(now * c.pulseSpd + c.pulsePh) * 0.28;
+    const drift  = Math.sin(now * c.driftSpd + c.driftPh) * c.driftW;
+
+    for (let i = 0; i <= nCols; i++) {
+      const x  = i * COL;
+      const fx = (x + drift) / W; // fractional x with horizontal drift
+
+      // Base edge Y: the wavy horizontal line the curtain hangs from.
+      // Two harmonics for the base wave itself → organic arch.
+      const bw = Math.sin(fx * Math.PI * 2 * c.baseFreq + now * c.baseSpd + c.basePh) * 0.70
+               + Math.sin(fx * Math.PI * 2 * c.baseFreq * 2.3 + now * c.baseSpd * 1.7 + c.basePh * 1.4) * 0.30;
+      const baseY = (c.baseY + bw * c.baseWave) * H;
+
+      // Per-column intensity: blends low-freq blobs + high-freq ray detail
+      const iRaw     = pNoise(fx, now, c.iFreqs, c.iAmps, c.iSpds, c.iPhs, c.iDirs);
+      const intensity = Math.max(0, Math.min(1, 0.5 + iRaw));
+
+      // Dark gaps between rays are natural and important for realism —
+      // clip dim columns entirely so they contribute actual darkness.
+      if (intensity < 0.14) continue;
+
+      // Per-column ray height
+      const rRaw   = pNoise(fx, now, c.rFreqs, c.rAmps, c.rSpds, c.rPhs, c.rDirs);
+      const rayFrac = c.maxRayH * Math.max(0.06, 0.35 + 0.65 * Math.max(0, 0.5 + rRaw));
+      const rayLen  = rayFrac * H;
+      const topY    = baseY - rayLen;
+
+      const alpha = Math.min(0.95, c.alpha * pulse * intensity);
+      if (alpha < 0.007) continue;
+
+      // Vertical gradient: bright just above the base, fading to transparent
+      // going upward — the characteristic aurora "ray" profile.
+      const g = ctx.createLinearGradient(x, topY, x, baseY);
+      g.addColorStop(0.00, `rgba(${c.cr},${c.cg},${c.cb},0)`);
+      g.addColorStop(0.18, `rgba(${c.cr},${c.cg},${c.cb},${(alpha * 0.08).toFixed(3)})`);
+      g.addColorStop(0.48, `rgba(${c.cr},${c.cg},${c.cb},${(alpha * 0.42).toFixed(3)})`);
+      g.addColorStop(0.75, `rgba(${c.cr},${c.cg},${c.cb},${alpha.toFixed(3)})`);
+      g.addColorStop(0.90, `rgba(${c.cr},${c.cg},${c.cb},${(alpha * 0.88).toFixed(3)})`);
+      g.addColorStop(1.00, `rgba(${c.cr},${c.cg},${c.cb},${(alpha * 0.30).toFixed(3)})`);
+
+      ctx.fillStyle = g;
+      ctx.fillRect(x, topY, COL + 1, rayLen + 2);
+    }
+  }
+
+  // ── RENDER LOOP ───────────────────────────────────────────────
+  function render() {
+    const now = Date.now();
+    ctx.clearRect(0, 0, W, H);
+
+    // 1. Background — deep midnight navy
+    const bg = ctx.createRadialGradient(W * 0.5, H * 0.10, 0, W * 0.5, H * 0.65, Math.max(W, H) * 1.1);
+    bg.addColorStop(0,    '#030612');
+    bg.addColorStop(0.22, '#020510');
+    bg.addColorStop(0.55, '#01030a');
+    bg.addColorStop(1,    '#010106');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    // 2. Stars
+    for (const s of stars) {
+      const tw = Math.sin(now * s.sp + s.ph);
+      const a  = Math.max(0.03, Math.min(1, s.base + tw * 0.26));
+      if (s.r >= 0.78 && a > 0.28) {
+        const hR   = s.r * 4.2;
+        const halo = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, hR);
+        halo.addColorStop(0,   `rgba(210,220,255,${(a * 0.13).toFixed(3)})`);
+        halo.addColorStop(0.5, `rgba(170,190,255,${(a * 0.04).toFixed(3)})`);
+        halo.addColorStop(1,   'transparent');
+        ctx.save();
+        ctx.fillStyle = halo;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, hR, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+      ctx.save();
+      ctx.globalAlpha = a;
+      ctx.fillStyle   = s.col;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // 3. Aurora curtains — screen (additive) blend
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    for (const c of curtains) drawCurtain(c, now);
+    ctx.restore();
+
+    animId = requestAnimationFrame(render);
+  }
+
+  render();
+
+  return () => {
+    cancelAnimationFrame(animId);
+    window.removeEventListener('resize', onResize);
+    canvas.remove();
+  };
+}
+
+
+// ============================================================
+// NEBULA CANVAS — Canvas Engine v2
+// Approach: layered cloud/nebula nodes with drifting stars.
+// Used for About, Gallery hero sections.
+// ============================================================
+
+export function initNebulaCanvas() {
+  const heroSection = document.querySelector('.events-hero-section') as HTMLElement;
+  if (!heroSection) return;
+  if (heroSection.querySelector('.galaxy-canvas')) return;
+
+  const canvas = document.createElement('canvas');
+  canvas.className = 'galaxy-canvas';
+  canvas.style.cssText =
+    'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;display:block;';
+  heroSection.insertBefore(canvas, heroSection.firstChild);
+
+  const ctx = canvas.getContext('2d')!;
+  if (!ctx) return;
+
+  let W = (canvas.width  = heroSection.clientWidth);
+  let H = (canvas.height = heroSection.clientHeight);
+  let animId = 0;
+
+  // ── STAR COLOURS ────────────────────────────────────────────
+  const STAR_COLS = ['#ffffff', '#eef2ff', '#dde8ff', '#ccd8ff', '#f0faff'];
 
   // ── INTERFACES ───────────────────────────────────────────────
   interface Star {

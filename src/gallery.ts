@@ -1,8 +1,10 @@
 import { initNavigation } from './navigation';
+import { initGalaxySky } from './galaxySky';
 
 // Gallery Page Interactive Lightbox & Category Filtering Script
 document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
+  initGalaxySky();
 
   const categoryTags = document.querySelectorAll('#gallery-categories .category-tag');
   const galleryCards = document.querySelectorAll('.gallery-card');
