@@ -171,10 +171,21 @@ function initHero3D() {
 
   let targetRawIndex = 0;
   let currentSmoothRawIndex = 0;
+  let stableViewportHeight = window.innerHeight;
+  let cachedMaxScroll = Math.max(document.body.scrollHeight - stableViewportHeight, 1);
+
+  function recalculateMaxScroll() {
+    stableViewportHeight = window.innerHeight;
+    cachedMaxScroll = Math.max(document.body.scrollHeight - stableViewportHeight, 1);
+  }
+
+  window.addEventListener('resize', recalculateMaxScroll, { passive: true });
 
   function updateRawIndexFromScroll() {
-    const maxScroll  = Math.max(document.body.scrollHeight - window.innerHeight, 1);
-    const scrollFrac = Math.min(window.scrollY / maxScroll, 1);
+    if (!cachedMaxScroll || cachedMaxScroll <= 1) {
+      recalculateMaxScroll();
+    }
+    const scrollFrac = Math.min(Math.max(window.scrollY / cachedMaxScroll, 0), 1);
     targetRawIndex   = scrollFrac * (sections.length - 1);
   }
 
@@ -276,6 +287,10 @@ function initHero3D() {
         officialLogoYear.style.transform = `translate3d(0, ${(10 * (1 - yearVis)).toFixed(1)}px, 0)`;
       }
     });
+
+    if (Math.abs(rawIndex - 3) > 0.65) {
+      pauseHeroPromoVideo();
+    }
 
     const nearestIdx = Math.round(rawIndex);
     sectionDots.forEach((dot, idx) => {
@@ -592,6 +607,15 @@ function initHeroCountdown() {
   setInterval(updateTimer, 1000);
 }
 
+function pauseHeroPromoVideo() {
+  const iframe = document.getElementById('hero-promo-iframe') as HTMLIFrameElement | null;
+  if (iframe && iframe.contentWindow) {
+    try {
+      iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+    } catch (_) {}
+  }
+}
+
 function initPromoInlinePlayer() {
   const playBtn = document.getElementById('hero-play-promo-btn');
   const container = document.getElementById('hero-promo-container');
@@ -600,7 +624,8 @@ function initPromoInlinePlayer() {
       e.preventDefault();
       container.innerHTML = `
         <div style="position: relative; width: 100%; aspect-ratio: 16 / 7.5; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 20px 48px rgba(0, 0, 0, 0.8); background: #000;">
-          <iframe src="https://www.youtube-nocookie.com/embed/EGSUtEnfX9g?autoplay=1&rel=0" 
+          <iframe id="hero-promo-iframe"
+                  src="https://www.youtube-nocookie.com/embed/EGSUtEnfX9g?autoplay=1&enablejsapi=1&rel=0" 
                   title="Magnovite 2026 Official Promo" 
                   frameborder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
