@@ -11,24 +11,24 @@ interface GalleryItem {
 
 // 1. Image Registry Pool
 const GALLERY_POOL: GalleryItem[] = [
-  { id: '1', src: '/images/Gallery/GroupDance.jpg', title: 'Group Dance', category: 'cultural', badge: 'Cultural' },
-  { id: '2', src: '/images/Gallery/FashionShow.jpg', title: 'Fashion Show', category: 'cultural', badge: 'Cultural' },
-  { id: '3', src: '/images/Gallery/PrettyLady.jpg', title: 'Fashion Walk', category: 'cultural', badge: 'Fashion' },
-  { id: '4', src: '/images/Gallery/StreetDance.jpg', title: 'Themed Dance', category: 'cultural', badge: 'Cultural' },
-  { id: '5', src: '/images/Gallery/StreetPlay.jpg', title: 'Street Play', category: 'cultural', badge: 'Campus Life' },
-  { id: '6', src: '/images/Gallery/DJnight.jpg', title: 'DJ Night', category: 'dj', badge: 'Cultural Nights' },
-  { id: '7', src: '/images/Gallery/JinBro.jpg', title: 'Lighting the lamp', category: 'campus', badge: 'Campus Life' },
-  { id: '8', src: '/images/Gallery/DJRubz.jpg', title: 'DJ RUBZ', category: 'dj', badge: 'Cultural Nights' },
-  { id: '9', src: '/images/Gallery/AnotherDance.jpg', title: 'Themed Dance', category: 'cultural', badge: 'Cultural' },
-  { id: '10', src: '/images/Gallery/imsolonely.jpg', title: 'Solo Act', category: 'cultural', badge: 'Cultural' },
-  { id: '11', src: '/images/Gallery/BattleOfBands.jpg', title: 'Battle Of Bands', category: 'music', badge: 'Music' },
-  { id: '12', src: '/images/Gallery/brightcoffee.jpg', title: 'Masala Coffee Live', category: 'music', badge: 'Concert' },
-  { id: '13', src: '/images/Gallery/masalacoffeelead.jpg', title: 'Masala Coffee Lead', category: 'music', badge: 'Concert' },
-  { id: '14', src: '/images/Gallery/masalacoffeepremass.jpg', title: 'Masala Coffee Band', category: 'music', badge: 'Concert' },
-  { id: '15', src: '/images/Gallery/masscoffee.jpg', title: 'Masala Coffee Concert', category: 'music', badge: 'Concert' },
-  { id: '16', src: '/images/Gallery/masalacoffeeviolin.jpg', title: 'Masala Coffee Violin Solo', category: 'music', badge: 'Concert' },
-  { id: '17', src: '/images/Gallery/deadman.jpg', title: 'Fashion Show Act', category: 'cultural', badge: 'Fashion' },
-  { id: '18', src: '/images/Gallery/kathak.jpg', title: 'Kathak Dance', category: 'cultural', badge: 'Cultural' }
+  { id: '1', src: '/public/images/Gallery/GroupDance.jpg', title: 'Group Dance', category: 'cultural', badge: 'Cultural' },
+  { id: '2', src: '/public/images/Gallery/FashionShow.jpg', title: 'Fashion Show', category: 'cultural', badge: 'Cultural' },
+  { id: '3', src: '/public/images/Gallery/PrettyLady.jpg', title: 'Fashion Walk', category: 'cultural', badge: 'Fashion' },
+  { id: '4', src: '/public/images/Gallery/StreetDance.jpg', title: 'Themed Dance', category: 'cultural', badge: 'Cultural' },
+  { id: '5', src: '/public/images/Gallery/StreetPlay.jpg', title: 'Street Play', category: 'cultural', badge: 'Campus Life' },
+  { id: '6', src: '/public/images/Gallery/DJnight.jpg', title: 'DJ Night', category: 'dj', badge: 'Cultural Nights' },
+  { id: '7', src: '/public/images/Gallery/JinBro.jpg', title: 'Lighting the lamp', category: 'campus', badge: 'Campus Life' },
+  { id: '8', src: '/public/images/Gallery/DJRubz.jpg', title: 'DJ RUBZ', category: 'dj', badge: 'Cultural Nights' },
+  { id: '9', src: '/public/images/Gallery/AnotherDance.jpg', title: 'Themed Dance', category: 'cultural', badge: 'Cultural' },
+  { id: '10', src: '/public/images/Gallery/imsolonely.jpg', title: 'Solo Act', category: 'cultural', badge: 'Cultural' },
+  { id: '11', src: '/public/images/Gallery/BattleOfBands.jpg', title: 'Battle Of Bands', category: 'music', badge: 'Music' },
+  { id: '12', src: '/public/images/Gallery/brightcoffee.jpg', title: 'Masala Coffee Live', category: 'music', badge: 'Concert' },
+  { id: '13', src: '/public/images/Gallery/masalacoffeelead.jpg', title: 'Masala Coffee Lead', category: 'music', badge: 'Concert' },
+  { id: '14', src: '/public/images/Gallery/masalacoffeepremass.jpg', title: 'Masala Coffee Band', category: 'music', badge: 'Concert' },
+  { id: '15', src: '/public/images/Gallery/masscoffee.jpg', title: 'Masala Coffee Concert', category: 'music', badge: 'Concert' },
+  { id: '16', src: '/public/images/Gallery/masalacoffeeviolin.jpg', title: 'Masala Coffee Violin Solo', category: 'music', badge: 'Concert' },
+  { id: '17', src: '/public/images/Gallery/deadman.jpg', title: 'Fashion Show Act', category: 'cultural', badge: 'Fashion' },
+  { id: '18', src: '/public/images/Gallery/kathak.jpg', title: 'Kathak Dance', category: 'cultural', badge: 'Cultural' }
 ];
 
 const BENTO_SPANS = ['card-standard', 'card-wide', 'card-tall', 'card-large'];
