@@ -17,7 +17,7 @@ const GALLERY_POOL: GalleryItem[] = [
   { id: '4', src: '/images/Gallery/StreetDance.jpg', title: 'Themed Dance', category: 'cultural', badge: 'Cultural' },
   { id: '5', src: '/images/Gallery/StreetPlay.jpg', title: 'Street Play', category: 'cultural', badge: 'Campus Life' },
   { id: '6', src: '/images/Gallery/DJnight.jpg', title: 'DJ Night', category: 'dj', badge: 'Cultural Nights' },
-  { id: '7', src: '/images/Gallery/JinBro.jpg', title: 'Jin Bro', category: 'jinbro', badge: 'Campus Life' },
+  { id: '7', src: '/images/Gallery/JinBro.jpg', title: 'Lighting the lamp', category: 'campus', badge: 'Campus Life' },
   { id: '8', src: '/images/Gallery/DJRubz.jpg', title: 'DJ RUBZ', category: 'dj', badge: 'Cultural Nights' },
   { id: '9', src: '/images/Gallery/AnotherDance.jpg', title: 'Themed Dance', category: 'cultural', badge: 'Cultural' },
   { id: '10', src: '/images/Gallery/imsolonely.jpg', title: 'Solo Act', category: 'cultural', badge: 'Cultural' },
