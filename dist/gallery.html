@@ -8,10 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <script type="module" crossorigin src="/assets/gallery-CDE1_7Ez.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/navigation-DT0mBnnz.js">
-    <link rel="stylesheet" crossorigin href="/assets/navigation-DyKDOMo2.css">
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <script type="module" crossorigin src="/assets/gallery-DPN2i8MZ.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/navigation-nmZ8YraR.js">
+    <link rel="stylesheet" crossorigin href="/assets/navigation-B51p0NJb.css">
   </head>
   <body>
 
@@ -166,8 +166,7 @@
           </div>
         </div>
 
-
-                <!-- Right Column: Campus Location Map, Countdown & Download Brochure Action -->
+        <!-- Right Column: Campus Location Map, Countdown & Download Brochure Action -->
         <div class="mega-showcase-panel">
           <!-- Fest Key Info Header -->
           <div class="mega-event-info-card">
@@ -291,12 +290,11 @@
             </div>
           </div>
 
-
         </div>
       </div>
     </div>
 
-    <!-- GALLERY HERO SECTION &mdash; Same structure as events hero -->
+    <!-- GALLERY HERO SECTION -->
     <section class="events-hero-section">
       <div class="events-hero-glow"></div>
       <div class="events-hero-glow-2"></div>
@@ -313,81 +311,29 @@
       </div>
     </section>
 
-
     <main class="page-container" style="padding-top: 2.5rem;">
       <!-- Category Filter Pills -->
       <div class="controls-bar" style="margin-bottom: 2rem;">
         <div id="gallery-categories" class="categories-wrapper">
-          <button class="category-tag active" data-category="all">All Photos</button>
-          <button class="category-tag" data-category="cultural">Cultural Nights</button>
-          <button class="category-tag" data-category="hackathon">Hackathons</button>
-          <button class="category-tag" data-category="gaming">Esports & Gaming</button>
-          <button class="category-tag" data-category="campus">Campus Life</button>
+          <button class="category-tag active" data-filter="all">All Photos</button>
+          <button class="category-tag" data-filter="cultural">Cultural</button>
+          <button class="category-tag" data-filter="music">Music & Concerts</button>
+          <button class="category-tag" data-filter="dj">DJ Nights</button>
+          <button class="category-tag" data-filter="jinbro">Campus Life</button>
         </div>
       </div>
-
-      <!-- Responsive Image Grid -->
-      <div id="gallery-grid" class="gallery-grid">
-        <div class="gallery-card" data-category="cultural" data-title="Battle of the Bands" data-img="/events/placeholder.png">
-          <img src="/events/placeholder.png" alt="Cultural Night" loading="lazy" />
-          <div class="gallery-overlay">
-            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Cultural</span>
-            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Battle of the Bands</h3>
-          </div>
-        </div>
-
-        <div class="gallery-card" data-category="hackathon" data-title="24-Hour Code Sprint" data-img="/events/placeholder.png">
-          <img src="/events/placeholder.png" alt="Hackathon Sprint" loading="lazy" />
-          <div class="gallery-overlay">
-            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Hackathon</span>
-            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">24-Hour Code Sprint</h3>
-          </div>
-        </div>
-
-        <div class="gallery-card" data-category="gaming" data-title="Valorant Finals Arena" data-img="/events/placeholder.png">
-          <img src="/events/placeholder.png" alt="Esports Arena" loading="lazy" />
-          <div class="gallery-overlay">
-            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Gaming</span>
-            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Valorant Finals Arena</h3>
-          </div>
-        </div>
-
-        <div class="gallery-card" data-category="cultural" data-title="Pro-Show Night Lights" data-img="/events/placeholder.png">
-          <img src="/events/placeholder.png" alt="Pro-Show Night" loading="lazy" />
-          <div class="gallery-overlay">
-            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Cultural</span>
-            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Pro-Show Night Lights</h3>
-          </div>
-        </div>
-
-        <div class="gallery-card" data-category="campus" data-title="Kengeri Campus Amphitheatre" data-img="/events/placeholder.png">
-          <img src="/events/placeholder.png" alt="Campus Amphitheatre" loading="lazy" />
-          <div class="gallery-overlay">
-            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Campus</span>
-            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Kengeri Campus Amphitheatre</h3>
-          </div>
-        </div>
-
-        <div class="gallery-card" data-category="hackathon" data-title="AI Innovation Pitch" data-img="/events/placeholder.png">
-          <img src="/events/placeholder.png" alt="Innovation Pitch" loading="lazy" />
-          <div class="gallery-overlay">
-            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Hackathon</span>
-            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">AI Innovation Pitch</h3>
-          </div>
-        </div>
-      </div>
+      <div id="gallery-grid" class="gallery-grid"></div>
     </main>
 
     <!-- Interactive Lightbox Modal -->
     <div id="gallery-modal" class="gallery-modal">
       <div class="modal-content">
-        <button id="modal-close" style="position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); color: white; width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer;">&times;</button>
+        <button id="modal-close" class="modal-close" style="position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(255,255,255,0.1); border: 1px solid var(--border-color); color: white; width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer;">&times;</button>
         <img id="modal-img" src="" alt="Full view" />
         <h3 id="modal-caption" style="margin-top: 1rem; color: var(--text-primary); font-family: var(--font-heading); font-size: 1.4rem;"></h3>
       </div>
     </div>
 
-    
     <!-- Global Footer -->
     <footer class="site-footer">
       <div class="footer-inner">
@@ -414,6 +360,6 @@
         </div>
       </div>
     </footer>
+
   </body>
 </html>
-
