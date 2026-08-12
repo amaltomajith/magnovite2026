@@ -9,9 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <script type="module" crossorigin src="/assets/gallery-DuyyxddC.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/navigation-cSo4QcmC.js">
-    <link rel="stylesheet" crossorigin href="/assets/navigation-RMLxP1Im.css">
+    <script type="module" crossorigin src="/assets/gallery-BNnem7pF.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/navigation-CC0ysadz.js">
+    <link rel="stylesheet" crossorigin href="/assets/navigation-D91c97oY.css">
   </head>
   <body>
 
@@ -326,8 +326,9 @@
           <button class="category-tag" data-category="jinbro">Jin Bro</button>
         </div>
       </div>
-
-      <!-- Responsive Image Grid -->
+      <div id="gallery-grid" class="gallery-grid"></div>
+<!--
+       Responsive Image Grid 
       <div id="gallery-grid" class="gallery-grid">
         <div class="gallery-card" data-category="cultural" data-title="Group Dance" data-img="/events/placeholder.png">
           <img src="/images/Gallery/GroupDance.jpg" alt="Group Dance" loading="lazy" />
@@ -413,6 +414,109 @@
         </div>
       </div>
     </main>
+  
+     Responsive Bento Image Grid 
+      <div id="gallery-grid" class="gallery-grid">
+         1. Hero Featured Tile (2x2 Span) 
+        <div class="gallery-card card-large" data-category="cultural" data-title="Group Dance" data-img="/images/Gallery/GroupDance.jpg">
+          <img src="/images/Gallery/GroupDance.jpg" alt="Group Dance" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Cultural</span>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Group Dance</h3>
+          </div>
+        </div>
+
+         2. Standard Tile (1x1) 
+        <div class="gallery-card" data-category="cultural" data-title="Fashion Show" data-img="/images/Gallery/FashionShow.jpg">
+          <img src="/images/Gallery/FashionShow.jpg" alt="Fashion Show" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Cultural</span>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Fashion Show</h3>
+          </div>
+        </div>
+
+        3. Tall Portrait Tile (1x2 Span)
+        <div class="gallery-card card-tall" data-category="cultural" data-title="Fashion Show" data-img="/images/Gallery/PrettyLady.jpg">
+          <img src="/images/Gallery/PrettyLady.jpg" alt="Fashion Show" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Fashion</span>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Fashion Show</h3>
+          </div>
+        </div>
+
+         4. Wide Panoramic Tile (2x1 Span) 
+        <div class="gallery-card card-wide" data-category="cultural" data-title="Street Dance" data-img="/images/Gallery/StreetDance.jpg">
+          <img src="/images/Gallery/StreetDance.jpg" alt="Street Dance" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Cultural</span>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Themed Dance</h3>
+          </div>
+        </div>
+
+         5. Standard Tile (1x1) 
+        <div class="gallery-card" data-category="cultural" data-title="Street Play" data-img="/images/Gallery/StreetPlay.jpg">
+          <img src="/images/Gallery/StreetPlay.jpg" alt="Street Play" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Campus Life</span>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Street Play</h3>
+          </div>
+        </div>
+
+        6. Wide Panoramic Tile (2x1 Span) 
+        <div class="gallery-card card-wide" data-category="dj" data-title="DJ night" data-img="/images/Gallery/DJnight.jpg">
+          <img src="/images/Gallery/DJnight.jpg" alt="DJ night" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Cultural Nights</span>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">DJ night</h3>
+          </div>
+        </div>
+
+         7. Standard Tile (1x1) 
+        <div class="gallery-card" data-category="jinbro" data-title="Jin Bro" data-img="/images/Gallery/JinBro.jpg">
+          <img src="/images/Gallery/JinBro.jpg" alt="Jin Bro" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Campus Life</span>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Jin Bro</h3>
+          </div>
+        </div>
+
+         8. Tall Portrait Tile (1x2 Span) 
+        <div class="gallery-card card-tall" data-category="dj" data-title="DJ RUBZ" data-img="/images/Gallery/DJRubz.jpg">
+          <img src="/images/Gallery/DJRubz.jpg" alt="DJ RUBZ" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Cultural Nights</span>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">DJ RUBZ</h3>
+          </div>
+        </div>
+
+         9. Standard Tile (1x1) 
+        <div class="gallery-card" data-category="cultural" data-title="Themed Dance" data-img="/images/Gallery/AnotherDance.jpg">
+          <img src="/images/Gallery/AnotherDance.jpg" alt="Themed Dance" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Cultural</span>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Themed Dance</h3>
+          </div>
+        </div>
+
+         10. Standard Tile (1x1) 
+        <div class="gallery-card" data-category="cultural" data-title="Themed Dance" data-img="/images/Gallery/imsolonely.jpg">
+          <img src="/images/Gallery/imsolonely.jpg" alt="Themed Dance" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Cultural</span>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Themed Dance</h3>
+          </div>
+        </div>
+
+         11. Wide Panoramic Tile (2x1 Span) 
+        <div class="gallery-card card-wide" data-category="music" data-title="Battle Of Bands" data-img="/images/Gallery/BattleOfBands.jpg">
+          <img src="/images/Gallery/BattleOfBands.jpg" alt="Battle of bands" loading="lazy" />
+          <div class="gallery-overlay">
+            <span class="badge" style="width: fit-content; font-size: 0.75rem;">Music</span>
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-top: 0.3rem;">Battle Of Bands</h3>
+          </div>
+        </div>
+      </div>
+    -->
 
     <!-- Interactive Lightbox Modal -->
     <div id="gallery-modal" class="gallery-modal">
