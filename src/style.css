@@ -1665,29 +1665,39 @@ body {
   letter-spacing: 0.08em;
 }
 /* ---- Gallery Grid & Bento Cards ---- */
+/* ---- Gallery Grid & Bento Cards ---- */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  grid-auto-flow: dense;
-  grid-auto-rows: 220px;
-  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+  grid-auto-rows: 160px;                 /* Mobile base row height */
+  grid-auto-flow: dense;                 /* Fills grid gaps automatically */
+  gap: 0.75rem;
 }
 
+/* Desktop Grid Container */
+@media (min-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+    grid-auto-rows: 220px;                 /* Desktop base row height */
+    gap: 1.25rem;
+  }
+}
+
+/* Bento Cards */
 .gallery-card {
   position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;                           /* Prevents flex/grid height overflow */
   border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--border-color);
   cursor: pointer;
-  min-height: 0;
-  height: 100%;
   background-color: rgba(10, 13, 22, 0.4);
   backdrop-filter: blur(10px);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  transition: grid-column 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              grid-row 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.4s ease, 
+  transition: transform 0.4s ease, 
               opacity 0.4s ease, 
               border-color 0.3s ease,
               box-shadow 0.3s ease;
@@ -1697,6 +1707,35 @@ body {
   border-color: var(--border-color);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
   transform: translateY(-2px);
+}
+
+/* Mobile Bento Spans (< 1024px) */
+@media (max-width: 1023px) {
+  .gallery-card.card-wide,
+  .gallery-card.card-large {
+    grid-column: span 2;
+  }
+
+  .gallery-card.card-tall,
+  .gallery-card.card-large {
+    grid-row: span 2;
+  }
+}
+
+/* Desktop Bento Spans (>= 1024px) */
+@media (min-width: 1024px) {
+  .gallery-card.card-wide {
+    grid-column: span 2;
+  }
+
+  .gallery-card.card-tall {
+    grid-row: span 2;
+  }
+
+  .gallery-card.card-large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
 }
 
 /* Dynamic State Modifiers */
@@ -1722,22 +1761,6 @@ body {
 
 .gallery-card:hover img {
   transform: scale(1.06);
-}
-
-/* Desktop Bento Spans */
-@media (min-width: 1024px) {
-  .gallery-card.card-wide {
-    grid-column: span 2;
-  }
-
-  .gallery-card.card-tall {
-    grid-row: span 2;
-  }
-
-  .gallery-card.card-large {
-    grid-column: span 2;
-    grid-row: span 2;
-  }
 }
 
 /* Overlay Elements */
