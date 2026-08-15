@@ -9,9 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;700;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <script type="module" crossorigin src="/assets/events-DFEFS81b.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/navigation-Dmu4ymqI.js">
-    <link rel="stylesheet" crossorigin href="/assets/navigation-Dav-QxEq.css">
+    <script type="module" crossorigin src="/assets/events-6spJFE56.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/navigation-NCIz775H.js">
+    <link rel="stylesheet" crossorigin href="/assets/navigation-D-KUSx7g.css">
   </head>
   <body class="events-page-body">
 
@@ -340,24 +340,42 @@
         </div>
       </div>
     </section>
-
     <!-- EVENTS SEARCH & GRID SECTION -->
     <main id="events-section" class="events-section">
       <div class="events-container">
-        <!-- Search & Category Filters Controls Bar -->
+        <!-- Search & Dynamic Glassmorphic Dropdowns Controls Bar -->
         <div class="controls-bar">
           <div class="search-wrapper">
-            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+            </svg>
             <input 
               type="text" 
               id="search-input" 
-              placeholder="Search by title, domain, or key topic..." 
+              placeholder="Search by title, department, or domain..." 
               aria-label="Search events"
             />
           </div>
 
-          <div id="category-filters" class="category-filters">
-            <!-- Dynamic Category Tag Buttons rendered by events.ts -->
+          <!-- Dual Custom Dropdowns Group -->
+          <div class="filters-group">
+            <!-- Department Custom Dropdown -->
+            <div class="custom-dropdown" id="dept-dropdown">
+              <button class="dropdown-trigger" type="button" aria-expanded="false">
+                <span class="dropdown-label">All Departments</span>
+                <svg class="dropdown-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="dropdown-menu"></div>
+            </div>
+
+            <!-- Category Custom Dropdown -->
+            <div class="custom-dropdown" id="cat-dropdown">
+              <button class="dropdown-trigger" type="button" aria-expanded="false">
+                <span class="dropdown-label">All Categories</span>
+                <svg class="dropdown-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <div class="dropdown-menu"></div>
+            </div>
           </div>
         </div>
 
@@ -370,7 +388,6 @@
         </div>
       </div>
     </main>
-
     <!-- Global Footer -->
     <footer class="site-footer">
       <div class="footer-inner">
