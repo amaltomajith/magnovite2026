@@ -1,60 +1,60 @@
-| #  | Event                     | Slug                      | Department                                        | Page Status |
-|----|---------------------------|---------------------------|---------------------------------------------------|-------------|
-| 1  | Acapella                  | `acapella`                | General Fest Events                               | ✅ Exists   |
-| 2  | Argo Royale               | `argo-royale`             | General Fest Events                               | ✅ Exists   |
-| 3  | Battle of the Bands       | `battle-of-the-bands`     | General Fest Events                               | ✅ Exists   |
-| 4  | Best Manager              | `best-manager`            | BBA                                               | ✅ Exists   |
-| 5  | Chamber of Secrets        | `chamber-of-secrets`      | General Fest Events                               | ✅ Exists   |
-| 6  | Escape Room               | `escape-room`             | General Fest Events                               | ✅ Exists   |
-| 7  | Frames Unboxed            | `frames-unboxed`          | Psychology                                        | ✅ Exists   |
-| 8  | How I Met Your Killer     | `how-i-met-your-killer`   | Psychology                                        | ✅ Exists   |
-| 9  | Non Theme Dance           | `non-theme-dance`         | General Fest Events                               | ✅ Exists   |
-| 10 | Pattern Play              | `pattern-play`            | General Fest Events                               | ✅ Exists   |
-| 11 | Pixel Perspective         | `pixel-perspective`       | General Fest Events                               | ✅ Exists   |
-| 12 | Severance Cup             | `severance-cup`           | General Fest Events                               | ✅ Exists   |
-| 13 | Spark Tank                | `spark-tank`              | General Fest Events                               | ✅ Exists   |
-| 14 | Street Dance Battle       | `street-dance-battle`     | General Fest Events                               | ✅ Exists   |
-| 15 | Street Play               | `street-play`             | General Fest Events                               | ✅ Exists   |
-| 16 | Switch and Scene          | `switch-and-scene`        | Psychology                                        | ✅ Exists   |
-| 17 | The Chase                 | `the-chase`               | General Fest Events                               | ✅ Exists   |
-| 18 | Theme Dance               | `theme-dance`             | General Fest Events                               | ✅ Exists   |
-| 19 | The Nexus                 | `the-nexus`               | General Fest Events                               | ✅ Exists   |
-| 20 | Cipher Quest              | `cipher-quest`            | Computer Science & Engineering (CSE)              | ✅ Exists   |
-| 21 | StrikeX                   | `strikex`                 | Computer Science & Engineering (CSE)              | ✅ Exists   |
-| 22 | Sustain X                 | `sustain-x`               | Computer Science & Engineering (CSE)              | ✅ Exists   |
-| 23 | Prompt Arcade             | `prompt-arcade`           | Computer Science & Engineering (CSE)              | ✅ Exists   |
-| 24 | Trace                     | `trace`                   | Artificial Intelligence & Data Science (AIDS)     | ✅ Exists   |
-| 25 | Pixel Whisper             | `pixel-whisper`           | Artificial Intelligence & Data Science (AIDS)     | ✅ Exists   |
-| 26 | Final Override            | `final-override`          | Artificial Intelligence & Data Science (AIDS)     | ✅ Exists   |
-| 27 | The Last Turn             | `the-last-turn`           | Artificial Intelligence & Data Science (AIDS)     | ✅ Exists   |
-| 28 | Gridlock                  | `gridlock`                | Electrical & Electronics Engineering (EEE)        | ✅ Exists   |
-| 29 | Powerwiz                  | `powerwiz`                | Electrical & Electronics Engineering (EEE)        | ✅ Exists   |
-| 30 | EV Motion 26              | `evmotion26`              | Electrical & Electronics Engineering (EEE)        | ✅ Exists   |
-| 31 | Arki Craft 2.0            | `arkicraft`               | Civil Engineering                                 | ✅ Exists   |
-| 32 | Seismogami                | `seismogami`              | Civil Engineering                                 | ✅ Exists   |
-| 33 | EcoForge 2.0              | `ecoforge-2-0`            | Civil Engineering                                 | ✅ Exists   |
-| 34 | RC Robo Soccer            | `rc-robo-soccer`          | Mechanical Engineering                            | ✅ Exists   |
-| 35 | Bot Wars                  | `bot-wars`                | Mechanical Engineering                            | ✅ Exists   |
-| 36 | Drone Maze Challenge      | `drone-maze-challenge`    | Mechanical Engineering                            | ✅ Exists   |
-| 37 | Apex Strategy             | `apex-strategy`           | Automotive Engineering                            | ✅ Exists   |
-| 38 | Mud Run                   | `mud-run`                 | Automotive Engineering                            | ✅ Exists   |
-| 39 | Drag Race Xtreme          | `drag-race-xtreme`        | Automotive Engineering                            | ✅ Exists   |
-| 40 | Shipwreck                 | `shipwreck`               | Psychology                                        | ✅ Exists   |
-| 41 | Battle Clay               | `battle-clay`             | School of Architecture                            | ✅ Exists   |
-| 42 | Revival Outlook           | `revival-outlook`         | School of Architecture                            | ✅ Exists   |
-| 43 | Utopian Land              | `utopian-land`            | School of Architecture                            | ✅ Exists   |
-| 44 | Etherea                   | `etherea`                 | School of Architecture                            | ✅ Exists   |
-| 45 | The Bard's Gambit         | `bards-gambit`            | Science & Humanities                              | ✅ Exists   |
-| 46 | Canvas of Minds           | `canvas-of-minds`         | Science & Humanities                              | ✅ Exists   |
-| 47 | Squid Game                | `squid-game`              | Science & Humanities                              | ✅ Exists   |
-| 48 | Best Management Team      | `best-management-team`    | MBA                                               | ✅ Exists   |
-| 49 | Qizz-Whizz                | `quiz-whizz`              | MBA                                               | ✅ Exists   |
-| 50 | Startup Showdown          | `startup-showdown`        | MBA                                               | ✅ Exists   |
-| 51 | Corporate Crossfire       | `corporate-crossfire`     | BBA                                               | ✅ Exists   |
-| 52 | Strategic Finance         | `strategic-finance`       | BBA                                               | ✅ Exists   |
-| 53 | Marketing X PR            | `marketing-x-pr`          | BBA                                               | ✅ Exists   |
-| 54 | CaseCraft: Pitch & Pivot  | `casecraft-pitch-and-pivot`| IIIC                                             | ✅ Exists   |
-| 55 | Chess Grandmaster         | `chess-grandmaster`       | Sports                                            | ✅ Exists   |
-| 56 | Infinity: Code Red        | `infinity-code-red`       | Electronics and Communication Engineering (ECE)   | ✅ Exists   |
-| 57 | Antrix                    | `antrix`                  | Electronics and Communication Engineering (ECE)   | ✅ Exists   |
-| 58 | BitForge                  | `bitforge`                | Electronics and Communication Engineering (ECE)   | ✅ Exists   |
+| #  | Event                     | Slug                      | Department                                        | Page Status | Google Form Status |
+|----|---------------------------|---------------------------|---------------------------------------------------|-------------|--------------------|
+| 1  | Acapella                  | `acapella`                | General Fest Events                               | ✅ Exists   |                    |
+| 2  | Argo Royale               | `argo-royale`             | General Fest Events                               | ✅ Exists   |                    |
+| 3  | Battle of the Bands       | `battle-of-the-bands`     | General Fest Events                               | ✅ Exists   |                    |    
+| 5  | Chamber of Secrets        | `chamber-of-secrets`      | General Fest Events                               | ✅ Exists   |                    |
+| 6  | Escape Room               | `escape-room`             | General Fest Events                               | ✅ Exists   |                    |
+| 7  | Frames Unboxed            | `frames-unboxed`          | Psychology                                        | ✅ Exists   |                    |
+| 8  | How I Met Your Killer     | `how-i-met-your-killer`   | Psychology                                        | ✅ Exists   |                    |
+| 9  | Non Theme Dance           | `non-theme-dance`         | General Fest Events                               | ✅ Exists   |                    |
+| 10 | Pattern Play              | `pattern-play`            | General Fest Events                               | ✅ Exists   |                    |
+| 11 | Pixel Perspective         | `pixel-perspective`       | General Fest Events                               | ✅ Exists   |                    |
+| 12 | Severance Cup             | `severance-cup`           | General Fest Events                               | ✅ Exists   |                    |
+| 13 | Spark Tank                | `spark-tank`              | General Fest Events                               | ✅ Exists   |                    |
+| 14 | Street Dance Battle       | `street-dance-battle`     | General Fest Events                               | ✅ Exists   |                    |
+| 15 | Street Play               | `street-play`             | General Fest Events                               | ✅ Exists   |                    |
+| 16 | Switch and Scene          | `switch-and-scene`        | Psychology                                        | ✅ Exists   |                    |
+| 17 | The Chase                 | `the-chase`               | General Fest Events                               | ✅ Exists   |                    |
+| 18 | Theme Dance               | `theme-dance`             | General Fest Events                               | ✅ Exists   |                    |
+| 19 | The Nexus                 | `the-nexus`               | General Fest Events                               | ✅ Exists   |                    |
+| 20 | Cipher Quest              | `cipher-quest`            | Computer Science & Engineering (CSE)              | ✅ Exists   |    Completed       |
+| 21 | StrikeX                   | `strikex`                 | Computer Science & Engineering (CSE)              | ✅ Exists   |    Completed       |
+| 22 | Sustain X                 | `sustain-x`               | Computer Science & Engineering (CSE)              | ✅ Exists   |    Completed       |
+| 23 | Prompt Arcade             | `prompt-arcade`           | Computer Science & Engineering (CSE)              | ✅ Exists   |    Completed       |
+| 24 | Trace                     | `trace`                   | Artificial Intelligence & Data Science (AIDS)     | ✅ Exists   |    Completed       |
+| 25 | Pixel Whisper             | `pixel-whisper`           | Artificial Intelligence & Data Science (AIDS)     | ✅ Exists   |    Completed       |
+| 26 | Final Override            | `final-override`          | Artificial Intelligence & Data Science (AIDS)     | ✅ Exists   |    Completed       |
+| 27 | The Last Turn             | `the-last-turn`           | Artificial Intelligence & Data Science (AIDS)     | ✅ Exists   |    Completed       |
+| 28 | Gridlock                  | `gridlock`                | Electrical & Electronics Engineering (EEE)        | ✅ Exists   |                    |
+| 29 | Powerwiz                  | `powerwiz`                | Electrical & Electronics Engineering (EEE)        | ✅ Exists   |                    |
+| 30 | EV Motion 26              | `evmotion26`              | Electrical & Electronics Engineering (EEE)        | ✅ Exists   |                    |
+| 31 | Arki Craft 2.0            | `arkicraft`               | Civil Engineering                                 | ✅ Exists   |                    |
+| 32 | Seismogami                | `seismogami`              | Civil Engineering                                 | ✅ Exists   |                    |
+| 33 | EcoForge 2.0              | `ecoforge-2-0`            | Civil Engineering                                 | ✅ Exists   |                    |
+| 34 | RC Robo Soccer            | `rc-robo-soccer`          | Mechanical Engineering                            | ✅ Exists   |                    |
+| 35 | Bot Wars                  | `bot-wars`                | Mechanical Engineering                            | ✅ Exists   |                    |
+| 36 | Drone Maze Challenge      | `drone-maze-challenge`    | Mechanical Engineering                            | ✅ Exists   |                    |
+| 37 | Apex Strategy             | `apex-strategy`           | Automotive Engineering                            | ✅ Exists   |                    |
+| 38 | Mud Run                   | `mud-run`                 | Automotive Engineering                            | ✅ Exists   |                    |
+| 39 | Drag Race Xtreme          | `drag-race-xtreme`        | Automotive Engineering                            | ✅ Exists   |                    |
+| 40 | Shipwreck                 | `shipwreck`               | Psychology                                        | ✅ Exists   |                    |
+| 41 | Battle Clay               | `battle-clay`             | School of Architecture                            | ✅ Exists   |                    |
+| 42 | Revival Outlook           | `revival-outlook`         | School of Architecture                            | ✅ Exists   |                    |
+| 43 | Utopian Land              | `utopian-land`            | School of Architecture                            | ✅ Exists   |                    |
+| 44 | Etherea                   | `etherea`                 | School of Architecture                            | ✅ Exists   |                    |
+| 45 | The Bard's Gambit         | `bards-gambit`            | Science & Humanities                              | ✅ Exists   |    completed       |
+| 46 | Canvas of Minds           | `canvas-of-minds`         | Science & Humanities                              | ✅ Exists   |    completed       |
+| 47 | Squid Game                | `squid-game`              | Science & Humanities                              | ✅ Exists   |    completed       |
+| 48 | Best Management Team      | `best-management-team`    | MBA                                               | ✅ Exists   |    completed       |
+| 49 | Qizz-Whizz                | `quiz-whizz`              | MBA                                               | ✅ Exists   |    completed       |                 
+| 50 | Startup Showdown          | `startup-showdown`        | MBA                                               | ✅ Exists   |    completed       |
+| 51 | Corporate Crossfire       | `corporate-crossfire`     | BBA                                               | ✅ Exists   |    completed       |
+| 52 | Strategic Finance         | `strategic-finance`       | BBA                                               | ✅ Exists   |    completed       |
+| 4  | Best Manager              | `best-manager`            | BBA                                               | ✅ Exists   |    completed       |
+| 53 | Marketing X PR            | `marketing-x-pr`          | BBA                                               | ✅ Exists   |    completed       |
+| 54 | CaseCraft: Pitch & Pivot  | `casecraft-pitch-and-pivot`| IIIC                                             | ✅ Exists   |                    |
+| 55 | Chess Grandmaster         | `chess-grandmaster`       | Sports                                            | ✅ Exists   |                    |
+| 56 | Infinity: Code Red        | `infinity-code-red`       | Electronics and Communication Engineering (ECE)   | ✅ Exists   |                    |
+| 57 | Antrix                    | `antrix`                  | Electronics and Communication Engineering (ECE)   | ✅ Exists   |                    |
+| 58 | BitForge                  | `bitforge`                | Electronics and Communication Engineering (ECE)   | ✅ Exists   |                    |
