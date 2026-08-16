@@ -53,8 +53,8 @@
 | 52 | Strategic Finance         | `strategic-finance`       | BBA                                               | ✅ Exists   |    completed       |
 | 4  | Best Manager              | `best-manager`            | BBA                                               | ✅ Exists   |    completed       |
 | 53 | Marketing X PR            | `marketing-x-pr`          | BBA                                               | ✅ Exists   |    completed       |
-| 54 | CaseCraft: Pitch & Pivot  | `casecraft-pitch-and-pivot`| IIIC                                             | ✅ Exists   |                    |
+| 54 | CaseCraft: Pitch & Pivot  | `casecraft-pitch-and-pivot`| IIIC                                             | ✅ Exists   |    completed       |
 | 55 | Chess Grandmaster         | `chess-grandmaster`       | Sports                                            | ✅ Exists   |                    |
-| 56 | Infinity: Code Red        | `infinity-code-red`       | Electronics and Communication Engineering (ECE)   | ✅ Exists   |                    |
-| 57 | Antrix                    | `antrix`                  | Electronics and Communication Engineering (ECE)   | ✅ Exists   |                    |
-| 58 | BitForge                  | `bitforge`                | Electronics and Communication Engineering (ECE)   | ✅ Exists   |                    |
+| 56 | Infinity: Code Red        | `infinity-code-red`       | Electronics and Communication Engineering (ECE)   | ✅ Exists   |    completed       |
+| 57 | Antrix                    | `antrix`                  | Electronics and Communication Engineering (ECE)   | ✅ Exists   |    completed       |
+| 58 | BitForge                  | `bitforge`                | Electronics and Communication Engineering (ECE)   | ✅ Exists   |    completed       |
