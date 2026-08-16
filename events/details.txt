@@ -26,18 +26,18 @@
 | 25 | Pixel Whisper             | `pixel-whisper`           | Artificial Intelligence & Data Science (AIDS)     | ✅ Exists   |    Completed       |
 | 26 | Final Override            | `final-override`          | Artificial Intelligence & Data Science (AIDS)     | ✅ Exists   |    Completed       |
 | 27 | The Last Turn             | `the-last-turn`           | Artificial Intelligence & Data Science (AIDS)     | ✅ Exists   |    Completed       |
-| 28 | Gridlock                  | `gridlock`                | Electrical & Electronics Engineering (EEE)        | ✅ Exists   |                    |
-| 29 | Powerwiz                  | `powerwiz`                | Electrical & Electronics Engineering (EEE)        | ✅ Exists   |                    |
-| 30 | EV Motion 26              | `evmotion26`              | Electrical & Electronics Engineering (EEE)        | ✅ Exists   |                    |
-| 31 | Arki Craft 2.0            | `arkicraft`               | Civil Engineering                                 | ✅ Exists   |                    |
-| 32 | Seismogami                | `seismogami`              | Civil Engineering                                 | ✅ Exists   |                    |
-| 33 | EcoForge 2.0              | `ecoforge-2-0`            | Civil Engineering                                 | ✅ Exists   |                    |
-| 34 | RC Robo Soccer            | `rc-robo-soccer`          | Mechanical Engineering                            | ✅ Exists   |                    |
-| 35 | Bot Wars                  | `bot-wars`                | Mechanical Engineering                            | ✅ Exists   |                    |
-| 36 | Drone Maze Challenge      | `drone-maze-challenge`    | Mechanical Engineering                            | ✅ Exists   |                    |
-| 37 | Apex Strategy             | `apex-strategy`           | Automotive Engineering                            | ✅ Exists   |                    |
-| 38 | Mud Run                   | `mud-run`                 | Automotive Engineering                            | ✅ Exists   |                    |
-| 39 | Drag Race Xtreme          | `drag-race-xtreme`        | Automotive Engineering                            | ✅ Exists   |                    |
+| 28 | Gridlock                  | `gridlock`                | Electrical & Electronics Engineering (EEE)        | ✅ Exists   |    Completed       |
+| 29 | Powerwiz                  | `powerwiz`                | Electrical & Electronics Engineering (EEE)        | ✅ Exists   |    Completed       |
+| 30 | EV Motion 26              | `evmotion26`              | Electrical & Electronics Engineering (EEE)        | ✅ Exists   |    Completed       |
+| 31 | Arki Craft 2.0            | `arkicraft`               | Civil Engineering                                 | ✅ Exists   |    Completed       |
+| 32 | Seismogami                | `seismogami`              | Civil Engineering                                 | ✅ Exists   |    Completed       |
+| 33 | EcoForge 2.0              | `ecoforge-2-0`            | Civil Engineering                                 | ✅ Exists   |    Completed       |
+| 34 | RC Robo Soccer            | `rc-robo-soccer`          | Mechanical Engineering                            | ✅ Exists   |    Completed       |
+| 35 | Bot Wars                  | `bot-wars`                | Mechanical Engineering                            | ✅ Exists   |    Completed       |
+| 36 | Drone Maze Challenge      | `drone-maze-challenge`    | Mechanical Engineering                            | ✅ Exists   |    Completed       |
+| 37 | Apex Strategy             | `apex-strategy`           | Automotive Engineering                            | ✅ Exists   |    Completed       |
+| 38 | Mud Run                   | `mud-run`                 | Automotive Engineering                            | ✅ Exists   |    Completed       |
+| 39 | Drag Race Xtreme          | `drag-race-xtreme`        | Automotive Engineering                            | ✅ Exists   |    Completed       |
 | 40 | Shipwreck                 | `shipwreck`               | Psychology                                        | ✅ Exists   |                    |
 | 41 | Battle Clay               | `battle-clay`             | School of Architecture                            | ✅ Exists   |                    |
 | 42 | Revival Outlook           | `revival-outlook`         | School of Architecture                            | ✅ Exists   |                    |
