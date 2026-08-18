@@ -106,16 +106,16 @@ export function slugify(text: string): string {
 | 69	                     | EV Motion 26	         |  'evmotion'             | ❌      |
 
 */ 
+
 const EVENT_IMAGE_MAP: Record<string, string> = {
-  // ─── Direct Matches / Synced ───
+  // ─── COMPUTER SCIENCE & ENGINEERING ───
   'acapella': '/images/events/acapella.jpg',
   'antrix': '/images/events/antrix.png',
-  'apex-strategy':'/images/events/apex-strategy.png',
-  'arkicraft': '/images/events/arkicraft.png',
-  'argo-royale': '/images/events/SEVERANCE CUP.jpg',
-  'bards-gambit': '/images/events/bards-gambit.png', 
+  'apex-strategy': '/images/events/apex-strategy.png',
+  'argo-royale': '/images/events/argoroyale.png',
+  'bards-gambit': '/images/events/bards-gambit.png',
   'battle-clay': '/images/events/battle-clay.png',
-  'battle-of-the-bands': '/images/events/battleofbands.jpg',
+  'battle-of-the-bands': '/images/events/battle-of-bands.png',
   'best-management-team': '/images/events/best-management-team.png',
   'best-manager': '/images/events/bestmanager.avif',
   'bitforge': '/images/events/bitforge.png',
@@ -132,6 +132,7 @@ const EVENT_IMAGE_MAP: Record<string, string> = {
   'escape-room': '/images/events/escaperoom.jpg',
   'etherea': '/images/events/etherea.png',
   'evmotion26': '/images/events/evmotion26.png',
+  'evmotion-26': '/images/events/evmotion26.png',
   'final-override': '/images/events/finaloverride.png',
   'frames-unboxed': '/images/events/framesunboxed.jpg',
   'gridlock': '/images/events/grid.jpg',
@@ -145,18 +146,19 @@ const EVENT_IMAGE_MAP: Record<string, string> = {
   'pixel-whisper': '/images/events/pixel-whisper.png',
   'powerwiz': '/images/events/technicalworkshop.jpg',
   'prompt-arcade': '/images/events/coderelay.jpg',
-  'quiz-whizz': '/images/events/finance.jpg',
+  'quiz-whizz': '/images/events/Quiz-whizz.png',
   'rc-robo-soccer': '/images/events/robosoccer.jpg',
   'revival-outlook': '/images/events/reviwaloutlook.jpg',
   'seismogami': '/images/events/archicraft.jpg',
+  'severance-cup': '/images/events/SEVERANCE CUP.jpg',
   'shipwreck': '/images/events/shipwreck.png',
   'spark-tank': '/images/events/sparktank.jpg',
   'squid-game': '/images/events/squid-game.png',
   'startup-showdown': '/images/events/startup-showdown.png',
   'strikex': '/images/events/strikex.png',
   'strategic-finance': '/images/events/strategic-finance.png',
-  'street-dance-battle': '/images/events/streetdancebattle.JPG',
-  'street-play': '/images/events/streetplay.jpg',
+  'street-dance-battle': '/images/events/StreetDance.jpg',
+  'street-play': '/images/events/StreetPlay.jpg',
   'sustain-x': '/images/events/smartcity.jpg',
   'switch-and-scene': '/images/events/switchandscene.jpg',
   'the-chase': '/images/events/chase.jpg',
@@ -164,9 +166,15 @@ const EVENT_IMAGE_MAP: Record<string, string> = {
   'the-nexus': '/images/events/thenexus.jpg',
   'theme-dance': '/images/events/themedance.jpg',
   'trace': '/images/events/enigma.jpg',
-  'utopian-land': '/images/events/utopian-land.png'
-};
+  'utopian-land': '/images/events/utopian-land.png',
 
+  // ─── OIA ───
+  'ai-film-fest': '/images/events/film fest.png',
+
+  // ─── GENERAL FEST EVENTS (additional) ───
+  'acapella-and-group-singing': '/images/events/acapella.png',
+  'battle-of-bands': '/images/events/battle-of-bands.png',
+};
 const STATIC_EVENTS: EventItem[] = [
   // ─── COMPUTER SCIENCE & ENGINEERING ───
   { title: "Cipher Quest", slug: "cipher-quest", desc: "Cryptography challenges cracking Caesar, Vigenère, and Affine ciphers.", category: "Cybersecurity", department: "Computer Science & Engineering (CSE)" },
@@ -175,23 +183,23 @@ const STATIC_EVENTS: EventItem[] = [
   { title: "Prompt Arcade", slug: "prompt-arcade", desc: "Game development challenge where participants create a game and its website.", category: "Coding", department: "Computer Science & Engineering (CSE)" },
 
   // ─── AI & DATA SCIENCE ───
-  { title: "Trace", slug: "trace", desc: "Digital forensics investigation tracking cyber footprints and analyzing evidence.", category: "Cybersecurity", department: "Artificial Intelligence & Data Science (AIDS)" },
+  { title: "TRACE", slug: "trace", desc: "Digital forensics investigation tracking cyber footprints and analyzing evidence.", category: "Cybersecurity", department: "Artificial Intelligence & Data Science (AIDS)" },
   { title: "Pixel Whisper", slug: "pixel-whisper", desc: "Communication-free relay where teams recreate a target image through generative AI chains.", category: "Innovation", department: "Artificial Intelligence & Data Science (AIDS)" },
   { title: "Final Override", slug: "final-override", desc: "Five-stage technical escape mission recovering key fragments through forensics, decoding, and CTF.", category: "Cybersecurity", department: "Artificial Intelligence & Data Science (AIDS)" },
   { title: "The Last Turn", slug: "the-last-turn", desc: "Horror-themed maze escape with random obstructions, puzzles, and a ticking clock.", category: "Gaming", department: "Artificial Intelligence & Data Science (AIDS)" },
+
+  // ─── ELECTRONICS & COMMUNICATIONS ENGINEERING ───
+  { title: "Infinity: Code Red", slug: "infinity-code-red", desc: "Find the Fragments. Unlock the Impossible.", category: "Electronics", department: "Electronics and Communication Engineering (ECE)" },
+  { title: "Antrix", slug: "antrix", desc: "Shape the Wave. Define the Future.", category: "Electronics", department: "Electronics and Communication Engineering (ECE)" },
+  { title: "BitForge", slug: "bitforge", desc: "The code is flawed. The clock is ticking. Bring the logic to life.", category: "Electronics", department: "Electronics and Communication Engineering (ECE)" },
 
   // ─── ELECTRICAL & ELECTRONICS ENGINEERING ───
   { title: "Gridlock", slug: "gridlock", desc: "Design, operate, and stabilize a power grid through shifting generation, load, and contingencies.", category: "Electronics", department: "Electrical & Electronics Engineering (EEE)" },
   { title: "Powerwiz", slug: "powerwiz", desc: "Two-stage power electronics challenge combining converter design, simulation, and hardware testing.", category: "Electronics", department: "Electrical & Electronics Engineering (EEE)" },
   { title: "EV Motion 26", slug: "evmotion26", desc: "Three-stage EV challenge combining ADAS simulation, vehicle design, and prototype development.", category: "Electronics", department: "Electrical & Electronics Engineering (EEE)" },
 
-  // ─── ELECTRONICS & COMMUNICATIONS ENGINEERING ───
-  { title: "Infinity: Code Red", slug: "infinity-code-red", desc: "Find the Fragments. Unlock the Impossible.", category: "Electronics", department: "Electronics and Communication Engineering (ECE)" },
-  { title: "Antrix", slug: "antrix", desc: "Shape the Wave. Define the Future", category: "Electronics", department: "Electronics and Communication Engineering (ECE)" },
-  { title: "BitForge", slug: "bitforge", desc: "The code is flawed. The clock is ticking. Bring the logic to life.", category: "Electronics", department: "Electronics and Communication Engineering (ECE)" },
-
   // ─── CIVIL ENGINEERING ───
-  { title: "Arki Craft 2.0", slug: "arkicraft", desc: "Translate a live civil planning brief into a complete, functional AutoCAD design under the clock.", category: "Design", department: "Civil Engineering" },
+  { title: "Archicraft 2.0", slug: "arkicraft", desc: "Translate a live civil planning brief into a complete, functional AutoCAD design under the clock.", category: "Design", department: "Civil Engineering" },
   { title: "Seismogami", slug: "seismogami", desc: "Build earthquake-resistant structures and test them against simulated seismic forces.", category: "Design", department: "Civil Engineering" },
   { title: "EcoForge 2.0", slug: "ecoforge-2-0", desc: "Engineer sustainable products from recycled materials in a green innovation challenge.", category: "Innovation", department: "Civil Engineering" },
 
@@ -202,7 +210,7 @@ const STATIC_EVENTS: EventItem[] = [
 
   // ─── AUTOMOTIVE ENGINEERING ───
   { title: "Apex Strategy", slug: "apex-strategy", desc: "Develop and execute winning F1 race strategies using telemetry, tire data, and pit-stop timing.", category: "Automotive", department: "Automotive Engineering" },
-  { title: "Mud Run", slug: "mud-run", desc: "RC off-road obstacle course racing through mud pits, rock gardens, ramps, and technical terrain.", category: "Automotive", department: "Automotive Engineering" },
+  { title: "Mud Run: RC Off-Road Challenge", slug: "mud-run", desc: "RC off-road obstacle course racing through mud pits, rock gardens, ramps, and technical terrain.", category: "Automotive", department: "Automotive Engineering" },
   { title: "Drag Race Xtreme", slug: "drag-race-xtreme", desc: "High-speed RC drag racing over a 35m straight track — optimize acceleration, traction, and gearing.", category: "Automotive", department: "Automotive Engineering" },
 
   // ─── PSYCHOLOGY ───
@@ -215,16 +223,19 @@ const STATIC_EVENTS: EventItem[] = [
   { title: "Battle Clay", slug: "battle-clay", desc: "Transform raw clay into expressive 3D sculptures under time pressure.", category: "Design", department: "School of Architecture" },
   { title: "Revival Outlook", slug: "revival-outlook", desc: "Fashion design competition merging architecture, culture, and sustainable materials into wearable art.", category: "Design", department: "School of Architecture" },
   { title: "Utopian Land", slug: "utopian-land", desc: "Digital concept art competition building speculative cities and alternate realities.", category: "Design", department: "School of Architecture" },
-  { title: "Etherea", slug: "etherea", desc: "Expressive sketching event turning imagination and observation into powerful visual stories.", category: "Design", department: "School of Architecture" },
+  { title: "Etherea- Drawing the Unseen", slug: "etherea", desc: "Expressive sketching event turning imagination and observation into powerful visual stories.", category: "Design", department: "School of Architecture" },
 
   // ─── SCIENCE & HUMANITIES ───
-  { title: "The Bard's Gambit", slug: "bards-gambit", desc: "Rhetoric and literary debate blending history, philosophy, and persuasive eloquence.", category: "Literary", department: "Science & Humanities" },
-  { title: "Canvas of Minds", slug: "canvas-of-minds", desc: "Face-painting competition transforming STEM and literature concepts into living art.", category: "Design", department: "Science & Humanities" },
-  { title: "Squid Game", slug: "squid-game", desc: "Team survival challenge inspired by the series, testing coordination, memory, and strategy.", category: "Gaming", department: "Science & Humanities" },
+  { title: "The Bard\'s Gambit: Rhetoric and Literary Debate", slug: "bards-gambit", desc: "Rhetoric and literary debate blending history, philosophy, and persuasive eloquence.", category: "Literary", department: "Science & Humanities" },
+  { title: "Canvas of Minds: STEM Face Art Challenge", slug: "canvas-of-minds", desc: "Face-painting competition transforming STEM and literature concepts into living art.", category: "Design", department: "Science & Humanities" },
+  { title: "Squid Game: Squad Survival", slug: "squid-game", desc: "Team survival challenge inspired by the series, testing coordination, memory, and strategy.", category: "Gaming", department: "Science & Humanities" },
+
+  // ─── SPORTS ───
+  { title: "Chess Grandmaster", slug: "chess-grandmaster", desc: "Competitive chess showdown testing strategic thinking, tactics, and decision-making precision.", category: "Sports", department: "Sports" },
 
   // ─── MBA ───
   { title: "Best Management Team", slug: "best-management-team", desc: "Two-day airline-hotel merger simulation across marketing, finance, HR, and crisis communication.", category: "Management", department: "MBA" },
-  { title: "Qizz-Whizz", slug: "quiz-whizz", desc: "Two-day business quiz testing observation, commercial reasoning, and strategic risk-taking.", category: "Management", department: "MBA" },
+  { title: "Qizz–Whizz: Business Unplugged", slug: "quiz-whizz", desc: "Two-day business quiz testing observation, commercial reasoning, and strategic risk-taking.", category: "Management", department: "MBA" },
   { title: "Startup Showdown", slug: "startup-showdown", desc: "Entrepreneurship simulation from opportunity cards to investor pitch with unexpected crisis twists.", category: "Entrepreneurship", department: "MBA" },
 
   // ─── BBA ───
@@ -236,24 +247,16 @@ const STATIC_EVENTS: EventItem[] = [
   // ─── IIIC ───
   { title: "CaseCraft: Pitch & Pivot", slug: "casecraft-pitch-and-pivot", desc: "Analyze live industry cases, survive unexpected twists, and pitch solutions to investor panels.", category: "Management", department: "IIIC" },
 
-  // ─── SPORTS ───
-  { title: "Chess Grandmaster", slug: "chess-grandmaster", desc: "Competitive chess showdown testing strategic thinking, tactics, and decision-making precision.", category: "Sports", department: "Sports" },
+  // ─── OIA ───
+  { title: "AI Film Fest", slug: "ai-film-fest", desc: "Explore the possibilities of Artificial Intelligence in filmmaking, storytelling, and creative expression.", category: "Media", department: "Office of International Affairs (OIA)" },
 
   // ─── GENERAL FEST EVENTS ───
-  { title: "Battle of the Bands", slug: "battle-of-the-bands", desc: "Live musical showdown featuring college rock and fusion bands competing for the crown.", category: "Music", department: "General Fest Events" },
-  { title: "Acapella", slug: "acapella", desc: "Pure vocal harmony competition showcasing unassisted choral arrangements.", category: "Music", department: "General Fest Events" },
-  { title: "Spark Tank", slug: "spark-tank", desc: "Pitch startup innovations and prototype business models to top venture mentors.", category: "Entrepreneurship", department: "General Fest Events" },
-  { title: "Chamber of Secrets", slug: "chamber-of-secrets", desc: "Mystery puzzle solving and cryptographic riddle challenge across campus.", category: "Gaming", department: "General Fest Events" },
-  { title: "Escape Room", slug: "escape-room", desc: "Immersive escape room filled with logic puzzles, mechanical keys, and hidden clues.", category: "Gaming", department: "General Fest Events" },
-  { title: "Street Dance Battle", slug: "street-dance-battle", desc: "High-energy street dance battle featuring hip-hop, popping, and breaking duels.", category: "Dance", department: "General Fest Events" },
+  { title: "Battle of Bands", slug: "battle-of-bands", desc: "Rock the stage and compete for the title in a high-energy musical showdown.", category: "Music", department: "General Fest Events" },
+  { title: "Acapella and Group Singing", slug: "acapella-and-group-singing", desc: "Experience the magic of pure vocal harmony — voices that blend melody, rhythm, and emotion.", category: "Music", department: "General Fest Events" },
   { title: "Theme Dance", slug: "theme-dance", desc: "Choreographed group dance competition centering around futuristic storytelling themes.", category: "Dance", department: "General Fest Events" },
   { title: "Non Theme Dance", slug: "non-theme-dance", desc: "Freeform group dance showcasing versatile choreography and synchronized rhythms.", category: "Dance", department: "General Fest Events" },
+  { title: "Street Dance Battle", slug: "street-dance-battle", desc: "High-energy street dance battle featuring hip-hop, popping, and breaking duels.", category: "Dance", department: "General Fest Events" },
   { title: "Street Play", slug: "street-play", desc: "Social awareness street play (Nukkad Natak) bringing loud, dramatic street theater.", category: "Drama", department: "General Fest Events" },
-  { title: "Argo Royale", slug: "argo-royale", desc: "Tactical esports tournament featuring intense battle royale action and squad play.", category: "Gaming", department: "General Fest Events" },
-  { title: "The Chase", slug: "the-chase", desc: "Campus-wide treasure hunt with real-time GPS clues and speed checkpoints.", category: "Gaming", department: "General Fest Events" },
-  { title: "Pixel Perspective", slug: "pixel-perspective", desc: "Digital photography challenge focusing on macro aesthetics, lighting, and composition.", category: "Media", department: "General Fest Events" },
-  { title: "Pattern Play", slug: "pattern-play", desc: "UI/UX wireframing and design-system creation sprint for web platforms.", category: "Design", department: "General Fest Events" },
-  { title: "The Nexus", slug: "the-nexus", desc: "Cross-disciplinary innovation summit integrating tech, art, and business.", category: "Innovation", department: "General Fest Events" },
 ];
 
 function setupCustomDropdown(
